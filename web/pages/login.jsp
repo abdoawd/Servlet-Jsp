@@ -21,8 +21,8 @@
                 <h1>iTi | Login</h1>
                 <p>Please fill in this form to Login.</p>
                 <hr>
-                <label for="userName"><b>User Name</b></label>
-                <input type="text" placeholder="Enter User Name" name="userName" required>
+                <label for="email"><b>E-Mail</b></label>
+                <input type="text" placeholder="Enter your email" name="email" required>
 
                 <label for="password"><b>Password</b></label>
                 <input type="password" placeholder="Enter Password" name="password" required>
@@ -30,8 +30,9 @@
                 <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
 
                 <div class="clearfix">
-                    <button type="button" onclick="location.href = './signup'" class="cancelbtn">Create Account</button>
+                    <!--<button type="button" onclick="location.href = './signup'" class="cancelbtn">Create Account</button>-->
                     <button type="submit" class="signupbtn">Login</button>
+                    <p><a href="signup.jsp">Create new account</a></p>
                 </div>
                 <div class="wrongText" id="wrongText">Wrong Username/ password</div>
             </div>

@@ -47,8 +47,8 @@ button:hover {
 
 /* Float cancel and signup buttons and add an equal width */
 .cancelbtn, .signupbtn {
-    float: left;
     width: 50%;
+    margin: 0 auto;
 }
 
 /* Add padding to container elements */
@@ -66,13 +66,12 @@ button:hover {
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: #474e5d;
-    padding-top: 50px;
 }
 
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    margin: 3% auto; /* 3% from the top, bottom and centered */
     border: 1px solid #888;
     width: 40%; /* Could be more or less, depending on screen size */
 }
@@ -106,6 +105,10 @@ hr {
     display: table;
 }
 
+.clearfix{
+    text-align: center;
+}
+
 /* Change styles for cancel button and signup button on extra small screens */
 @media screen and (max-width: 300px) {
     .cancelbtn, .signupbtn {
@@ -120,4 +123,15 @@ hr {
     color: #e91e63;
     text-align: center;
     visibility: hidden;
+}
+
+/* Centered Div*/
+.centeredDiv{
+    width: 48%;
+    display: inline-block;
+    margin-right: 2%;
+}
+
+.centeredDiv2{
+    margin-right: 0;
 }
