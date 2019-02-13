@@ -19,7 +19,7 @@
         <div id="id01" class="modal">
             <form action='signup' method='post' class="modal-content">
                 <div class="container">
-                    <h1>iTi | Login</h1>
+                    <h1>iTi | sinup</h1>
                     <p>Please fill in this form to Login.</p>
                     <hr>
 

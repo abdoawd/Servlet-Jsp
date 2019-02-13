@@ -4,9 +4,25 @@
         <servlet-name>HomePage</servlet-name>
         <servlet-class>HomePage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>login.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SinuUpServlet</servlet-name>
+        <servlet-class>sinup.SinuUpServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SinuUpServlet</servlet-name>
+        <url-pattern>/SinuUp</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
