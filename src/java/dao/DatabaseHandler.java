@@ -2,8 +2,6 @@ package dao;
 
 import beans.User;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import utility.Constants;
 
 public class DatabaseHandler {
@@ -25,6 +23,7 @@ public class DatabaseHandler {
 
     //establish connection to db method 
     public Connection establishConnection() {
+
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", Constants.DATABASE_NAME, Constants.DATABASE_PASSWORD);
@@ -37,7 +36,12 @@ public class DatabaseHandler {
         }
         return connection;
 
+          
     }
+    // Connection and Statement for creating queries
+
+
+   
 
     // Close the connection
     public void closeConnection() throws SQLException {
@@ -88,8 +92,8 @@ public class DatabaseHandler {
 
     }
 
-    public void getAllProduct() throws SQLException {
-
+    public void getAllProducts() throws SQLException {
+       
     }
 
     boolean updateColumn(String emailAddress, String columnName, String columnValue) throws SQLException {

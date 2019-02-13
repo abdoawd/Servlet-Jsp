@@ -11,7 +11,11 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
+<<<<<<< HEAD
                     <file>${file.reference.ojdbc6.jar-1}</file>
+=======
+                    <file>${libs.javaee-endorsed-api-7.0.classpath}</file>
+>>>>>>> 548a0c123c4e420a7b6b631c385211af9fd99ad9
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
