@@ -10,7 +10,7 @@
     </servlet>
     <servlet>
         <servlet-name>SinuUpServlet</servlet-name>
-        <servlet-class>sinup.SinuUpServlet</servlet-class>
+        <servlet-class>signup.SignUpServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>

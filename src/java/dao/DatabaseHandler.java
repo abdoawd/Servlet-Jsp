@@ -22,7 +22,8 @@ public class DatabaseHandler {
     private boolean autoCommit;
      private Connection connection;
     private Statement statement;
-//establish connection to db method 
+    
+    //establish connection to db method 
     public  void establishConnection() {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -30,9 +31,8 @@ public class DatabaseHandler {
 
               connection.setAutoCommit(true);
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (ClassNotFoundException ex) {
-        }
-        catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.err.println(ex.getMessage());
         }
           
     }
@@ -80,7 +80,7 @@ public class DatabaseHandler {
     public void getAllUsers() throws SQLException {
        
     }
-    public void getAllProduct() throws SQLException {
+    public void getAllProducts() throws SQLException {
        
     }
 
