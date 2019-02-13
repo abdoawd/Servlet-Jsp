@@ -30,7 +30,6 @@
                 <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
 
                 <div class="clearfix">
-                    <!--<button type="button" onclick="location.href = './signup'" class="cancelbtn">Create Account</button>-->
                     <button type="submit" class="signupbtn">Login</button>
                     <p><a href="signup.jsp">Create new account</a></p>
                 </div>
