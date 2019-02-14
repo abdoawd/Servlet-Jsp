@@ -1,7 +1,9 @@
 package dao;
 
+import beans.Product;
 import beans.User;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utility.Constants;
@@ -40,20 +42,6 @@ public class DatabaseHandler {
         connection.close();
     }
 
-    public int testConnection() {
-        int i = 0;
-        try {
-            ResultSet rs = null;
-            PreparedStatement s = connection.prepareStatement("select * from " + Constants.USER_TABLE_NAME);
-            rs = s.executeQuery();
-            while (rs.next()) {
-                i = 1;
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return i;
-    }
 
     public User login(String email, String password) {
         User user = null;
@@ -90,7 +78,7 @@ public class DatabaseHandler {
                     + Constants.COLUMN_USER_PASSWORD + ","
                     + Constants.COLUMN_USER_JOP+ ")"
                     + "values (?,?,?,?,?,?,?)");
-            pst.setInt(1, (int) getUserSequence());
+            pst.setInt(1, (int) getSequence(Constants.USERSES_SEQUENCES));
             pst.setString(2, firstName);
             pst.setString(3, lastName);
             pst.setString(4, "user");
@@ -110,12 +98,12 @@ public class DatabaseHandler {
         return isScuccess;
     }
 
-    public long getUserSequence() {
+    public long getSequence(String sequenceName) {
 
         PreparedStatement pst;
         long myId = 0;
         try {
-            pst = connection.prepareStatement("select "+Constants.USERSES_SEQUENCES+".NEXTVAL from dual");
+            pst = connection.prepareStatement("select "+sequenceName+".NEXTVAL from dual");
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
                 myId = rs.getLong(1);
@@ -146,9 +134,47 @@ public class DatabaseHandler {
 
     public boolean updateColumn(String emailAddress, String columnName, int columnValue) throws SQLException {
         return false;
+    }  
+    
+    public void getInterstsProduct(int userId ){
+          try {
+            ResultSet rs = null;
+            PreparedStatement ps = connection.prepareStatement("select * from " + Constants.INTERESTS_TABLE_NAME
+                    + " where " + Constants.COLUMN_INTERESTS_USER_ID + " =?");
+                       ps.setInt(1, userId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
     
-    
-    
-
+     public void getAllCategories(){
+          try {
+            ResultSet rs = null;
+            PreparedStatement ps = connection.prepareStatement("select * from " + Constants.CATEGORY_TABLE_NAME );
+            rs = ps.executeQuery();
+            while (rs.next()) {
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+     
+       public void getProductByCategoryId(int categoryId ){
+           ArrayList<Product> list =new ArrayList<Product>();
+          try {
+            ResultSet rs = null;
+            PreparedStatement ps = connection.prepareStatement("select * from " + Constants.PRODUCT_TABLE_NAME
+                    + " where " + Constants.COLUMN_PRODUCT_CATEGORY_ID + " =?");
+                       ps.setInt(1, categoryId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+     
 }

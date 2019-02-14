@@ -12,6 +12,10 @@
         <servlet-name>SinuUpServlet</servlet-name>
         <servlet-class>signup.SignUpServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserHomeServlet</servlet-name>
+        <servlet-class>user.UserHomeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
@@ -24,12 +28,15 @@
         <servlet-name>SinuUpServlet</servlet-name>
         <url-pattern>/SinuUp</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserHomeServlet</servlet-name>
+        <url-pattern>/UserHomeServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
     <welcome-file-list>
         <welcome-file>home/home.jsp</welcome-file>
     </welcome-file-list>

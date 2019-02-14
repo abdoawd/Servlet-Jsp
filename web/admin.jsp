@@ -21,7 +21,7 @@
 
         <!-- Custom styles for this template-->
         <link href="resources/css/sb-admin.css" rel="stylesheet">
-        
+
         <!-- My Admin CSS-->
         <link href="resources/css/my-admin.css" rel="stylesheet">
 
