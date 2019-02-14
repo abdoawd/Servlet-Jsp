@@ -17,7 +17,7 @@
     </head>
     <body>
         <div id="id01" class="modal">
-            <form action='/Servlet_Jsp/SinuUp' method='post' class="modal-content">
+            <form action='<%=request.getContextPath()%>/SinuUp' method='post' class="modal-content">
                 <div class="container">
                     <h1>iTi | sinup</h1>
                     <p>Please fill in this form to Login.</p>

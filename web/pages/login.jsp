@@ -16,7 +16,7 @@
         <title>Login</title>
     </head>
     <body>
-        <form action='/Servlet_Jsp/Login' method='post' class="modal-content">
+        <form action='<%=request.getContextPath()%>/Login' method='post' class="modal-content">
             <div class="container">
                 <h1>iTi | Login</h1>
                 <p>Please fill in this form to Login.</p>

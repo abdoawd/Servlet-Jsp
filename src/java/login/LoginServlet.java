@@ -25,7 +25,6 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         writer.println("username = " + name +" " + i);
         writer.println("password = " + password +" " + i);
-
     }
 
     @Override
