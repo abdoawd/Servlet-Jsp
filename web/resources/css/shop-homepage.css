@@ -1,0 +1,71 @@
+/*!
+ * Start Bootstrap - Shop Homepage (https://startbootstrap.com/template-overviews/shop-homepage)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-shop-homepage/blob/master/LICENSE)
+ */
+body {
+    padding-top: 56px;
+}
+
+.headerLogo{
+    height: 40px;
+}
+
+/* Setting margin for top and bottom */
+.containerSpacing{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.divHeader{
+    margin-bottom: 1.5rem;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.columnThird{
+    flex: 0 0 30%;
+    max-width: 30%;
+}
+
+.columnTwoThird{
+    flex: 0 0 70%;
+    max-width: 70%;
+    margin: 0 auto;
+}
+
+.centered{
+    margin: 0 auto;
+}
+
+/* Modal Content/Box */
+.my-modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    width: 100%; /* Could be more or less, depending on screen size */
+    display: inherit;
+}
+
+/* Complete order button at Checkout page*/
+.submit-button{
+    width: 100%;
+    margin: 10px auto;
+}
+
+/* Navbar for header only block */
+.fixed-top-header-only {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+/*Checkout table */
+.table-checkout {
+    width: 100%;
+    margin-top: 15px;
+}
+
+#creditDetails{
+    display: none;
+}
