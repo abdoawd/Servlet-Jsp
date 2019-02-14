@@ -1,12 +1,14 @@
 package dao;
 
+import beans.ProductCategory;
 import beans.User;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.eclipse.jdt.internal.compiler.impl.Constant;
 import utility.Constants;
 
 public class DatabaseHandler {
@@ -169,8 +171,8 @@ public class DatabaseHandler {
     }
     
     // Call this method to add new product to DB --> Return true if succeed
-    public boolean addProduct(String productName, int productQuantity, long productPrice,
-            long productDiscount, String productCategory, InputStream picInputStream, String productDescription) {
+    public boolean addProduct(String productName, int productQuantity, double productPrice,
+            double productDiscount, String productCategory, InputStream picInputStream, String productDescription) {
         PreparedStatement pst;
         boolean isScuccess = false;
 
@@ -189,11 +191,11 @@ public class DatabaseHandler {
             pst.setInt(1, (int) getProductSequence());
             pst.setString(2, productName);
             pst.setString(3, productDescription);
-            pst.setLong(4, productPrice);
+            pst.setDouble(4, productPrice);
             pst.setInt(5, productQuantity);
             pst.setBlob(6, picInputStream);
             pst.setString(7, productCategory);
-            pst.setLong(8, productDiscount);
+            pst.setDouble(8, productDiscount);
 
             int i = pst.executeUpdate();
             if (i != 0) {
@@ -206,5 +208,62 @@ public class DatabaseHandler {
         return isScuccess;
     }
     
+    // Get statistics for admin dashboard
+    public int getTablesCounter(String tableName){
+        PreparedStatement pst;
+        int counter = 0;
+        try {
+            pst = connection.prepareStatement("SELECT COUNT(*) FROM " + tableName);
+//            pst.setString(1, tableName);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                counter = rs.getInt(1);
+            }
+            pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return counter;
+    }
+    
+    // Get caegories id/ name -> Return list of Categories
+    public List<ProductCategory> getProductCategories(){
+        PreparedStatement pst;
+        List<ProductCategory> productCategotyList = new ArrayList<>();
+        try {
+            pst = connection.prepareStatement("SELECT * FROM " + Constants.CATEGORY_TABLE_NAME);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                ProductCategory pc = new ProductCategory(rs.getInt(1), rs.getString(2));
+                productCategotyList.add(pc);
+            }
+            pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return productCategotyList;
+    }
 
+    // Get list of user bean -> Return list of user
+    public List<User> getUsersList() {
+        PreparedStatement pst;
+        List<User> usersList = new ArrayList<>();
+        try {
+            pst = connection.prepareStatement("SELECT * FROM " + Constants.USER_TABLE_NAME);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                User user = new User(rs.getString(Constants.COLUMN_USER_ID),
+                                        rs.getString(Constants.COLUMN_USER_FIRST_NAME),
+                                        rs.getString(Constants.COLUMN_USER_LAST_NAME),
+                                        rs.getString(Constants.COLUMN_USER_EMAIL),
+                                        rs.getString(Constants.COLUMN_USER_JOP),
+                                        rs.getDouble(Constants.COLUMN_USER_CREDIT_LIMIT));
+                usersList.add(user);
+            }
+            pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return usersList;
+    }
 }

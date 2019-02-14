@@ -1,6 +1,6 @@
 <ul class="sidebar navbar-nav">
     <li class="nav-item active">
-        <a class="nav-link" href="<%=request.getContextPath()%>/admin.jsp">
+        <a class="nav-link" href="<%=request.getContextPath()%>/admin">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
@@ -13,13 +13,13 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="<%=request.getContextPath()%>/admin/users.jsp">
+        <a class="nav-link" href="<%=request.getContextPath()%>/admin/users">
             <i class="fas fa-fw fa-table"></i>
             <span>Users</span></a>
     </li>
     
     <li class="nav-item">
-        <a class="nav-link" href="<%=request.getContextPath()%>/admin/addProduct.jsp">
+        <a class="nav-link" href="<%=request.getContextPath()%>/admin/addProduct">
             <i class="fas fa-fw fa-table"></i>
             <span>Add Product</span></a>
     </li>

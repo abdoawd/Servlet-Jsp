@@ -5,12 +5,14 @@
  */
 package admin;
 
+import beans.ProductCategory;
 import dao.DatabaseHandler;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -35,26 +37,19 @@ public class AddProductServlet extends HttpServlet {
 
         String productName = request.getParameter("productName");
         String productDescription = request.getParameter("productDescription");
-        long productPrice = Long.parseLong(request.getParameter("productPrice"));
+        double productPrice = Double.parseDouble(request.getParameter("productPrice"));
         int productQuantity = Integer.parseInt(request.getParameter("productQuantity"));
-        Part filePart = request.getPart("productImage");
         String productCategory = request.getParameter("productCategory");
-        long productDiscount = Long.parseLong(request.getParameter("productDiscount"));
+        double productDiscount = Double.parseDouble(request.getParameter("productDiscount"));
 
+        Part filePart = request.getPart("productImage");
         InputStream  picInputStream = filePart.getInputStream();
-
-        System.out.println(productName);
-        System.out.println(productDescription);
-        System.out.println(productPrice);
-        System.out.println(productQuantity);
-        System.out.println(filePart.toString());
-        System.out.println(productCategory);
-        System.out.println(productDiscount);
 
         boolean isProductAdded = handler.addProduct(productName, productQuantity, productPrice, productDiscount,
                 productCategory, picInputStream, productDescription);
-        System.out.println(isProductAdded);
         
+        List<ProductCategory> productCategotyList = handler.getProductCategories();
+        request.setAttribute("productCategotyList", productCategotyList);
         request.setAttribute("isProductAdded", isProductAdded);
         RequestDispatcher dispatcher = request.getRequestDispatcher("addProduct.jsp");
         dispatcher.forward(request, response);
@@ -63,6 +58,12 @@ public class AddProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        List<ProductCategory> productCategotyList = handler.getProductCategories();
+        request.setAttribute("productCategotyList", productCategotyList);
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("addProduct.jsp");
+        dispatcher.forward(request, response);
     }
 
     @Override
@@ -70,4 +71,6 @@ public class AddProductServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+    
+    
 }
