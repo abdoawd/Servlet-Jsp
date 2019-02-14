@@ -1,24 +1,23 @@
 package dao;
 
 import beans.User;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utility.Constants;
 
 public class DatabaseHandler {
 
-    private String ipAddress;
-    private int portNumber;
-    private String databaseName;
-    private String userName;
-    private String password;
-    private boolean autoCommit;
+
     private Connection connection;
     private Statement statement;
 
     // Connection and Statement for creating queries
     public DatabaseHandler() {
         connection = establishConnection();
-
     }
 
     //establish connection to db method 
@@ -36,14 +35,8 @@ public class DatabaseHandler {
         }
         return connection;
 
-          
     }
-    // Connection and Statement for creating queries
 
-
-   
-
-    // Close the connection
     public void closeConnection() throws SQLException {
         statement.close();
         connection.close();
@@ -64,24 +57,95 @@ public class DatabaseHandler {
         return i;
     }
 
-    public User login(String emailAddress, String password) {
+    public User login(String email, String password) {
+        User user = null;
         try {
             ResultSet rs = null;
-            PreparedStatement s = connection.prepareStatement("select * from " + Constants.USER_TABLE_NAME
-                    + " where ");
+            PreparedStatement ps = connection.prepareStatement("select * from " + Constants.USER_TABLE_NAME
+                    + " where " + Constants.COLUMN_USER_EMAIL + " =? and " + Constants.COLUMN_USER_PASSWORD + " =?");
+            ps.setString(1, email);
+            ps.setString(2, password);
 
-            rs = s.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
+                user = new User(rs.getString(2), rs.getString(3));
 
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return user;
     }
 
-    public boolean sinUp(String emailAddress, String userName, String password, String ipAddressString) throws SQLException {
-        return false;
+    public boolean addUser(String firstName, String lastName, String email, String passwrd, String jop) {
+        PreparedStatement pst;
+        boolean isScuccess = false;
+
+        try {
+            pst = connection.prepareStatement("insert into " + Constants.USER_TABLE_NAME
+                    + "( "
+                    + Constants.COLUMN_USER_ID + ","
+                    + Constants.COLUMN_USER_FIRST_NAME + ","
+                    + Constants.COLUMN_USER_LAST_NAME + ","
+                    + Constants.COLUMN_USER_ROLE + ","
+                    + Constants.COLUMN_USER_EMAIL + ","
+                    + Constants.COLUMN_USER_PASSWORD + ","
+                    + Constants.COLUMN_USER_JOP+ ")"
+                    + "values (?,?,?,?,?,?,?)");
+            pst.setInt(1, (int) getUserSequence());
+            pst.setString(2, firstName);
+            pst.setString(3, lastName);
+            pst.setString(4, "user");
+            pst.setString(5, email);
+            pst.setString(6, passwrd);
+            pst.setString(7, jop);
+//            pst.setInt(9, 400);
+
+            int i = pst.executeUpdate();
+            if (i != 0) {
+                isScuccess = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQLException " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return isScuccess;
+    }
+
+    public long getUserSequence() {
+
+        PreparedStatement pst;
+        long myId = 0;
+        try {
+            pst = connection.prepareStatement("select "+Constants.USERSES_SEQUENCES+".NEXTVAL from dual");
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                myId = rs.getLong(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("my id = " + myId);
+
+        return myId;
+    }
+    
+    public long getProductSequence() {
+
+        PreparedStatement pst;
+        long myId = 0;
+        try {
+            pst = connection.prepareStatement("select "+ Constants.PRODUCT_SEQUENCES+".NEXTVAL from dual");
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                myId = rs.getLong(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("my id = " + myId);
+
+        return myId;
     }
 
     public boolean deleteUser(String emailAddress) throws SQLException {
@@ -93,15 +157,54 @@ public class DatabaseHandler {
     }
 
     public void getAllProducts() throws SQLException {
-       
+
     }
 
-    boolean updateColumn(String emailAddress, String columnName, String columnValue) throws SQLException {
+    public boolean updateColumn(String emailAddress, String columnName, String columnValue) throws SQLException {
         return false;
     }
 
-    boolean updateColumn(String emailAddress, String columnName, int columnValue) throws SQLException {
+    public boolean updateColumn(String emailAddress, String columnName, int columnValue) throws SQLException {
         return false;
     }
+    
+    // Call this method to add new product to DB --> Return true if succeed
+    public boolean addProduct(String productName, int productQuantity, long productPrice,
+            long productDiscount, String productCategory, InputStream picInputStream, String productDescription) {
+        PreparedStatement pst;
+        boolean isScuccess = false;
+
+        try {
+            pst = connection.prepareStatement("insert into " + Constants.PRODUCT_TABLE_NAME
+                    + "( "
+                    + Constants.COLUMN_PRODUCT_ID + ","
+                    + Constants.COLUMN_PRODUCT_NAME + ","
+                    + Constants.COLUMN_PRODUCT_DESCRIPTION + ","
+                    + Constants.COLUMN_PRODUCT_PRICE + ","
+                    + Constants.COLUMN_PRODUCT_QUANTITY + ","
+                    + Constants.COLUMN_PRODUCT_IMAGE + ","
+                    + Constants.COLUMN_PRODUCT_CATEGORY_ID + ","
+                    + Constants.COLUMN_PRODUCT_DISCOUNT+ ")"
+                    + "values (?,?,?,?,?,?,?,?)");
+            pst.setInt(1, (int) getProductSequence());
+            pst.setString(2, productName);
+            pst.setString(3, productDescription);
+            pst.setLong(4, productPrice);
+            pst.setInt(5, productQuantity);
+            pst.setBlob(6, picInputStream);
+            pst.setString(7, productCategory);
+            pst.setLong(8, productDiscount);
+
+            int i = pst.executeUpdate();
+            if (i != 0) {
+                isScuccess = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQLException " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return isScuccess;
+    }
+    
 
 }
