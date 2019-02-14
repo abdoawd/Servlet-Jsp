@@ -17,7 +17,7 @@
     </head>
     <body>
         <div id="id01" class="modal">
-            <form action='signup' method='post' class="modal-content">
+            <form action='/Servlet_Jsp/SinuUp' method='post' class="modal-content">
                 <div class="container">
                     <h1>iTi | sinup</h1>
                     <p>Please fill in this form to Login.</p>
@@ -39,8 +39,8 @@
                     <label for="password"><b>Password</b></label>
                     <input type="password" placeholder="Enter Your Password" name="password" required>
 
-                    <label for="password2"><b>Password</b></label>
-                    <input type="password" placeholder="Re-Enter Your Password" name="password2" required>
+                    <label for="password2"><b>Confirm Password</b></label>
+                    <input type="password" placeholder="Re-Enter Your Password" name="confirmPassword" required>
 
                     <div class="clearfix">
                         <button type="submit" class="signupbtn">Sign up</button>
