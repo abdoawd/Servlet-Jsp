@@ -35,6 +35,9 @@
 
                     <label for="email"><b>E-Mail</b></label>
                     <input type="text" placeholder="Enter your email" name="email" required>
+                    
+                      <label for="jop"><b> JOP </b></label>
+                    <input type="text" placeholder="Enter your jop " name="jop" required>
 
                     <label for="password"><b>Password</b></label>
                     <input type="password" placeholder="Enter Your Password" name="password" required>

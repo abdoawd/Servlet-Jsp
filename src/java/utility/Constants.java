@@ -19,6 +19,8 @@ public class Constants {
     public static final String COLUMN_USER_EMAIL = "EMAIL";
     public static final String COLUMN_USER_PASSWORD = "USER_PASSWORD";
     public static final String COLUMN_USER_BIRTHDAY = "BIRTHDAY";
+    public static final String COLUMN_USER_JOP = "USER_JOB";
+
     public static final String COLUMN_USER_CREDIT_LIMIT = "CREDIT_LIMIT";
     public static final String COLUMN_USER_IMAGE = "PROFILE_IMAGE";
 
@@ -65,16 +67,19 @@ public class Constants {
 
     // ORDER TABLE 
     public static final String ORDER_TABLE_NAME = " USER_ORDERS";
-    
+
     public static final String COLUMN_ORDER_NUMBER = "ORDERS_NUMBER";
     public static final String COLUMN_ORDER_USER_ID = "USER_ID";
     public static final String COLUMN_ORDER_TOTAL_AMOUNT = "TOTAL_AMOUNT";
     public static final String COLUMN_ORDER_TIMAE = "TIMAE";
     public static final String COLUMN_ORDER_STATUS = "STATUS";
-    
 
-    
-    
-    
+    // sequences 
+    public static final String ADDRESSES_SEQUENCES = "ADDRESSES_SEQ";
+    public static final String PRODUCT_SEQUENCES = "PRODUCT_SEQ";
+    public static final String CREDIT_SEQUENCES = "CREDIT_CARD_SEQ";
+    public static final String USERSES_SEQUENCES = "E_USERS_SEQ";
+    public static final String CATEGORY_SEQUENCES = "PRODUCT_CATEGORY_SEQ";
+    public static final String ORDERS_SEQUENCES = "USER_ORDERS_SEQ";
 
 }
