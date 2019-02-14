@@ -69,3 +69,9 @@ body {
 #creditDetails{
     display: none;
 }
+
+/* Complete order button at add product page*/
+.submit-button-half{
+    width: 50%;
+    margin: 10px auto;
+}
