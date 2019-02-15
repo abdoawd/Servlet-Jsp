@@ -1,7 +1,7 @@
 package dao;
 
-import beans.Category;
 import beans.Product;
+import beans.ProductCategory;
 import beans.User;
 import java.io.InputStream;
 import java.sql.*;
@@ -137,7 +137,9 @@ public class DatabaseHandler {
         return false;
     }
 
-    public void getInterstsProduct(int userId) {
+    public List<Product> getInterstsProduct(int userId) {
+        List<Product> list = new ArrayList<>();
+        Product product = new Product();
         try {
             ResultSet rs = null;
             PreparedStatement ps = connection.prepareStatement("select * from " + Constants.INTERESTS_TABLE_NAME
@@ -145,26 +147,25 @@ public class DatabaseHandler {
             ps.setInt(1, userId);
             rs = ps.executeQuery();
             while (rs.next()) {
+                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
+                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
+                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
+                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
+                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+                list.add(product);
+
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        return list;
     }
 
-    public void getAllCategories() {
-        try {
-            ResultSet rs = null;
-            PreparedStatement ps = connection.prepareStatement("select * from " + Constants.CATEGORY_TABLE_NAME);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void getProductByCategoryId(int categoryId) {
-        ArrayList<Product> list = new ArrayList<Product>();
+    public List<Product> getProductsByCategoryId(int categoryId) {
+        List<Product> list = new ArrayList<Product>();
+        Product  product=new Product();
         try {
             ResultSet rs = null;
             PreparedStatement ps = connection.prepareStatement("select * from " + Constants.PRODUCT_TABLE_NAME
@@ -172,10 +173,19 @@ public class DatabaseHandler {
             ps.setInt(1, categoryId);
             rs = ps.executeQuery();
             while (rs.next()) {
+                   product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
+                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
+                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
+                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
+                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+                list.add(product);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        return list;
     }
 
     // Call this method to add new product to DB --> Return true if succeed
@@ -183,10 +193,7 @@ public class DatabaseHandler {
             long productDiscount, String productCategory, InputStream picInputStream, String productDescription) {
         PreparedStatement pst;
         boolean isScuccess = false;
-        System.out.println("inside addProduct metod  ");
-
         try {
-            System.out.println("inside try addProduct metod  ");
 
             pst = connection.prepareStatement("insert into " + Constants.PRODUCT_TABLE_NAME
                     + "( "
@@ -220,6 +227,62 @@ public class DatabaseHandler {
         return isScuccess;
     }
 
-  
+    // Get statistics for admin dashboard
+    public int getTablesCounter(String tableName) {
+        PreparedStatement pst;
+        int counter = 0;
+        try {
+            pst = connection.prepareStatement("SELECT COUNT(*) FROM " + tableName);
+//            pst.setString(1, tableName);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                counter = rs.getInt(1);
+            }
+            pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return counter;
+    }
 
+    // Get caegories id/ name -> Return list of Categories
+    public List<ProductCategory> getProductCategories() {
+        PreparedStatement pst;
+        List<ProductCategory> productCategotyList = new ArrayList<>();
+        try {
+            pst = connection.prepareStatement("SELECT * FROM " + Constants.CATEGORY_TABLE_NAME);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                ProductCategory pc = new ProductCategory(rs.getInt(1), rs.getString(2));
+                productCategotyList.add(pc);
+            }
+            pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return productCategotyList;
+    }
+
+    // Get list of user bean -> Return list of user
+    public List<User> getUsersList() {
+        PreparedStatement pst;
+        List<User> usersList = new ArrayList<>();
+        try {
+            pst = connection.prepareStatement("SELECT * FROM " + Constants.USER_TABLE_NAME);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                User user = new User(rs.getString(Constants.COLUMN_USER_ID),
+                        rs.getString(Constants.COLUMN_USER_FIRST_NAME),
+                        rs.getString(Constants.COLUMN_USER_LAST_NAME),
+                        rs.getString(Constants.COLUMN_USER_EMAIL),
+                        rs.getString(Constants.COLUMN_USER_JOP),
+                        rs.getDouble(Constants.COLUMN_USER_CREDIT_LIMIT));
+                usersList.add(user);
+            }
+            pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return usersList;
+    }
 }

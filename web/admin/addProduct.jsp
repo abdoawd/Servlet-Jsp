@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<c:set scope="page" var="pageTitle" value="New Product"/>
+
 <html lang="en">
 
     <head>
@@ -7,7 +10,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Dokan | New Product</title>
+        <title>${pageTitle}</title>
 
         <!-- Page level plugin CSS-->
         <link href="<%=request.getContextPath()%>/resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
@@ -26,7 +29,7 @@
 
         <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-            <a class="navbar-brand mr-1" href="<%=request.getContextPath()%>/admin.jsp">Start Bootstrap</a>
+            <a class="navbar-brand mr-1" href="<%=request.getContextPath()%>/admin">Dokan</a>
 
             <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
                 <i class="fas fa-bars"></i>
@@ -45,9 +48,9 @@
                     <!-- Breadcrumbs-->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="<%=request.getContextPath()%>/admin.jsp">Dashboard</a>
+                            <a href="<%=request.getContextPath()%>/admin">Dashboard</a>
                         </li>
-                        <li class="breadcrumb-item active">Tables</li>
+                        <li class="breadcrumb-item active">${pageTitle}</li>
                     </ol>
 
                     <!-- DataTables Example -->
@@ -69,30 +72,31 @@
 
                                         <div class="centeredDiv centeredDiv2">
                                             <label><b>Quantity</b></label>
-                                            <input type="text" placeholder="Enter quantity avaiable in stock" name="productQuantity" required>
+                                            <input type="number" min="0" placeholder="Enter quantity avaiable in stock" name="productQuantity" required>
                                         </div>
 
                                         <div class="centeredDiv">
                                             <label><b>Price</b></label>
-                                            <input type="text" placeholder="Enter product price" name="productPrice" required>
+                                            <input type="number" min="0" step=".01" placeholder="Enter product price" name="productPrice" required>
                                         </div>
 
                                         <div class="centeredDiv centeredDiv2">
                                             <label><b>Discount</b></label>
-                                            <input type="text" placeholder="Enter product discount (Optional)" name="productDiscount">
+                                            <input type="number" min="0" step=".01" placeholder="Enter product discount (Optional)" name="productDiscount">
                                         </div>
 
                                         <div class="centeredDiv">
                                             <label><b>Category</b></label>
                                             <select name="productCategory" class="custom-select" style="width:100%">
-                                                <option value="1">default</option>
-                                                
+                                                <c:forEach var="category" items="${productCategotyList}">
+                                                    <option value="${category.id}">${category.name}</option>
+                                                </c:forEach>
                                             </select>
                                         </div>
 
                                         <div class="centeredDiv centeredDiv2">
                                             <label><b>Product Image</b></label>
-                                            <input type="file" name="productImage" size="10" required>
+                                            <input type="file" name="productImage" size="5" accept="image/*" required>
                                         </div>
 
                                         <label><b><br>Description</b></label>
@@ -110,7 +114,20 @@
 
 
                         </div>
-                        <div class="card-footer small text-muted">Product added</div>
+                                
+                        <c:choose>
+                            <c:when test="${isProductAdded == 'true'}">
+                                <div class="card-footer small text-muted">Product added successfully.</div>
+                            </c:when> 
+                            <c:when test="${isProductAdded == 'false'}">
+                                <div class="card-footer small text-muted">An error occurred. Please check your input and try again.</div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="card-footer small text-muted">Everything is just fine.</div>
+                            </c:otherwise>
+                        </c:choose>
+
+                        
                     </div>
 
 
@@ -119,13 +136,7 @@
                 <!-- /.container-fluid -->
 
                 <!-- Sticky Footer -->
-                <footer class="sticky-footer">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright © Your Website 2019</span>
-                        </div>
-                    </div>
-                </footer>
+                <jsp:include page="../blocks/adminFooter.jsp"/>
 
             </div>
             <!-- /.content-wrapper -->
