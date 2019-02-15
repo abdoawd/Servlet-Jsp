@@ -9,10 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
         <!-- Custom styles for login page -->
         <link href="../resources/css/login.css" rel="stylesheet">
-        
+
         <title>Login</title>
     </head>
     <body>
@@ -22,19 +22,20 @@
                 <p>Please fill in this form to Login.</p>
                 <hr>
                 <label for="email"><b>E-Mail</b></label>
-                <input type="text" placeholder="Enter your email" name="email" required>
+                <input type="text" placeholder="Enter your email" name="email" id ="userEmail" required>
 
                 <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="password" required>
+                <input type="password" placeholder="Enter Password" name="password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="userPassword" required>
 
                 <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
 
                 <div class="clearfix">
-                    <button type="submit" class="signupbtn">Login</button>
+                    <button type="submit" class="signupbtn" onclick="validate()">Login</button>
                     <p><a href="signup.jsp">Create new account</a></p>
                 </div>
                 <div class="wrongText" id="wrongText">Wrong Username/ password</div>
             </div>
         </form>
+        <script src="../resources/js/validation.js"></script>
     </body>
 </html>

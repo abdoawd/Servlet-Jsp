@@ -34,24 +34,24 @@
                     </div>
 
                     <label for="email"><b>E-Mail</b></label>
-                    <input type="text" placeholder="Enter your email" name="email" required>
-                    
-                      <label for="jop"><b> JOP </b></label>
+                    <input type="text" placeholder="Enter your email" name="email" id="userEmail" required>
+
+                    <label for="jop"><b> JOP </b></label>
                     <input type="text" placeholder="Enter your jop " name="jop" required>
 
                     <label for="password"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Your Password" name="password" required>
+                    <input type="password" placeholder="Enter Your Password" name="password"pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="userPassword" required>
 
                     <label for="password2"><b>Confirm Password</b></label>
-                    <input type="password" placeholder="Re-Enter Your Password" name="confirmPassword" required>
+                    <input type="password" placeholder="Re-Enter Your Password" name="confirmPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="conPassword"required>
 
                     <div class="clearfix">
-                        <button type="submit" class="signupbtn">Sign up</button>
+                        <button type="submit" onclick="validate()" class="signupbtn">Sign up</button>
                     </div>
                     <div class="wrongText" id="wrongText">Wrong Data</div>
                 </div>
             </form>
         </div>
-
+        <script src="../resources/js/validation.js"></script>
     </body>
 </html>
