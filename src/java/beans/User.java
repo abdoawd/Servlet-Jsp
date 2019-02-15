@@ -1,6 +1,6 @@
 package beans;
 
-public class User {
+public class User  implements ListModelInterface{
 
     /*user_id	fanme 	last name	role	email
             password	job	birthday	credit_limit*/

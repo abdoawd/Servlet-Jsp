@@ -2,7 +2,7 @@ package user;
 
 import beans.Product;
 import beans.ProductCategory;
-import dao.DatabaseHandler;
+import db.UsersDao;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class UserHomeServlet extends HttpServlet {
 
-    DatabaseHandler handler = new DatabaseHandler();
+    UsersDao handler = new UsersDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,6 +36,6 @@ public class UserHomeServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

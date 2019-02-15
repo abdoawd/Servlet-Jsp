@@ -9,7 +9,7 @@ package beans;
  *
  * @author A7med
  */
-public class ProductCategory {
+public class ProductCategory implements ListModelInterface{
     int id;
     String name;
 

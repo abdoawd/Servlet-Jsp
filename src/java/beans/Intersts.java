@@ -1,6 +1,6 @@
 
 package beans;
 
-public class Intersts {
+public class Intersts  {
     
 }

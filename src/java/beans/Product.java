@@ -2,7 +2,7 @@
 package beans;
 
 
-public class Product {
+public class Product implements ListModelInterface{
     /* product_id	name	description	price	quantity
     image	category_id	discount*/
     private String id;

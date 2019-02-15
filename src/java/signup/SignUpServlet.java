@@ -1,6 +1,7 @@
 package signup;
 
-import dao.DatabaseHandler;
+import db.ProductDao;
+import db.UsersDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class SignUpServlet extends HttpServlet {
 
-    DatabaseHandler handler = new DatabaseHandler();
+    UsersDao handler = new UsersDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,12 +30,6 @@ public class SignUpServlet extends HttpServlet {
         
        boolean isSinUp=handler.addUser( firstName , lastName,  email ,  password, jop);
         System.out.println("is sin up = " + isSinUp);
-
-//        writer.println("username = " + firstName);
-//        writer.println("password = " + lastName);
-//        writer.println("email = " + email);
-//        writer.println("password = " + password);
-//        writer.println("confirmPassword = " + confirmPassword);
 
     }
 
