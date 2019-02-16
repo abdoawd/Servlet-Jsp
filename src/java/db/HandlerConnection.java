@@ -17,10 +17,8 @@ public class HandlerConnection {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", Constants.DATABASE_NAME, Constants.DATABASE_PASSWORD);
-
             connection.setAutoCommit(true);
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-
         } catch (SQLException ex) {
         } catch (ClassNotFoundException ex) {
         }

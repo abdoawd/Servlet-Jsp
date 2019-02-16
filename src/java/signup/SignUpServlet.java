@@ -26,9 +26,8 @@ public class SignUpServlet extends HttpServlet {
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
         String jop = request.getParameter("jop");
-        
-        
-       boolean isSinUp=handler.addUser( firstName , lastName,  email ,  password, jop);
+
+        boolean isSinUp = handler.addUser(firstName, lastName, email, password, jop);
         System.out.println("is sin up = " + isSinUp);
 
     }

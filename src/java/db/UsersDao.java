@@ -66,7 +66,6 @@ public class UsersDao implements DbInterface {
             pst.setString(6, passwrd);
             pst.setString(7, jop);
 //            pst.setInt(9, 400);
-
             int i = pst.executeUpdate();
             if (i != 0) {
                 isScuccess = true;
@@ -76,6 +75,20 @@ public class UsersDao implements DbInterface {
             ex.printStackTrace();
         }
         return isScuccess;
+    }
+
+    public boolean isEmailExist(String userEmail) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from " + Constants.USER_TABLE_NAME
+                    + " where " + Constants.COLUMN_USER_EMAIL + " =?");
+            ps.setString(1, userEmail);
+            if (ps.execute()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
@@ -96,47 +109,7 @@ public class UsersDao implements DbInterface {
     }
     // Get caegories id/ name -> Return list of Categories
 
-    public List<ProductCategory> getProductCategories() {
-        PreparedStatement pst;
-        List<ProductCategory> productCategotyList = new ArrayList<>();
-        try {
-            pst = connection.prepareStatement("SELECT * FROM " + Constants.CATEGORY_TABLE_NAME);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                ProductCategory pc = new ProductCategory(rs.getInt(1), rs.getString(2));
-                productCategotyList.add(pc);
-            }
-            pst.close();
-        } catch (SQLException ex) {
-        }
-        return productCategotyList;
-    }
-
-    public List<Product> getInterstsProduct(int userId) {
-        List<Product> list = new ArrayList<>();
-        Product product = new Product();
-        try {
-            ResultSet rs = null;
-            PreparedStatement ps = connection.prepareStatement("select * from " + Constants.INTERESTS_TABLE_NAME
-                    + " where " + Constants.COLUMN_INTERESTS_USER_ID + " =?");
-            ps.setInt(1, userId);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
-                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
-                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
-                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
-                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
-                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
-                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
-                list.add(product);
-
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return list;
-    }
+    
 
     public List<User> getUsersList() {
         PreparedStatement pst;
