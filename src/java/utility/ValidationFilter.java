@@ -21,7 +21,7 @@ import javax.servlet.annotation.WebFilter;
  *
  * @author abdullah
  */
-@WebFilter(filterName = "ValidationFilter", servletNames = {"SignUpServlet"})
+@WebFilter(filterName = "ValidationFilter", servletNames = {"hkj"})
 public class ValidationFilter implements Filter {
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX

@@ -18,7 +18,19 @@ public class UserHomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // handker to get  categories 
+        // handler  ti get intersts user product 
 
+        String searchWord = request.getParameter("search");
+        System.out.println("search word = " + searchWord);
+        List<Product> products = handler.getProductByName(searchWord);
+        List<ProductCategory> categories = handler.getProductCategories();
+
+        request.setAttribute("products", products);
+        request.setAttribute("categories", categories);
+        System.out.println("size of searched ptoducts = " + products.size());
+        dispatcher = request.getRequestDispatcher("/user/shop.jsp");
+        dispatcher.forward(request, response);
     }
 
     @Override
@@ -38,7 +50,7 @@ public class UserHomeServlet extends HttpServlet {
         System.out.println("ProductCategory size = " + categories.size());
         request.setAttribute("products", products);
         request.setAttribute("categories", categories);
-        dispatcher=request.getRequestDispatcher("/user/shop.jsp");
+        dispatcher = request.getRequestDispatcher("/user/shop.jsp");
         dispatcher.forward(request, response);
 
     }

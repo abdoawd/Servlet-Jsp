@@ -23,15 +23,15 @@
                 <hr>
                 <label for="email"><b>E-Mail</b></label>
 
-                <input type="text" placeholder="Enter your email" name="email" id ="userEmail" required>
+                <input type="text" placeholder="Enter your email" name="email" value="awd@gmail.com" id ="userEmail" required>
 
                 <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="userPassword" required>
+                <input type="password" placeholder="Enter Password" value="1"name="password"  id="userPassword" required>
 
                 <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
 
                 <div class="clearfix">
-                    <button type="submit" class="signupbtn" onclick="validate()">Login</button>
+                    <button type="submit" class="signupbtn" >Login</button>
                     <p><a href="signup.jsp">Create new account</a></p>
                 </div>
                 <div class="wrongText" id="wrongText">Wrong Username/ password</div>

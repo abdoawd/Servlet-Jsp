@@ -23,7 +23,7 @@
                 box-shadow: none;
                 margin-left: auto;
                 padding-right: 550px;
-                 border-radius: 4px;
+                border-radius: 4px;
 
             }
         </style>
@@ -42,7 +42,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li id="home" class="nav-item">
-                            <input type="text" id="search_value" name="q" class="input-group-field"
+                            <input type="text" id="search_value" name="q" class="input-group-field" onkeydown="search(this)"
                                    placeholder="What are you looking for?" autocomplete="off" tabindex="-1">
                         </li>
                         <li id="home" class="nav-item">
@@ -61,6 +61,14 @@
         <!-- Bootstrap core JavaScript -->
         <script src="../resources/vendor/jquery/jquery.min.js"></script>
         <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script>
+                                function search(ele) {
+                                    if (event.key === 'Enter') {
+//                                        alert(document.getElementById("search_value").value)
+                                        document.location.href = "/dokan/UserHomeServlet?search=" + document.getElementById("search_value").value;
+                                    }
+                                }
+        </script>
 
     </body>
 
