@@ -18,13 +18,15 @@
 
     <body>
         <!--Add Header Block-->
-        <jsp:include page="../blocks/header.jsp"/>
-        
+        <jsp:include page="../blocks/header.jsp"/>  
+        <jsp:include page="../pages/HomeSlideBar.jsp"/>
+
+
         <!-- Page Content -->
         <div class="container containerSpacing">
 
             <div class="row">
-                
+
                 <div class="col-lg-9">
 
                     <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
@@ -157,7 +159,7 @@
 
         </div>
         <!-- /.container -->
-        
+
         <!--Add Footer Block-->
         <jsp:include page="../blocks/footer.jsp"/>
 

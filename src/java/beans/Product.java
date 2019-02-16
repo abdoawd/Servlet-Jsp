@@ -1,6 +1,8 @@
 
 package beans;
 
+import java.awt.Image;
+
 
 public class Product implements ListModelInterface{
     /* product_id	name	description	price	quantity
@@ -13,6 +15,15 @@ public class Product implements ListModelInterface{
     private String imgPath;
     private String categoryId;
     private int discount;
+    private Image image;
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public Image getImage() {
+        return image;
+    }
 
     public Product() {
     }

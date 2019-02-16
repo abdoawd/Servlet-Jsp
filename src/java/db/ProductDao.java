@@ -2,6 +2,10 @@ package db;
 
 import beans.Product;
 import beans.ProductCategory;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,60 +27,6 @@ public class ProductDao implements DbInterface {
         connection = handlerConnection.establishConnection();
 
     }
-
-//    public Product getProduct(int productId) {
-//        Product product = new Product();
-//        try {
-//            ResultSet rs = null;
-//            PreparedStatement ps = connection.prepareStatement("select * from " + Constants.PRODUCT_TABLE_NAME
-//                    + " where " + Constants.COLUMN_PRODUCT_ID + " =?");
-//            ps.setInt(1, productId);
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
-//                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
-//                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
-//                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
-//                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
-//                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
-//                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
-//            }
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }
-//        return product;
-//
-//    }
-    public List<Product> getProductsByCategoryId(int categoryId) {
-        List<Product> list = new ArrayList<Product>();
-        Product product = new Product();
-        try {
-            ResultSet rs = null;
-            PreparedStatement ps = connection.prepareStatement("select * from " + Constants.PRODUCT_TABLE_NAME
-                    + " where " + Constants.COLUMN_PRODUCT_CATEGORY_ID + " =?");
-            ps.setInt(1, categoryId);
-
-            rs = ps.executeQuery();
-            System.out.println("catgory  " + rs.next());
-            System.out.println("catgory  anas" + rs.getString(3));
-
-//            while (rs.next()) {
-//                System.out.println("catgory");
-//                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
-//                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
-//                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
-//                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
-//                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
-//                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
-//                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
-//                list.add(product);
-//            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return list;
-    }
-
     public int getTablesCounter(String tableName) {
         PreparedStatement pst;
         int counter = 0;
@@ -188,5 +138,42 @@ public class ProductDao implements DbInterface {
         } catch (SQLException ex) {
         }
         return productCategotyList;
+    }
+
+    public List<Product> getAllProducts() {
+        List<Product> list = new ArrayList<Product>();
+        Product product = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from  product ");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                product = new Product();
+                InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
+
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                int a1 = stream.read();
+                while (a1 >= 0) {
+                    output.write((char) a1);
+                    a1 = stream.read();
+                }
+                Image myImage = Toolkit.getDefaultToolkit().createImage(output.toByteArray());
+                output.close();
+                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
+                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
+                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
+                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
+                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+                product.setImage(myImage);
+                list.add(product);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            Logger.getLogger(ProductDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
 }
