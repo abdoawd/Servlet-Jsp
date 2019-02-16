@@ -7,6 +7,9 @@ and open the template in the editor.
     Created on : Feb 14, 2019, 2:02:08 AM
     Author     : A7med
 */
+*{  
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
 
 .number-main{
     font-size: 72px;

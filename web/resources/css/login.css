@@ -4,11 +4,9 @@
     Type       : Custom styles for login.jsp page
 */
 
-/*body {font-family: Arial, Helvetica, sans-serif;}*/
-
 * {
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Trebuchet MS, sans-serif;
 }
 
 /* Full-width input fields */
