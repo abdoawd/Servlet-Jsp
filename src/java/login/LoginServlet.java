@@ -23,20 +23,17 @@ public class LoginServlet extends HttpServlet {
         usersDao = new UsersDao();
         String name = request.getParameter("email");
         String password = request.getParameter("password");
-        User  user=usersDao.login(name, password);
-        if(user !=null)
-        {
+        User user = usersDao.login(name, password);
+        if (user != null) {
             System.out.println("log in successfully ");
-        }
-        else
-        {
-                        System.out.println("log in faild ");
+        } else {
+            System.out.println("log in faild ");
         }
     }
+
     @Override
     public String getServletInfo() {
         return "Short description";
     }
 
 }
-

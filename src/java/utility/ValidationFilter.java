@@ -5,6 +5,7 @@
  */
 package utility;
 
+import db.UsersDao;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,7 +22,7 @@ import javax.servlet.annotation.WebFilter;
  *
  * @author abdullah
  */
-@WebFilter(filterName = "ValidationFilter", servletNames = {"SignUpServlet"})
+@WebFilter(filterName = "ValidationFilter", servletNames = {"SinuUpServlet"})
 public class ValidationFilter implements Filter {
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX
@@ -29,21 +30,31 @@ public class ValidationFilter implements Filter {
 
     private FilterConfig filterConfig;
     private String userEmail;
+    UsersDao usersDao;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
+        usersDao = new UsersDao();
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/signup.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/signup.jsp");
         userEmail = request.getParameter("email");
+        System.out.println("email" + userEmail);
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(userEmail);
-        if (matcher.find()) {
-            chain.doFilter(request, response);
+        if (!usersDao.isEmailExist(userEmail)) {
+            System.out.println("email in if" + userEmail);
+
+            if (matcher.find()) {
+                chain.doFilter(request, response);
+            } else {
+                filterConfig.getServletContext().setAttribute("emailValid", "Email Not Valid");
+                dispatcher.include(request, response);
+            }
         } else {
-            filterConfig.getServletContext().setAttribute("emailValid", "Email Not Valid");
+            filterConfig.getServletContext().setAttribute("emailExist", "Email Exist");
             dispatcher.include(request, response);
         }
 

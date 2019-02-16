@@ -23,7 +23,31 @@ public class ProductDao implements DbInterface {
         connection = handlerConnection.establishConnection();
 
     }
-      public List<Product> getProductsByCategoryId(int categoryId) {
+
+//    public Product getProduct(int productId) {
+//        Product product = new Product();
+//        try {
+//            ResultSet rs = null;
+//            PreparedStatement ps = connection.prepareStatement("select * from " + Constants.PRODUCT_TABLE_NAME
+//                    + " where " + Constants.COLUMN_PRODUCT_ID + " =?");
+//            ps.setInt(1, productId);
+//            rs = ps.executeQuery();
+//            while (rs.next()) {
+//                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+//                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
+//                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
+//                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+//                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
+//                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
+//                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+//            }
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//        }
+//        return product;
+//
+//    }
+    public List<Product> getProductsByCategoryId(int categoryId) {
         List<Product> list = new ArrayList<Product>();
         Product product = new Product();
         try {
@@ -31,23 +55,29 @@ public class ProductDao implements DbInterface {
             PreparedStatement ps = connection.prepareStatement("select * from " + Constants.PRODUCT_TABLE_NAME
                     + " where " + Constants.COLUMN_PRODUCT_CATEGORY_ID + " =?");
             ps.setInt(1, categoryId);
+
             rs = ps.executeQuery();
-            while (rs.next()) {
-                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
-                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
-                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
-                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
-                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
-                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
-                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
-                list.add(product);
-            }
+            System.out.println("catgory  " + rs.next());
+            System.out.println("catgory  anas" + rs.getString(3));
+
+//            while (rs.next()) {
+//                System.out.println("catgory");
+//                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+//                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
+//                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
+//                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+//                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
+//                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
+//                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+//                list.add(product);
+//            }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return list;
     }
-public int getTablesCounter(String tableName) {
+
+    public int getTablesCounter(String tableName) {
         PreparedStatement pst;
         int counter = 0;
         try {
@@ -63,7 +93,7 @@ public int getTablesCounter(String tableName) {
         return counter;
     }
 
-      public List<Product> getInterstsProduct(int userId) {
+    public List<Product> getInterstsProduct(int userId) {
         List<Product> list = new ArrayList<>();
         Product product = new Product();
         try {
@@ -105,7 +135,8 @@ public int getTablesCounter(String tableName) {
 
         return myId;
     }
-  public boolean addProduct(String productName, int productQuantity, long productPrice,
+
+    public boolean addProduct(String productName, int productQuantity, long productPrice,
             long productDiscount, String productCategory, InputStream picInputStream, String productDescription) {
         PreparedStatement pst;
         boolean isScuccess = false;
@@ -142,7 +173,7 @@ public int getTablesCounter(String tableName) {
         }
         return isScuccess;
     }
-  
+
     public List<ProductCategory> getProductCategories() {
         PreparedStatement pst;
         List<ProductCategory> productCategotyList = new ArrayList<>();
