@@ -22,10 +22,10 @@
                 <p>Please fill in this form to Login.</p>
                 <hr>
                 <label for="email"><b>E-Mail</b></label>
-                <input type="text" placeholder="Enter your email" name="email" required>
+                <input type="text" placeholder="Enter your email" name="email" value="awd@gmail.com"required>
 
                 <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="password" required>
+                <input type="password" placeholder="Enter Password"  value="1" name="password" required>
 
                 <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
 
