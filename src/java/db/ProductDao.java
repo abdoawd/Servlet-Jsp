@@ -27,32 +27,6 @@ public class ProductDao implements DbInterface {
         connection = handlerConnection.establishConnection();
 
     }
-
-    public List<Product> getProductsByCategoryId(int categoryId) {
-        List<Product> list = new ArrayList<Product>();
-        Product product = new Product();
-        try {
-            ResultSet rs = null;
-            PreparedStatement ps = connection.prepareStatement("select * from " + Constants.PRODUCT_TABLE_NAME
-                    + " where " + Constants.COLUMN_PRODUCT_CATEGORY_ID + " =?");
-            ps.setInt(1, categoryId);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
-                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
-                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
-                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
-                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
-                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
-                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
-                list.add(product);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return list;
-    }
-
     public int getTablesCounter(String tableName) {
         PreparedStatement pst;
         int counter = 0;
@@ -237,7 +211,6 @@ public class ProductDao implements DbInterface {
         } catch (SQLException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
-            Logger.getLogger(ProductDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }

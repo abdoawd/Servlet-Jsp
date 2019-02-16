@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utility.Constants;
 
 public class UsersDao implements DbInterface {
@@ -64,7 +66,6 @@ public class UsersDao implements DbInterface {
             pst.setString(6, passwrd);
             pst.setString(7, jop);
 //            pst.setInt(9, 400);
-
             int i = pst.executeUpdate();
             if (i != 0) {
                 isScuccess = true;
@@ -74,6 +75,20 @@ public class UsersDao implements DbInterface {
             ex.printStackTrace();
         }
         return isScuccess;
+    }
+
+    public boolean isEmailExist(String userEmail) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from " + Constants.USER_TABLE_NAME
+                    + " where " + Constants.COLUMN_USER_EMAIL + " =?");
+            ps.setString(1, userEmail);
+            if (ps.execute()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
