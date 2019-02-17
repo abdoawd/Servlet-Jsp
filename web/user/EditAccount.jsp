@@ -91,8 +91,8 @@
                                         <div>
                                             <label><b>Address</b></label>
                                             <span><input type="text" value="street"/></span>  
-                                            <span><input  type="text" value="city"/></span>
-                                            <span><input  type="text" value="country"/></span>
+                                            <span><input type="text" value="city"/></span>
+                                            <span><input type="text" value="country"/></span>
                                         </div>
 
                                         <div class="centeredDiv centeredDiv2">

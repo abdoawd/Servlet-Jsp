@@ -28,31 +28,6 @@ public class ProductDao implements DbInterface {
 
     }
 
-    public List<Product> getProductsByCategoryId(int categoryId) {
-        List<Product> list = new ArrayList<Product>();
-        Product product = new Product();
-        try {
-            ResultSet rs = null;
-            PreparedStatement ps = connection.prepareStatement("select * from " + Constants.PRODUCT_TABLE_NAME
-                    + " where " + Constants.COLUMN_PRODUCT_CATEGORY_ID + " =?");
-            ps.setInt(1, categoryId);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
-                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
-                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
-                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
-                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
-                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
-                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
-                list.add(product);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return list;
-    }
-
     public int getTablesCounter(String tableName) {
         PreparedStatement pst;
         int counter = 0;
@@ -199,6 +174,74 @@ public class ProductDao implements DbInterface {
             ex.printStackTrace();
         } catch (IOException ex) {
             Logger.getLogger(ProductDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public boolean deleteMethod(String id, String tableName) { //Used for product or Category
+        PreparedStatement pst;
+        boolean isScuccess = false;
+        try {
+            String columnName;
+            if (tableName.equalsIgnoreCase(Constants.PRODUCT_TABLE_NAME)) {
+                columnName = Constants.COLUMN_PRODUCT_ID;
+            } else if (tableName.equalsIgnoreCase(Constants.CATEGORY_TABLE_NAME)) {
+                columnName = Constants.COLUMN_CATEGORY_ID;
+            } else {
+                return isScuccess;
+            }
+
+//            pst = connection.prepareStatement("DELETE FROM ? WHERE ? = ?");
+//            pst.setString(1, tableName);
+//            pst.setString(2, columnName);
+//            pst.setString(3, id);
+            pst = connection.prepareStatement("DELETE FROM "+tableName+" WHERE "+columnName+" = "+id);
+
+            int i = pst.executeUpdate();
+            if (i != 0) {
+                isScuccess = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQLException " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return isScuccess;
+    }
+
+    public List<Product> getProductByName(String name) {
+           List<Product> list = new ArrayList<Product>();
+        Product product = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from  product where "
+                    +Constants.COLUMN_PRODUCT_NAME+" like ? ");
+            ps.setString(1, "%"+name+"%");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                product = new Product();
+                InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
+
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                int a1 = stream.read();
+                while (a1 >= 0) {
+                    output.write((char) a1);
+                    a1 = stream.read();
+                }
+                Image myImage = Toolkit.getDefaultToolkit().createImage(output.toByteArray());
+                output.close();
+                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
+                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
+                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
+                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
+                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+                product.setImage(myImage);
+                list.add(product);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
         }
         return list;
     }

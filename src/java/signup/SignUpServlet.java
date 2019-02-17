@@ -31,6 +31,7 @@ public class SignUpServlet extends HttpServlet {
        boolean isSinUp=handler.addUser( firstName , lastName,  email ,  password, jop);
         out.println("is sin up = " + isSinUp);
 
+
     }
 
     @Override
