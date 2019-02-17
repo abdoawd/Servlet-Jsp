@@ -137,3 +137,28 @@ hr {
 .centeredDiv2{
     margin-right: 0;
 }
+
+.twoThirdDiv{
+    width: 67%;
+    display: inline-block;
+    margin-right: 2%;
+}
+
+.oneThirdDiv{
+    width: 30%;
+    display: inline-block;
+}
+
+.errorColor{
+    background-color: #ea3535;
+}
+
+.warningColor{
+    background-color: #ff5722;
+}
+
+.center-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

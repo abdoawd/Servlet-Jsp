@@ -12,7 +12,6 @@
 <html lang="en">
 
     <head>
-
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,7 +25,7 @@
         <link href="resources/css/sb-admin.css" rel="stylesheet">
 
         <!-- My Admin CSS-->
-        <link href="resources/css/my-admin.css" rel="stylesheet">
+        <link href="resources/css/admin.css" rel="stylesheet">
         
     </head>
 

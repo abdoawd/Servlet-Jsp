@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<c:set scope="page" var="pageTitle" value="New Product"/>
+<c:set scope="page" var="pageTitle" value="Delete Product"/>
 
 <html lang="en">
 
@@ -57,80 +57,34 @@
                     <div class="card mb-3">
                         <div class="card-header">
                             <i class="fas fa-table"></i>
-                            Please fill in this to add the product.</div>
+                            Choose a product you want to delete.</div>
                         <div class="card-body">
-
-
-                            <form action='<%=request.getContextPath()%>/admin/addProduct' method='post' enctype="multipart/form-data" class="my-modal-content">
-                                <!-- Left Column - .col-lg-9 -->
+                            <form action='<%=request.getContextPath()%>/admin/editProduct' method='post' class="my-modal-content">
                                 <div class="columnTwoThird">
                                     <div class="container">
-                                        <div class="centeredDiv">
+                                        <div class="twoThirdDiv">
                                             <label><b>Product Name</b></label>
-                                            <input type="text" placeholder="Enter product name" name="productName" required>
-                                        </div>
-
-                                        <div class="centeredDiv centeredDiv2">
-                                            <label><b>Quantity</b></label>
-                                            <input type="number" min="0" placeholder="Enter quantity avaiable in stock" name="productQuantity" required>
-                                        </div>
-
-                                        <div class="centeredDiv">
-                                            <label><b>Price</b></label>
-                                            <input type="number" min="0" step=".01" placeholder="Enter product price" name="productPrice" required>
-                                        </div>
-
-                                        <div class="centeredDiv centeredDiv2">
-                                            <label><b>Discount</b></label>
-                                            <input type="number" min="0" step=".01" placeholder="Enter product discount (Optional)" name="productDiscount">
-                                        </div>
-
-                                        <div class="centeredDiv">
-                                            <label><b>Category</b></label>
-                                            <select name="productCategory" class="custom-select" style="width:100%">
-                                                <c:forEach var="category" items="${productCategotyList}">
-                                                    <option value="${category.id}">${category.name}</option>
+                                            <select name="productId" class="custom-select" style="width:100%" required>
+                                                <c:forEach var="product" items="${productsList}">
+                                                    <option value="${product.id}">${product.name}</option>
                                                 </c:forEach>
                                             </select>
                                         </div>
-
-                                        <div class="centeredDiv centeredDiv2">
-                                            <label style="display: block;"><b>Product Image</b></label>
-                                            <img id="productImageDisplay" hidden="true" src="#"/>
-                                            <input type="file" onchange="loadFile(event)" name="productImage" size="5" accept="image/*" required>
-                                            <!-- To change the product image based on the uploaded image -->
-                                            <script>
-                                                var loadFile = function (event) {
-                                                    var output = document.getElementById('productImageDisplay');
-                                                    output.height = 50;
-                                                    output.hidden = false; 
-                                                    output.src = URL.createObjectURL(event.target.files[0]);
-                                                    
-                                                };
-                                            </script>
+                                        <div class="oneThirdDiv">
+                                            <button type="submit" class="submit-button-half errorColor">Delete</button>
                                         </div>
-
-                                        <label><b><br>Description</b></label>
-                                        <textarea placeholder="Enter product description" name="productDescription" required></textarea>
-                                    </div>
-                                    <div>
-                                        <button type="submit" class="submit-button-half">Add</button>
                                     </div>
                                 </div>
-                                <!-- / Left Column - .col-lg-9 -->
                             </form>
                         </div>
 
                         <c:choose>
-                            <c:when test="${isProductAdded == 'true'}">
-                                <div class="card-footer small text-muted">Product added successfully.</div>
+                            <c:when test="${isProductDeleted == 'true'}">
+                                <div class="card-footer small text-muted">Product deleted successfully.</div>
                             </c:when> 
-                            <c:when test="${isProductAdded == 'false'}">
+                            <c:when test="${isProductDeleted == 'false'}">
                                 <div class="card-footer small text-muted">An error occurred. Please check your input and try again.</div>
                             </c:when>
-                            <c:otherwise>
-                                <div class="card-footer small text-muted">Everything is just fine.</div>
-                            </c:otherwise>
                         </c:choose>
                     </div>
                 </div>

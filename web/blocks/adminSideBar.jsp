@@ -28,8 +28,8 @@
             <a class="dropdown-item" href="<%=request.getContextPath()%>/admin/addProduct">Add Product</a>
             <div class="dropdown-divider"></div>
             <h6 class="dropdown-header">Edit/ Delete:</h6>
-            <a class="dropdown-item" href="#">Edit Product</a>
-            <a class="dropdown-item" href="#">Delete Product</a>
+            <a class="dropdown-item" href="<%=request.getContextPath()%>/admin/editProduct">Edit Product</a>
+            <a class="dropdown-item" href="<%=request.getContextPath()%>/admin/deleteProduct">Delete Product</a>
         </div>
     </li>
 
@@ -40,11 +40,11 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="productDropdown">
             <h6 class="dropdown-header">Add:</h6>
-            <a class="dropdown-item" href="login.html">Add Category</a>
+            <a class="dropdown-item" href="<%=request.getContextPath()%>/admin/addCategory">Add Category</a>
             <div class="dropdown-divider"></div>
             <h6 class="dropdown-header">Edit/ Delete:</h6>
-            <a class="dropdown-item" href="404.html">Edit Category</a>
-            <a class="dropdown-item" href="blank.html">Delete Category</a>
+            <a class="dropdown-item" href="<%=request.getContextPath()%>/admin/editCategory">Edit Category</a>
+            <a class="dropdown-item" href="<%=request.getContextPath()%>/admin/deleteCategory">Delete Category</a>
         </div>
     </li>
 </ul>

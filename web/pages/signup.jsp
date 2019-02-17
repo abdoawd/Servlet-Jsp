@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <!-- Custom styles for login page -->
-        <link href="../resources/css/login.css" rel="stylesheet">
+        <link href="../resources/css/forms.css" rel="stylesheet">
 
         <title>Create an Account</title>
     </head>

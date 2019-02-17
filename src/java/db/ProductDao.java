@@ -27,6 +27,7 @@ public class ProductDao implements DbInterface {
         connection = handlerConnection.establishConnection();
 
     }
+
     public int getTablesCounter(String tableName) {
         PreparedStatement pst;
         int counter = 0;
@@ -176,4 +177,38 @@ public class ProductDao implements DbInterface {
         }
         return list;
     }
+
+    public boolean deleteMethod(String id, String tableName) { //Used for product or Category
+        PreparedStatement pst;
+        boolean isScuccess = false;
+        try {
+            String columnName;
+            if (tableName.equalsIgnoreCase(Constants.PRODUCT_TABLE_NAME)) {
+                columnName = Constants.COLUMN_PRODUCT_ID;
+            } else if (tableName.equalsIgnoreCase(Constants.CATEGORY_TABLE_NAME)) {
+                columnName = Constants.COLUMN_CATEGORY_ID;
+            } else {
+                return isScuccess;
+            }
+            System.out.println("table name " + Constants.PRODUCT_TABLE_NAME);
+            System.out.println("column name" + columnName);
+            System.out.println("id" + id);
+
+//            pst = connection.prepareStatement("DELETE FROM ? WHERE ? = ?");
+//            pst.setString(1, tableName);
+//            pst.setString(2, columnName);
+//            pst.setString(3, id);
+            pst = connection.prepareStatement("DELETE FROM "+tableName+" WHERE "+columnName+" = "+id);
+
+            int i = pst.executeUpdate();
+            if (i != 0) {
+                isScuccess = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQLException " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return isScuccess;
+    }
+
 }

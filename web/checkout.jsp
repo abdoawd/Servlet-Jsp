@@ -12,7 +12,7 @@
         <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom styles for login page -->
-        <link href="resources/css/login.css" rel="stylesheet">
+        <link href="resources/css/forms.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
         <link href="resources/css/shop-homepage.css" rel="stylesheet">
