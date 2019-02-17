@@ -29,9 +29,11 @@ public class LoginServlet extends HttpServlet {
         User user = usersDao.login(name, password);
         if (user != null) {
             System.out.println("log in successfully ");
+            dispatcher = request.getRequestDispatcher("UserHomeServlet");
+            dispatcher.forward(request, response);
         } else {
             System.out.println("log in faild ");
-
+            
         }
     }
 

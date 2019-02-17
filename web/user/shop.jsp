@@ -57,46 +57,46 @@
 
                     <div class="row">
 
-
-
-                        <c:forEach var="prod" items="${products}">                                                
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="card h-100">
+                        <c:forEach var="product" items="${products}">                                                
+                            <div class=" col-lg-4 col-md-6 mb-4"   >
+                                <div class="asds card h-100" id="45">
                                     <a href="#"><img class="card-img-top" src=prod.alt=""></a>
                                     <div class="card-body">
                                         <h4 class="card-title">
-                                            ${prod.getName()}
+                                            ${product.getName()}
                                         </h4>
                                         <h5>${" price "}
-                                            ${prod.getPrice()}
-                                        ${" $"}</h5>
+                                            ${product.getPrice()}
+                                            ${" $"}</h5>
                                     </div>
 
                                 </div>
                             </div>
                         </c:forEach>
-
-
-
                     </div>
-                    <!-- /.row -->
-
                 </div>
-                <!-- /.col-lg-9 -->
-
             </div>
-            <!-- /.row -->
-
         </div>
-        <!-- /.container -->
 
-        <!--Add Footer Block-->
         <jsp:include page="../blocks/footer.jsp"/>
 
         <!-- Bootstrap core JavaScript -->
         <script> document.getElementById("home").classList.add("active");</script>
         <script src="resources/vendor/jquery/jquery.min.js"></script>
         <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script>
+            var arr=document.getElementsByClassName('asds');
+            for (var i = 0; i < arr.length; i++) {
+              arr[i].addEventListener("click",function(e){ 
+                  console.log(e.target);
+              });  
+            }
+//            function getProductDetails(e)
+//            {
+//                console.log(e);
+//            }
+
+        </script>
 
     </body>
 

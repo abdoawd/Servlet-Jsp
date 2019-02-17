@@ -190,9 +190,6 @@ public class ProductDao implements DbInterface {
             } else {
                 return isScuccess;
             }
-            System.out.println("table name " + Constants.PRODUCT_TABLE_NAME);
-            System.out.println("column name" + columnName);
-            System.out.println("id" + id);
 
 //            pst = connection.prepareStatement("DELETE FROM ? WHERE ? = ?");
 //            pst.setString(1, tableName);
@@ -211,4 +208,41 @@ public class ProductDao implements DbInterface {
         return isScuccess;
     }
 
+    public List<Product> getProductByName(String name) {
+           List<Product> list = new ArrayList<Product>();
+        Product product = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from  product where "
+                    +Constants.COLUMN_PRODUCT_NAME+" like ? ");
+            ps.setString(1, "%"+name+"%");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                product = new Product();
+                InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
+
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                int a1 = stream.read();
+                while (a1 >= 0) {
+                    output.write((char) a1);
+                    a1 = stream.read();
+                }
+                Image myImage = Toolkit.getDefaultToolkit().createImage(output.toByteArray());
+                output.close();
+                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
+                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
+                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
+                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
+                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+                product.setImage(myImage);
+                list.add(product);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+        }
+        return list;
+    }
 }
