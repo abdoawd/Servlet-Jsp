@@ -4183,6 +4183,7 @@ input[type="button"].btn-block {
   -ms-flex-align: center;
   align-items: center;
   -ms-flex-pack: justify;
+  margin: auto;
   justify-content: space-between;
 }
 

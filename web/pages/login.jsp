@@ -9,11 +9,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
 
         <!-- Custom styles for login page -->
         <link href="../resources/css/login.css" rel="stylesheet">
 
         <title>Login</title>
+        
     </head>
     <body>
         <form action='<%=request.getContextPath()%>/Login' method='post' class="modal-content">

@@ -22,8 +22,7 @@
                 border: 5px ;
                 box-shadow: none;
                 margin-left: auto;
-                padding-right: 550px;
-                border-radius: 4px;
+                width: 700px;                border-radius: 4px;
 
             }
         </style>

@@ -16,9 +16,9 @@ public class Product implements ListModelInterface{
     private String categoryId;
     private int discount;
     private Image image;
-
     public void setImage(Image image) {
         this.image = image;
+        System.out.println("");
     }
 
     public Image getImage() {
