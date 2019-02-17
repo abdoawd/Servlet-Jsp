@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class LoginServlet extends HttpServlet {
 
@@ -21,25 +22,34 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter writer = response.getWriter();
+        PrintWriter out = response.getWriter();
         usersDao = new UsersDao();
         String name = request.getParameter("email");
         String password = request.getParameter("password");
-
-        User user = usersDao.login(name, password);
-        if (user != null) {
-            System.out.println("log in successfully ");
-            dispatcher = request.getRequestDispatcher("UserHomeServlet");
+        User  user = usersDao.login(name, password);
+        if(user !=null)
+        {
+            out.println("log in successfully ");
+            dispatcher=request.getRequestDispatcher("UserHomeServlet");
             dispatcher.forward(request, response);
-        } else {
-            System.out.println("log in faild ");
-
+            // session . add user()
+            HttpSession session = request.getSession(true);
+		session.setAttribute("user",user);
+		session.setAttribute("loggedIn", new String("true"));
+            
+            
+            
+            
+        }
+        else
+        {
+                        out.println("log in faild ");
         }
     }
-
     @Override
     public String getServletInfo() {
         return "Short description";
     }
 
 }
+

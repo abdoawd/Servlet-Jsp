@@ -22,12 +22,15 @@ public class User  implements ListModelInterface{
         this.lastName = lastName;
     }
 
-    public User(String id, String firstName, String lastName, String email, String jop, double creditlimits) {
+    public User(String id, String firstName, String lastName, String email,String password, String job,String birthday, double creditlimits) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password=password;
         this.job = job;
+        this.birthday=birthday;
+        
         this.creditlimits = creditlimits;
     }
 
@@ -99,7 +102,7 @@ public class User  implements ListModelInterface{
         return creditlimits;
     }
 
-    public void setCreditlimits(int creditlimits) {
+    public void setCreditlimits(double creditlimits) {
         this.creditlimits = creditlimits;
     }
     

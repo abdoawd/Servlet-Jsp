@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.tomcat.util.codec.binary.Base64;
 import utility.Constants;
 
 public class ProductDao implements DbInterface {
@@ -27,6 +28,7 @@ public class ProductDao implements DbInterface {
         connection = handlerConnection.establishConnection();
 
     }
+
     public int getTablesCounter(String tableName) {
         PreparedStatement pst;
         int counter = 0;
@@ -144,20 +146,22 @@ public class ProductDao implements DbInterface {
         List<Product> list = new ArrayList<Product>();
         Product product = null;
         try {
-            PreparedStatement ps = connection.prepareStatement("select * from  product ");
+            PreparedStatement ps = connection.prepareStatement("select * from storeusers.product");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+                System.out.println("insid product");
                 product = new Product();
-                InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
-
+              
+                 InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
                 ByteArrayOutputStream output = new ByteArrayOutputStream();
                 int a1 = stream.read();
                 while (a1 >= 0) {
                     output.write((char) a1);
                     a1 = stream.read();
                 }
-                Image myImage = Toolkit.getDefaultToolkit().createImage(output.toByteArray());
+                byte[] encodeBase64 = Base64.encodeBase64(output.toByteArray());
+                String base64Encoded = new String(encodeBase64, "UTF-8");
                 output.close();
                 product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
                 product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
@@ -166,7 +170,7 @@ public class ProductDao implements DbInterface {
                 product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
                 product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
                 product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
-                product.setImage(myImage);
+                product.setStringImage(base64Encoded);
                 list.add(product);
             }
         } catch (SQLException ex) {
@@ -177,26 +181,57 @@ public class ProductDao implements DbInterface {
         return list;
     }
 
+    public boolean deleteMethod(String id, String tableName) { //Used for product or Category
+        PreparedStatement pst;
+        boolean isScuccess = false;
+        try {
+            String columnName;
+            if (tableName.equalsIgnoreCase(Constants.PRODUCT_TABLE_NAME)) {
+                columnName = Constants.COLUMN_PRODUCT_ID;
+            } else if (tableName.equalsIgnoreCase(Constants.CATEGORY_TABLE_NAME)) {
+                columnName = Constants.COLUMN_CATEGORY_ID;
+            } else {
+                return isScuccess;
+            }
+
+//            pst = connection.prepareStatement("DELETE FROM ? WHERE ? = ?");
+//            pst.setString(1, tableName);
+//            pst.setString(2, columnName);
+//            pst.setString(3, id);
+            pst = connection.prepareStatement("DELETE FROM " + tableName + " WHERE " + columnName + " = " + id);
+
+            int i = pst.executeUpdate();
+            if (i != 0) {
+                isScuccess = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQLException " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return isScuccess;
+    }
+
     public List<Product> getProductByName(String name) {
-           List<Product> list = new ArrayList<Product>();
+        List<Product> list = new ArrayList<Product>();
         Product product = null;
         try {
             PreparedStatement ps = connection.prepareStatement("select * from  product where "
-                    +Constants.COLUMN_PRODUCT_NAME+" like ? ");
-            ps.setString(1, "%"+name+"%");
+                    + Constants.COLUMN_PRODUCT_NAME + " like ? ");
+            ps.setString(1, "%" + name + "%");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 product = new Product();
-                InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
 
+                InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
                 ByteArrayOutputStream output = new ByteArrayOutputStream();
                 int a1 = stream.read();
                 while (a1 >= 0) {
                     output.write((char) a1);
                     a1 = stream.read();
                 }
-                Image myImage = Toolkit.getDefaultToolkit().createImage(output.toByteArray());
+                byte[] encodeBase64 = Base64.encodeBase64(output.toByteArray());
+                String base64Encoded = new String(encodeBase64, "UTF-8");
                 output.close();
                 product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
                 product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
@@ -205,7 +240,7 @@ public class ProductDao implements DbInterface {
                 product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
                 product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
                 product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
-                product.setImage(myImage);
+                product.setStringImage(base64Encoded);
                 list.add(product);
             }
         } catch (SQLException ex) {
@@ -213,5 +248,43 @@ public class ProductDao implements DbInterface {
         } catch (IOException ex) {
         }
         return list;
+    }
+
+    public Product getProductById(int id) {
+        Product product = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from  product where "
+                    + Constants.COLUMN_PRODUCT_ID + " =? ");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                product = new Product();
+                InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                int a1 = stream.read();
+                while (a1 >= 0) {
+                    output.write((char) a1);
+                    a1 = stream.read();
+                }
+                byte[] encodeBase64 = Base64.encodeBase64(output.toByteArray());
+                String base64Encoded = new String(encodeBase64, "UTF-8");
+
+                output.close();
+                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
+                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
+                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
+                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
+                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+                product.setStringImage(base64Encoded);
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+        }
+        return product;
     }
 }

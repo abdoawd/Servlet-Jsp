@@ -28,7 +28,7 @@
                 <input type="text" placeholder="Enter your email" name="email" value="awd@gmail.com" id ="userEmail" required>
 
                 <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" value="1"name="password"  id="userPassword" required>
+                <input type="password" placeholder="Enter Password" value="1" name="password"  id="userPassword" required>
 
                 <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
 
