@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,14 +14,26 @@
         <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link href="resources/css/shop-homepage.css" rel="stylesheet">
+        <link href="resources/css/shop-homepage.css" rel="stylesheet"/>
+        <style>
+             .data{
+                    padding: 5px 10px;
+            }
+            table{
+                spacing:10;
+            }
+            
+        </style>
+        
+        
+        
 
     </head>
 
     <body>
         <!--Add Header Block-->
         <jsp:include page="blocks/header.jsp"/>
-
+        
         <!-- Page Content -->
         <div class="container">
 
@@ -33,6 +47,7 @@
                     <div class="col-lg-3">
                         <div class="list-group">
                             <a href="#" class="list-group-item">Account Details</a>
+                            <a href="<%=request.getContextPath()%>/user/EditAccount.jsp" class="list-group-item">Edit Profile</a>
                             <a href="#" class="list-group-item">Orders</a>
                             <a href="#" class="list-group-item">Logout</a>
                         </div>
@@ -41,10 +56,54 @@
                     <!-- /.col-lg-3 -->
 
                     <div class="col-lg-9">
-
-                        test test test<br><br>
-                        This space to show user data{first name, last name, address,...} so he could be able to change them<br><br>
+                    <br>
                         The second button supposed to show customer orders.
+                        
+                                            <fieldset>
+                                               
+                    <br>
+                    <table>
+                       
+                        <tr>
+                            <th>First Name: </th>
+                            <td class="data">${user.firstName}</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <th>Last Name: </th>
+                            <td class="data">${user.lastName}</td>
+                        </tr>
+                         <tr>
+                            <th>E-Mail: </th>
+                            <td class="data">${user.email}</td>
+                         </tr>
+                 
+                        <tr>
+                            <th>Password: </th>
+                            <td class="data">${user.password}</td>
+                        </tr>
+                        
+                        <tr>
+                            <th>Job: </th>
+                            <td class="data">${user.job}</td>
+                        </tr>
+                        <tr>
+                            <th>Addresses: </th>
+                            <td class="data" >Street-city-country</td>
+                        </tr>
+                        <tr>
+                            <th>Credit-limit:  </th>
+                            <td class="data">${user.creditlimits}</td>
+                        </tr>
+                        
+                        
+                        
+                    </table>
+                    <br>
+                    <form action="<%=request.getContextPath()%>/user/EditAccount.jsp" method="post">
+                    <input type="submit" value="Edit Profile" id="editbtn" />
+                    </form>
+                </fieldset>
 
                     </div>
                     <!-- /.col-lg-9 -->
