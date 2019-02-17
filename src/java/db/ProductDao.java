@@ -144,10 +144,11 @@ public class ProductDao implements DbInterface {
         List<Product> list = new ArrayList<Product>();
         Product product = null;
         try {
-            PreparedStatement ps = connection.prepareStatement("select * from  product ");
+            PreparedStatement ps = connection.prepareStatement("select * from storeusers.product");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+                System.out.println("insid product");
                 product = new Product();
                 InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
 

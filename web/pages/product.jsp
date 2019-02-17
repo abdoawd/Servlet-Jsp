@@ -36,23 +36,22 @@
                         <div class="left-column">
                             <!--                            <img data-image="red" src="red.png" alt="">
                                                         <img data-image="blue" src="red.png" alt="">-->
-                            <img data-image="red" class="active" src="../resources/pictures/red.png" alt="">
                         </div>
 
 
                         <!-- Right Column -->
                         <div class="right-column">
-
                             <!-- Product Description -->
                             <div class="product-description">
-                                <span>Headphones</span>
-                                <h1>Beats EP</h1>
-                                <p>The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
+                                <span>${product.getName()}</span>
+                                <h1>${product.getName()}</h1>
+                                <p>${product.getDescription()}</p>
                             </div>
+                            <img data-image="red" class="active" src="${product.getStringImage()}" alt="">
 
                             <!-- Product Pricing -->
                             <div class="product-price">
-                                <span>148$</span>
+                                <span>${product.getPrice()}</span>
                                 <a href="#" class="cart-btn no-underline">Add to cart</a>
                             </div>
                         </div>
