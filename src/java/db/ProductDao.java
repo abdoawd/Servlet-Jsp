@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.tomcat.util.codec.binary.Base64;
 import utility.Constants;
 
 public class ProductDao implements DbInterface {
@@ -163,16 +164,18 @@ public class ProductDao implements DbInterface {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+                System.out.println("insid product");
                 product = new Product();
+              
                 InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
-
                 ByteArrayOutputStream output = new ByteArrayOutputStream();
                 int a1 = stream.read();
                 while (a1 >= 0) {
                     output.write((char) a1);
                     a1 = stream.read();
                 }
-                Image myImage = Toolkit.getDefaultToolkit().createImage(output.toByteArray());
+                byte[] encodeBase64 = Base64.encodeBase64(output.toByteArray());
+                String base64Encoded = new String(encodeBase64, "UTF-8");
                 output.close();
                 product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
                 product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
@@ -183,6 +186,7 @@ public class ProductDao implements DbInterface {
                 product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
                 product.setImage(myImage);
                 product.setCategoryName(rs.getString(Constants.COLUMN_CATEGORY_NAME));
+                product.setStringImage(base64Encoded);
                 list.add(product);
             }
         } catch (SQLException ex) {
@@ -234,15 +238,16 @@ public class ProductDao implements DbInterface {
 
             while (rs.next()) {
                 product = new Product();
-                InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
 
+                InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
                 ByteArrayOutputStream output = new ByteArrayOutputStream();
                 int a1 = stream.read();
                 while (a1 >= 0) {
                     output.write((char) a1);
                     a1 = stream.read();
                 }
-                Image myImage = Toolkit.getDefaultToolkit().createImage(output.toByteArray());
+                byte[] encodeBase64 = Base64.encodeBase64(output.toByteArray());
+                String base64Encoded = new String(encodeBase64, "UTF-8");
                 output.close();
                 product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
                 product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
@@ -251,7 +256,7 @@ public class ProductDao implements DbInterface {
                 product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
                 product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
                 product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
-                product.setImage(myImage);
+                product.setStringImage(base64Encoded);
                 list.add(product);
             }
         } catch (SQLException ex) {
@@ -297,5 +302,43 @@ public class ProductDao implements DbInterface {
             System.out.println("status = " + isScuccess);
         }
         return isScuccess;
+    }
+    
+    public Product getProductById(int id) {
+        Product product = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from  product where "
+                    + Constants.COLUMN_PRODUCT_ID + " =? ");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                product = new Product();
+                InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                int a1 = stream.read();
+                while (a1 >= 0) {
+                    output.write((char) a1);
+                    a1 = stream.read();
+                }
+                byte[] encodeBase64 = Base64.encodeBase64(output.toByteArray());
+                String base64Encoded = new String(encodeBase64, "UTF-8");
+
+                output.close();
+                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
+                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
+                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
+                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
+                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+                product.setStringImage(base64Encoded);
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+        }
+        return product;
     }
 }

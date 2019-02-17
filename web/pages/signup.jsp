@@ -17,7 +17,7 @@
     </head>
     <body>
         <div id="id01" class="modal">
-            <form action='<%=request.getContextPath()%>/SinuUp' method='post' class="modal-content">
+            <form action="<%=request.getContextPath()%>/SinuUp" method='post' class="modal-content">
                 <div class="container">
                     <h1>iTi | sinup</h1>
                     <p>Please fill in this form to Login.</p>
@@ -46,7 +46,7 @@
                     <input type="password" placeholder="Re-Enter Your Password" name="confirmPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="conPassword"required>
 
                     <div class="clearfix">
-                        <button type="submit" onclick="validate()" class="signupbtn">Sign up</button>
+                        <button type="submit" onclick="validate()"  class="signupbtn">Sign up</button>
                     </div>
                     <div class="wrongText" id="wrongText">Wrong Data</div>
                 </div>

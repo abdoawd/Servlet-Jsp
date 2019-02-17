@@ -9,11 +9,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
 
         <!-- Custom styles for login page -->
-        <link href="../resources/css/forms.css" rel="stylesheet">
+        <link href="../resources/css/login.css" rel="stylesheet">
 
         <title>Login</title>
+        
     </head>
     <body>
         <form action='<%=request.getContextPath()%>/Login' method='post' class="modal-content">
@@ -23,10 +25,10 @@
                 <hr>
                 <label for="email"><b>E-Mail</b></label>
 
-                <input type="text" placeholder="Enter your email" name="email" value="admin" id ="userEmail" required>
+                <input type="text" placeholder="Enter your email" name="email" value="awd@gmail.com" id ="userEmail" required>
 
                 <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="password" value="admin" id="userPassword" required>
+                <input type="password" placeholder="Enter Password" value="1" name="password"  id="userPassword" required>
 
                 <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
 
