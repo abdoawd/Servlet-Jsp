@@ -60,22 +60,15 @@
                             1. Choose the product to edit.</div>
                         <div class="card-body">
 
-                            <form action='<%=request.getContextPath()%>/admin/editProduct' method='post' class="my-modal-content">
+                            <form action='<%=request.getContextPath()%>/admin/editProduct' method='get' class="my-modal-content">
                                 <div class="columnTwoThird">
                                     <div class="container">
                                         <div class="twoThirdDiv">
                                             <label><b>Product Name</b></label>
                                             <select name="productIdInput" class="custom-select" style="width:100%" required>
-                                                <c:choose>
-                                                    <c:when test="${productIdInput == null}">
-                                                        <option value="${productIdInput.id}">${productIdInput.name}</option>
-                                                    </c:when> 
-                                                    <c:otherwise>
-                                                        <c:forEach var="product" items="${productsList}">
-                                                            <option value="${product.id}">${product.name}</option>
-                                                        </c:forEach>
-                                                    </c:otherwise>
-                                                </c:choose>
+                                                <c:forEach var="product" items="${productsList}">
+                                                    <option <c:if test="${selectedProduct.id == product.id}">selected</c:if> value="${product.id}">${product.name}</option>
+                                                </c:forEach>
                                             </select>
                                         </div>
                                         <div class="oneThirdDiv">
@@ -86,40 +79,41 @@
                             </form>
                         </div>
 
-                        <c:if test="${productDetails != null}">
+                        <c:if test="${selectedProduct != null}">
                             <div class="card-header">
                                 <i class="fas fa-table"></i>
                                 2. Edit product details then click edit.</div>
                             <div class="card-body">
-                                <form action='<%=request.getContextPath()%>/admin/addProduct' method='post' enctype="multipart/form-data" class="my-modal-content">
+                                <form action='<%=request.getContextPath()%>/admin/editProduct' method='post' enctype="multipart/form-data" class="my-modal-content">
                                     <!-- Left Column - .col-lg-9 -->
                                     <div class="columnTwoThird">
                                         <div class="container">
                                             <div class="centeredDiv">
                                                 <label><b>Product Name</b></label>
-                                                <input type="text" placeholder="Enter product name" name="productName" required>
+                                                <input type="text" value="${selectedProduct.name}" placeholder="Enter product name" name="productName" required>
+                                                <input hidden="true" type="text" value="${selectedProduct.id}" name="toEditProductId">
                                             </div>
 
                                             <div class="centeredDiv centeredDiv2">
                                                 <label><b>Quantity</b></label>
-                                                <input type="number" min="0" placeholder="Enter quantity avaiable in stock" name="productQuantity" required>
+                                                <input type="number" min="0" value="${selectedProduct.quantity}" placeholder="Enter quantity avaiable in stock" name="productQuantity" required>
                                             </div>
 
                                             <div class="centeredDiv">
                                                 <label><b>Price</b></label>
-                                                <input type="number" min="0" step=".01" placeholder="Enter product price" name="productPrice" required>
+                                                <input type="number" min="0" step=".01" value="${selectedProduct.price}" placeholder="Enter product price" name="productPrice" required>
                                             </div>
 
                                             <div class="centeredDiv centeredDiv2">
                                                 <label><b>Discount</b></label>
-                                                <input type="number" min="0" step=".01" placeholder="Enter product discount (Optional)" name="productDiscount">
+                                                <input type="number" min="0" step=".01" value="${selectedProduct.discount}" placeholder="Enter product discount (Optional)" name="productDiscount">
                                             </div>
 
                                             <div class="centeredDiv">
                                                 <label><b>Category</b></label>
                                                 <select name="productCategory" class="custom-select" style="width:100%">
                                                     <c:forEach var="category" items="${productCategotyList}">
-                                                        <option value="${category.id}">${category.name}</option>
+                                                        <option <c:if test="${selectedProduct.categoryId == category.id}">selected</c:if> value="${category.id}">${category.name}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -141,7 +135,7 @@
                                             </div>
 
                                             <label><b><br>Description</b></label>
-                                            <textarea placeholder="Enter product description" name="productDescription" required></textarea>
+                                            <textarea  placeholder="Enter product description" name="productDescription" required>${selectedProduct.description}</textarea>
                                         </div>
                                         <div class="center-div">
                                             <button type="submit" class="submit-button-half oneThirdDiv warningColor">Edit</button>
@@ -153,10 +147,10 @@
                         </c:if>
 
                         <c:choose>
-                            <c:when test="${isProductAdded == 'true'}">
-                                <div class="card-footer small text-muted">Product added successfully.</div>
+                            <c:when test="${isSucceed == 'true'}">
+                                <div class="card-footer small text-muted">Product edited successfully.</div>
                             </c:when> 
-                            <c:when test="${isProductAdded == 'false'}">
+                            <c:when test="${isSucceed == 'false'}">
                                 <div class="card-footer small text-muted">An error occurred. Please check your input and try again.</div>
                             </c:when>
                             <c:otherwise>

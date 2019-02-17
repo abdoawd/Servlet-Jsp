@@ -43,7 +43,7 @@ public class UserHomeServlet extends HttpServlet {
         // we have to get user ud from object that we will create it on the session
         // and this comment just to remember 
         int userId = 1;
-        List<Product> products = handler.getAllProducts();
+        List<Product> products = handler.getAllProducts(0);
         List<Product> interestsProducts = handler.getInterstsProduct(userId);
 
         System.out.println("product size = " + products.size());

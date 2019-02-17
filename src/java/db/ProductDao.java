@@ -141,11 +141,25 @@ public class ProductDao implements DbInterface {
         return productCategotyList;
     }
 
-    public List<Product> getAllProducts() {
+    public List<Product> getAllProducts(int productId) { // use 0 to get all products, any other id to get it
         List<Product> list = new ArrayList<Product>();
         Product product = null;
         try {
-            PreparedStatement ps = connection.prepareStatement("select * from  product ");
+            PreparedStatement ps;
+            if (productId == 0) {
+                ps = connection.prepareStatement("select P.*, (select " + Constants.COLUMN_CATEGORY_NAME
+                        + " from " + Constants.CATEGORY_TABLE_NAME + " where " + Constants.COLUMN_CATEGORY_ID
+                        + " = p." + Constants.COLUMN_CATEGORY_ID + ") as CATEGORY_NAME "
+                        + "from " + Constants.PRODUCT_TABLE_NAME + " p");
+            } else {
+                ps = connection.prepareStatement("select P.*, (select " + Constants.COLUMN_CATEGORY_NAME
+                        + " from " + Constants.CATEGORY_TABLE_NAME + " where " + Constants.COLUMN_CATEGORY_ID
+                        + " = p." + Constants.COLUMN_CATEGORY_ID + ") as CATEGORY_NAME "
+                        + "from " + Constants.PRODUCT_TABLE_NAME + " p where "
+                        + Constants.COLUMN_PRODUCT_ID + " = ?");
+                ps.setInt(1, productId);
+            }
+
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -168,6 +182,7 @@ public class ProductDao implements DbInterface {
                 product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
                 product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
                 product.setImage(myImage);
+                product.setCategoryName(rs.getString(Constants.COLUMN_CATEGORY_NAME));
                 list.add(product);
             }
         } catch (SQLException ex) {
@@ -195,7 +210,7 @@ public class ProductDao implements DbInterface {
 //            pst.setString(1, tableName);
 //            pst.setString(2, columnName);
 //            pst.setString(3, id);
-            pst = connection.prepareStatement("DELETE FROM "+tableName+" WHERE "+columnName+" = "+id);
+            pst = connection.prepareStatement("DELETE FROM " + tableName + " WHERE " + columnName + " = " + id);
 
             int i = pst.executeUpdate();
             if (i != 0) {
@@ -209,12 +224,12 @@ public class ProductDao implements DbInterface {
     }
 
     public List<Product> getProductByName(String name) {
-           List<Product> list = new ArrayList<Product>();
+        List<Product> list = new ArrayList<Product>();
         Product product = null;
         try {
             PreparedStatement ps = connection.prepareStatement("select * from  product where "
-                    +Constants.COLUMN_PRODUCT_NAME+" like ? ");
-            ps.setString(1, "%"+name+"%");
+                    + Constants.COLUMN_PRODUCT_NAME + " like ? ");
+            ps.setString(1, "%" + name + "%");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -244,5 +259,43 @@ public class ProductDao implements DbInterface {
         } catch (IOException ex) {
         }
         return list;
+    }
+
+    public boolean updateProduct(String productId, String productName, String productDescription, 
+            String productPrice, String productQuantity, String productCategory, String productDiscount, 
+            InputStream picInputStream) {
+        PreparedStatement pst;
+        boolean isScuccess = false;
+        try {
+
+            pst = connection.prepareStatement("UPDATE " + Constants.PRODUCT_TABLE_NAME
+                    + " SET "
+                    + Constants.COLUMN_PRODUCT_NAME + " = '"+productName+"',"
+                    + Constants.COLUMN_PRODUCT_DESCRIPTION + " = '"+productDescription+"',"
+                    + Constants.COLUMN_PRODUCT_PRICE + " = '"+productPrice+"',"
+                    + Constants.COLUMN_PRODUCT_QUANTITY + " = '"+productQuantity+"',"
+                    + Constants.COLUMN_PRODUCT_IMAGE + " = '"+picInputStream+"',"
+                    + Constants.COLUMN_PRODUCT_CATEGORY_ID + " = '"+productCategory+"',"
+                    + Constants.COLUMN_PRODUCT_DISCOUNT + " = '"+productDiscount+"' WHERE "
+                    + Constants.COLUMN_PRODUCT_ID + " = '"+productId+"'");
+//            pst.setString(1, productName);
+//            pst.setString(2, productDescription);
+//            pst.setString(3, productPrice);
+//            pst.setString(4, productQuantity);
+//            pst.setBlob(5, picInputStream);
+//            pst.setString(6, productCategory);
+//            pst.setString(7, productDiscount);
+//            pst.setString(1, productId);
+
+            int i = pst.executeUpdate();
+            if (i != 0) {
+                isScuccess = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQLException " + ex.getMessage());
+            ex.printStackTrace();
+            System.out.println("status = " + isScuccess);
+        }
+        return isScuccess;
     }
 }
