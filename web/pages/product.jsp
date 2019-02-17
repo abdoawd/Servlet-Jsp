@@ -47,7 +47,7 @@
                                 <h1>${product.getName()}</h1>
                                 <p>${product.getDescription()}</p>
                             </div>
-                            <img data-image="red" class="active" src="${product.getStringImage()}" alt="">
+                            <img data-image="red" class="active"  alt="">
 
                             <!-- Product Pricing -->
                             <div class="product-price">

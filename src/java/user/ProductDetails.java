@@ -28,8 +28,8 @@ import utility.Constants;
 @WebServlet(name = "ProductDetails", urlPatterns = {"/ProductDetails"})
 public class ProductDetails extends HttpServlet {
 
-    Product product = new Product();
-
+    ProductDao productDao = new ProductDao();
+    List<Product> products;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -38,14 +38,9 @@ public class ProductDetails extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("pages/product.jsp");
-        product.setCategoryId("1");
-        product.setDescription("anas mohamed");
-        product.setDiscount(12);
-        product.setId("1");
-        product.setName("labtop");
-        product.setPrice(12);
-        product.setQuantity("65432");
-        req.setAttribute("product", product);
+        products = productDao.getAllProducts();
+       
+        req.setAttribute("product", products.get(0));
         dispatcher.include(req, resp);
 
     }
