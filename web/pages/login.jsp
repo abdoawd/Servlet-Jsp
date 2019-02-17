@@ -25,8 +25,8 @@
 
                 <input type="text" placeholder="Enter your email" name="email" id ="userEmail" required>
 
-                <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="userPassword" required>
+                <label for="password"><b>Password</b></label> 
+                <input type="password" placeholder="Enter Password" name="password"   id="userPassword" required>
 
                 <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
 

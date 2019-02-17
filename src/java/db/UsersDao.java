@@ -32,7 +32,7 @@ public class UsersDao implements DbInterface {
 
             rs = ps.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getString(2), rs.getString(3));
+                user = new User(rs.getString(1),rs.getString(2), rs.getString(3),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getDouble(9));
 
             }
         } catch (SQLException ex) {
@@ -107,7 +107,9 @@ public class UsersDao implements DbInterface {
                         rs.getString(Constants.COLUMN_USER_FIRST_NAME),
                         rs.getString(Constants.COLUMN_USER_LAST_NAME),
                         rs.getString(Constants.COLUMN_USER_EMAIL),
+                        rs.getString(Constants.COLUMN_USER_PASSWORD),
                         rs.getString(Constants.COLUMN_USER_JOP),
+                        rs.getString(Constants.COLUMN_USER_BIRTHDAY),
                         rs.getDouble(Constants.COLUMN_USER_CREDIT_LIMIT));
                 usersList.add(user);
             }

@@ -19,7 +19,7 @@ public class SignUpServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter writer = response.getWriter();
+        PrintWriter out = response.getWriter();
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
@@ -29,7 +29,7 @@ public class SignUpServlet extends HttpServlet {
         
         
        boolean isSinUp=handler.addUser( firstName , lastName,  email ,  password, jop);
-        System.out.println("is sin up = " + isSinUp);
+        out.println("is sin up = " + isSinUp);
 
     }
 
