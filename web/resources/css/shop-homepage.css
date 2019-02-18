@@ -11,6 +11,10 @@ body {
     height: 40px;
 }
 
+.detail-image{
+    width: 20%;
+    height: 20%;
+}
 /* Setting margin for top and bottom */
 .containerSpacing{
     margin-top: 2%;
@@ -23,10 +27,7 @@ body {
     margin-left: -15px;
 }
 
-.columnThird{
-    flex: 0 0 30%;
-    max-width: 30%;
-}
+
 
 .columnTwoThird{
     flex: 0 0 70%;
@@ -74,4 +75,9 @@ body {
 .submit-button-half{
     width: 50%;
     margin: 10px auto;
+}
+
+.image_product
+{
+ display: flex;   
 }

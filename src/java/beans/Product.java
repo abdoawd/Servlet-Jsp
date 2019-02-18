@@ -15,11 +15,18 @@ public class Product implements ListModelInterface {
     private String categoryId;
     private int discount;
     private Image image;
+    private String stringImage;
 
-  
+    public String getStringImage() {
+        return stringImage;
+    }
 
+    public void setStringImage(String stringImage) {
+        this.stringImage = stringImage;
+    }
     public void setImage(Image image) {
         this.image = image;
+        System.out.println("");
     }
 
     public Image getImage() {

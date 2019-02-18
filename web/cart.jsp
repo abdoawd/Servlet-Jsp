@@ -27,31 +27,43 @@
             <div class="container containerSpacing">
 
                 <h1 class="divHeader">Shopping Cart</h1>
-
                 <div class="row">
+                    <div class="col-md-9">
 
-                    <div class="columnTwoThird">
+                        <div class="d-flex">
+                            <div class=""  style="flex-grow: 1">
+                                <div class="image_product">
+                                    <img src="cr71.jpg" width="200" height="200"/>
+                                </div>
+                                Hello, It's me :)
 
-                        Hello, It's me :)
-
-                    </div>
-                    <!-- /.col-lg-9 -->
-
-                    <div class="columnThird">
-                        <div class="list-group">
-                            <a class="list-group-item">Order Summary</a>
-                            <div class="list-group-item">
-                                <h4>1 x item</h4>
-                                <h4>1 x item</h4>
-                                <hr>
-                                <h3>Total</h3>
                             </div>
-                            <a href="checkout.jsp" class="list-group-item">Proceed to checkout</a>
+                            <div style="flex-grow: 2">
+                                <p>hgfhadfajgdskudgsjgdsakdasdiasdtasydgasidkgasudgsadi</p>
+                                <br>
+                                <p>hgfhadfajgdskudgsjgdsakdasdiasdtasydgasidkgasudgsadi</p>
+                            </div>
+                            <!-- /.col-lg-9 -->
+
+                            <!-- /.col-lg-3 -->
+
                         </div>
-
                     </div>
-                    <!-- /.col-lg-3 -->
+                    <div class="col-md-3">
+                        <div class="columnThirdtest">
+                            <div class="list-group">
+                                <a class="list-group-item">Order Summary</a>
+                                <div class="list-group-item">
+                                    <h4>1 x item</h4>
+                                    <h4>1 x item</h4>
+                                    <hr>
+                                    <h3>Total</h3>
+                                </div>
+                                <a href="checkout.jsp" class="list-group-item">Proceed to checkout</a>
+                            </div>
 
+                        </div>
+                    </div>
                 </div>
                 <!-- /.row -->
 
