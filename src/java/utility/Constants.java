@@ -48,6 +48,7 @@ public class Constants {
     public static final String COLUMN_PRODUCT_IMAGE = "IMAGE";
     public static final String COLUMN_PRODUCT_CATEGORY_ID = "CATEGORY_ID";
     public static final String COLUMN_PRODUCT_DISCOUNT = "DISCOUNT";
+    public static final String COLUMN_PRODUCT_STATUS = "STATUS";
 
     public static final String CATEGORY_TABLE_NAME = "PRODUCT_CATEGORY";
     public static final String COLUMN_CATEGORY_ID = "CATEGORY_ID";

@@ -7,12 +7,7 @@ package user;
 
 import beans.Product;
 import db.ProductDao;
-import db.UsersDao;
-import java.awt.Image;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

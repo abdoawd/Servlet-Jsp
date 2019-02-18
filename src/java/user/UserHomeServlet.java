@@ -36,14 +36,10 @@ public class UserHomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // handker to get  categories 
-        // handler  ti get intersts user product 
-        List<ProductCategory> categories = handler.getProductCategories();
 
-        // we have to get user ud from object that we will create it on the session
-        // and this comment just to remember 
+        List<ProductCategory> categories = handler.getProductCategories();
         int userId = 1;
-        List<Product> products = handler.getAllProducts();
+        List<Product> products = handler.getAllProducts(0);
         List<Product> interestsProducts = handler.getInterstsProduct(userId);
 
         System.out.println("product size = " + products.size());
