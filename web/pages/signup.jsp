@@ -30,7 +30,7 @@
 
                     <div class="centeredDiv centeredDiv2">
                         <label for="lastName"><b>Last Name</b></label>
-                        <input type="text" placeholder="Enter Your Last Name" name="lastName" required>
+                        <input type="text" placeholder="Enter Your Last Name" name="lastName" pattern="(?=.*[A-Z](?=.*[a-z]){3,})" required>
                     </div>
 
                     <label for="email"><b>E-Mail</b></label>
