@@ -142,23 +142,39 @@ public class ProductDao implements DbInterface {
         return productCategotyList;
     }
 
-    public List<Product> getAllProducts(int productId) { // use 0 to get all products, any other id to get it
+    /**
+     * @param productId
+     * @return list of products Accept 3 types of inputs > Constants.SELECT_ALL
+     * -- To get all products > Constants.SELECT_ACTIVE -- To get active
+     * products only which wasn't deleted > get specific product with id
+     */
+    public List<Product> getAllProducts(int productId) {
         List<Product> list = new ArrayList<Product>();
         Product product = null;
         try {
             PreparedStatement ps;
-            if (productId == 0) {
-                ps = connection.prepareStatement("select P.*, (select " + Constants.COLUMN_CATEGORY_NAME
-                        + " from " + Constants.CATEGORY_TABLE_NAME + " where " + Constants.COLUMN_CATEGORY_ID
-                        + " = p." + Constants.COLUMN_CATEGORY_ID + ") as CATEGORY_NAME "
-                        + "from " + Constants.PRODUCT_TABLE_NAME + " p");
-            } else {
-                ps = connection.prepareStatement("select P.*, (select " + Constants.COLUMN_CATEGORY_NAME
-                        + " from " + Constants.CATEGORY_TABLE_NAME + " where " + Constants.COLUMN_CATEGORY_ID
-                        + " = p." + Constants.COLUMN_CATEGORY_ID + ") as CATEGORY_NAME "
-                        + "from " + Constants.PRODUCT_TABLE_NAME + " p where "
-                        + Constants.COLUMN_PRODUCT_ID + " = ?");
-                ps.setInt(1, productId);
+            switch (productId) {
+                case Constants.SELECT_ALL:
+                    ps = connection.prepareStatement("select P.*, (select " + Constants.COLUMN_CATEGORY_NAME
+                            + " from " + Constants.CATEGORY_TABLE_NAME + " where " + Constants.COLUMN_CATEGORY_ID
+                            + " = p." + Constants.COLUMN_CATEGORY_ID + ") as CATEGORY_NAME "
+                            + "from " + Constants.PRODUCT_TABLE_NAME + " p");
+                    break;
+                case Constants.SELECT_ACTIVE:
+                    ps = connection.prepareStatement("select P.*, (select " + Constants.COLUMN_CATEGORY_NAME
+                            + " from " + Constants.CATEGORY_TABLE_NAME + " where " + Constants.COLUMN_CATEGORY_ID
+                            + " = p." + Constants.COLUMN_CATEGORY_ID + ") as CATEGORY_NAME "
+                            + "from " + Constants.PRODUCT_TABLE_NAME + " p where "
+                            + Constants.COLUMN_PRODUCT_STATUS + " = ?");
+                    ps.setInt(1, Constants.PRODUCT_ACTIVE);
+                    break;
+                default:
+                    ps = connection.prepareStatement("select P.*, (select " + Constants.COLUMN_CATEGORY_NAME
+                            + " from " + Constants.CATEGORY_TABLE_NAME + " where " + Constants.COLUMN_CATEGORY_ID
+                            + " = p." + Constants.COLUMN_CATEGORY_ID + ") as CATEGORY_NAME "
+                            + "from " + Constants.PRODUCT_TABLE_NAME + " p where "
+                            + Constants.COLUMN_PRODUCT_ID + " = ?");
+                    ps.setInt(1, productId);
             }
 
             ResultSet rs = ps.executeQuery();
@@ -166,7 +182,7 @@ public class ProductDao implements DbInterface {
             while (rs.next()) {
                 System.out.println("insid product");
                 product = new Product();
-              
+
                 InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
                 ByteArrayOutputStream output = new ByteArrayOutputStream();
                 int a1 = stream.read();
@@ -201,12 +217,15 @@ public class ProductDao implements DbInterface {
         boolean isScuccess = false;
         try {
             String columnName;
-            if (tableName.equalsIgnoreCase(Constants.PRODUCT_TABLE_NAME)) {
-                columnName = Constants.COLUMN_PRODUCT_ID;
-            } else if (tableName.equalsIgnoreCase(Constants.CATEGORY_TABLE_NAME)) {
-                columnName = Constants.COLUMN_CATEGORY_ID;
-            } else {
-                return isScuccess;
+            switch (tableName) {
+                case Constants.PRODUCT_TABLE_NAME:
+                    columnName = Constants.COLUMN_PRODUCT_ID;
+                    break;
+                case Constants.CATEGORY_TABLE_NAME:
+                    columnName = Constants.COLUMN_CATEGORY_ID;
+                    break;
+                default:
+                    return isScuccess;
             }
 
 //            pst = connection.prepareStatement("DELETE FROM ? WHERE ? = ?");
@@ -224,6 +243,31 @@ public class ProductDao implements DbInterface {
             ex.printStackTrace();
         }
         return isScuccess;
+    }
+
+    public boolean deleteProductTemporarily(String id) {
+        PreparedStatement pst;
+        boolean isScuccess = false;
+        try {
+
+            String columnName = Constants.COLUMN_PRODUCT_ID;
+            pst = connection.prepareStatement("UPDATE " + Constants.PRODUCT_TABLE_NAME
+                    + " SET " + Constants.COLUMN_PRODUCT_STATUS + " = '0' WHERE "
+                    + Constants.COLUMN_PRODUCT_ID + " = " + id);
+//            pst.setString(1, tableName);
+//            pst.setString(2, columnName);
+//            pst.setString(3, id);
+
+            int i = pst.executeUpdate();
+            if (i != 0) {
+                isScuccess = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQLException " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return isScuccess;
+
     }
 
     public List<Product> getProductByName(String name) {
@@ -265,8 +309,8 @@ public class ProductDao implements DbInterface {
         return list;
     }
 
-    public boolean updateProduct(String productId, String productName, String productDescription, 
-            String productPrice, String productQuantity, String productCategory, String productDiscount, 
+    public boolean updateProduct(String productId, String productName, String productDescription,
+            String productPrice, String productQuantity, String productCategory, String productDiscount,
             InputStream picInputStream) {
         PreparedStatement pst;
         boolean isScuccess = false;
@@ -274,14 +318,14 @@ public class ProductDao implements DbInterface {
 
             pst = connection.prepareStatement("UPDATE " + Constants.PRODUCT_TABLE_NAME
                     + " SET "
-                    + Constants.COLUMN_PRODUCT_NAME + " = '"+productName+"',"
-                    + Constants.COLUMN_PRODUCT_DESCRIPTION + " = '"+productDescription+"',"
-                    + Constants.COLUMN_PRODUCT_PRICE + " = '"+productPrice+"',"
-                    + Constants.COLUMN_PRODUCT_QUANTITY + " = '"+productQuantity+"',"
-                    + Constants.COLUMN_PRODUCT_IMAGE + " = '"+picInputStream+"',"
-                    + Constants.COLUMN_PRODUCT_CATEGORY_ID + " = '"+productCategory+"',"
-                    + Constants.COLUMN_PRODUCT_DISCOUNT + " = '"+productDiscount+"' WHERE "
-                    + Constants.COLUMN_PRODUCT_ID + " = '"+productId+"'");
+                    + Constants.COLUMN_PRODUCT_NAME + " = '" + productName + "',"
+                    + Constants.COLUMN_PRODUCT_DESCRIPTION + " = '" + productDescription + "',"
+                    + Constants.COLUMN_PRODUCT_PRICE + " = '" + productPrice + "',"
+                    + Constants.COLUMN_PRODUCT_QUANTITY + " = '" + productQuantity + "',"
+                    + Constants.COLUMN_PRODUCT_IMAGE + " = '" + picInputStream + "',"
+                    + Constants.COLUMN_PRODUCT_CATEGORY_ID + " = '" + productCategory + "',"
+                    + Constants.COLUMN_PRODUCT_DISCOUNT + " = '" + productDiscount + "' WHERE "
+                    + Constants.COLUMN_PRODUCT_ID + " = '" + productId + "'");
 //            pst.setString(1, productName);
 //            pst.setString(2, productDescription);
 //            pst.setString(3, productPrice);
@@ -302,7 +346,7 @@ public class ProductDao implements DbInterface {
         }
         return isScuccess;
     }
-    
+
     public Product getProductById(int id) {
         Product product = null;
         try {
@@ -339,5 +383,33 @@ public class ProductDao implements DbInterface {
         } catch (IOException ex) {
         }
         return product;
+    }
+
+    public int addCategory(String categoryName) {
+        PreparedStatement pst;
+        try {
+            // Step 1: Check if the same product name already exist
+            pst = connection.prepareStatement("SELECT * FROM " + Constants.CATEGORY_TABLE_NAME + " WHERE LOWER(?) = LOWER(?)");
+            pst.setString(1, Constants.COLUMN_CATEGORY_NAME);
+            pst.setString(2, categoryName);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return Constants.ERROR_ALREADY_EXIST;
+            } else {
+                // Step 2: Add product
+                pst = connection.prepareStatement("INSERT INTO "
+                        + Constants.CATEGORY_TABLE_NAME + " (" + Constants.COLUMN_CATEGORY_NAME + ") VALUES (?)");
+                pst.setString(1, categoryName);
+
+                int i = pst.executeUpdate();
+                if (i != 0) {
+                    return Constants.ERROR_SUCCESS;
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return Constants.ERROR_FAILED;
+        }
+        return Constants.ERROR_FAILED;
     }
 }

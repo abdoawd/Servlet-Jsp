@@ -83,4 +83,18 @@ public class Constants {
     public static final String CATEGORY_SEQUENCES = "PRODUCT_CATEGORY_SEQ";
     public static final String ORDERS_SEQUENCES = "USER_ORDERS_SEQ";
 
+    // getAllProducts Method 
+    public static final int SELECT_ALL = 0;
+    
+    // public static final String SELECT_ID = "SELECT_ID";
+    public static final int SELECT_ACTIVE = -1;
+    
+    //Product Status
+    public static final int PRODUCT_ACTIVE = 1;
+    public static final int PRODUCT_INACTIVE = 0;
+    
+    //Error code
+    public static final int ERROR_FAILED = 0;
+    public static final int ERROR_ALREADY_EXIST = -1;
+    public static final int ERROR_SUCCESS = 1;
 }
