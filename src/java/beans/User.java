@@ -22,17 +22,20 @@ public class User  implements ListModelInterface{
         this.lastName = lastName;
     }
 
-    public User(String id, String firstName, String lastName, String email,String password, String job,String birthday, double creditlimits) {
+    public User(String id, String firstName, String lastName,String role, String email,
+            String password, String job,String birthday, double creditlimits) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.role=role;
         this.email = email;
         this.password=password;
         this.job = job;
-        this.birthday=birthday;
-        
+        this.birthday=birthday; 
         this.creditlimits = creditlimits;
     }
+
+ 
 
     public String getId() {
         return id;

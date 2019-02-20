@@ -26,30 +26,33 @@ public class LoginServlet extends HttpServlet {
         usersDao = new UsersDao();
         String name = request.getParameter("email");
         String password = request.getParameter("password");
-        User  user = usersDao.login(name, password);
-        if(user !=null)
-        {
+        User user = usersDao.login(name, password);
+        if (user != null) {
             out.println("log in successfully ");
-       
+
             // session . add user()
             HttpSession session = request.getSession(true);
-		session.setAttribute("user",user);
-		session.setAttribute("loggedIn", new String("true"));
-                dispatcher=request.getRequestDispatcher("UserHomeServlet");
-            dispatcher.forward(request, response);
-            
-            
-            
-        }
-        else
-        {
-                        out.println("log in faild ");
+            session.setAttribute("user", user);
+            session.setAttribute("loggedIn", new String("true"));
+            if (user.getRole().equals("admin")) {
+                System.out.println("admin");
+                response.sendRedirect("admin");
+
+            } else {
+                System.out.println("user");
+
+                response.sendRedirect("UserHomeServlet");
+
+            }
+
+        } else {
+            out.println("log in faild ");
         }
     }
+
     @Override
     public String getServletInfo() {
         return "Short description";
     }
 
 }
-
