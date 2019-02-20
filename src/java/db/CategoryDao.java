@@ -19,6 +19,12 @@ import utility.Constants;
  * @author A7med
  */
 public class CategoryDao implements DbInterface{
+
+    public CategoryDao() {
+         handlerConnection = new HandlerConnection();
+        connection = handlerConnection.establishConnection();
+    }
+    
     
     Connection connection;
     HandlerConnection handlerConnection;

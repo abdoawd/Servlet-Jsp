@@ -15,6 +15,7 @@ public class Product implements ListModelInterface {
     private String categoryId;
     private String categoryName;
     private int discount;
+
     private Image image;
     private String stringImage;
 

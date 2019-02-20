@@ -312,14 +312,6 @@ public class ProductDao implements DbInterface {
                     + Constants.COLUMN_PRODUCT_CATEGORY_ID + " = '" + productCategory + "',"
                     + Constants.COLUMN_PRODUCT_DISCOUNT + " = '" + productDiscount + "' WHERE "
                     + Constants.COLUMN_PRODUCT_ID + " = '" + productId + "'");
-//            pst.setString(1, productName);
-//            pst.setString(2, productDescription);
-//            pst.setString(3, productPrice);
-//            pst.setString(4, productQuantity);
-//            pst.setBlob(5, picInputStream);
-//            pst.setString(6, productCategory);
-//            pst.setString(7, productDiscount);
-//            pst.setString(1, productId);
 
             int i = pst.executeUpdate();
             if (i != 0) {
@@ -370,5 +362,116 @@ public class ProductDao implements DbInterface {
         }
         return product;
     }
-    
+
+    public List<Product> getProductsByCategoryId(int category_id) {
+        List<Product> list = new ArrayList<Product>();
+        Product product = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from  product where "
+                    + Constants.COLUMN_PRODUCT_CATEGORY_ID + "  =? ");
+            ps.setInt(1, category_id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                product = new Product();
+                InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                int a1 = stream.read();
+                while (a1 >= 0) {
+                    output.write((char) a1);
+                    a1 = stream.read();
+                }
+                byte[] encodeBase64 = Base64.encodeBase64(output.toByteArray());
+                String base64Encoded = new String(encodeBase64, "UTF-8");
+                output.close();
+                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
+                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
+                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
+                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
+                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+                product.setStringImage(base64Encoded);
+                list.add(product);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+        }
+        return list;
+    }
+
+    public List<Product> getProductsByNmaeAndPrice(int category_id, String productName, int startprice, int endPrice) {
+        List<Product> list = new ArrayList<Product>();
+        Product product = null;
+        try {
+            
+            
+            PreparedStatement ps = connection.prepareStatement("select * from  product where "
+                    + Constants.COLUMN_PRODUCT_CATEGORY_ID + "  =?  and "
+                    + Constants.COLUMN_PRODUCT_NAME + "  like ? and "
+                    + Constants.COLUMN_PRODUCT_PRICE + " between  ? and ?" );
+            ps.setInt(1, category_id);
+            ps.setString(2, "%" + productName + "%");
+            ps.setInt(3, startprice);
+            ps.setInt(4, endPrice);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                product = new Product();
+                InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                int a1 = stream.read();
+                while (a1 >= 0) {
+                    output.write((char) a1);
+                    a1 = stream.read();
+                }
+                byte[] encodeBase64 = Base64.encodeBase64(output.toByteArray());
+                String base64Encoded = new String(encodeBase64, "UTF-8");
+                output.close();
+                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
+                product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
+                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
+                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
+                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+                product.setStringImage(base64Encoded);
+                list.add(product);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+        }
+        return list;
+    }
+
+
+    public int addCategory(String categoryName) {
+        PreparedStatement pst;
+        try {
+            // Step 1: Check if the same product name already exist
+            pst = connection.prepareStatement("SELECT * FROM " + Constants.CATEGORY_TABLE_NAME + " WHERE LOWER(?) = LOWER(?)");
+            pst.setString(1, Constants.COLUMN_CATEGORY_NAME);
+            pst.setString(2, categoryName);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return Constants.ERROR_ALREADY_EXIST;
+            } else {
+                // Step 2: Add product
+                pst = connection.prepareStatement("INSERT INTO "
+                        + Constants.CATEGORY_TABLE_NAME + " (" + Constants.COLUMN_CATEGORY_NAME + ") VALUES (?)");
+                pst.setString(1, categoryName);
+
+                int i = pst.executeUpdate();
+                if (i != 0) {
+                    return Constants.ERROR_SUCCESS;
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return Constants.ERROR_FAILED;
+        }
+        return Constants.ERROR_FAILED;
+    }
+
 }

@@ -29,6 +29,7 @@ public class AdminDashboard extends HttpServlet {
         request.setAttribute("categoriesNumber", categoriesNumber);
         request.setAttribute("ordersNumber", ordersNumber);
         request.setAttribute("usersNumber", usersNumber);
+        System.out.println("AdminDashboard");
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("admin/admin.jsp");
         dispatcher.forward(request, response);
