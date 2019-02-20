@@ -30,16 +30,14 @@ public class LoginServlet extends HttpServlet {
         if(user !=null)
         {
             out.println("log in successfully ");
-             // session . add user()
+
+       
+            // session . add user()
             HttpSession session = request.getSession(true);
 		session.setAttribute("user",user);
 		session.setAttribute("loggedIn", new String("true"));
-            dispatcher=request.getRequestDispatcher("UserHomeServlet");
+                dispatcher=request.getRequestDispatcher("UserHomeServlet");
             dispatcher.forward(request, response);
-           
-            
-            
-            
             
         }
         else

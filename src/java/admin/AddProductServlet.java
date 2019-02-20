@@ -2,6 +2,7 @@
 package admin;
 
 import beans.ProductCategory;
+import db.CategoryDao;
 import db.ProductDao;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +21,7 @@ import javax.servlet.http.Part;
 public class AddProductServlet extends HttpServlet {
 
     ProductDao handler = new ProductDao();
+    CategoryDao handlerCategory = new CategoryDao();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -35,7 +37,7 @@ public class AddProductServlet extends HttpServlet {
         InputStream picInputStream = filePart.getInputStream();
 
         boolean isProductAdded = handler.addProduct(productName, productQuantity, productQuantity, productQuantity, productCategory, picInputStream, productDescription);
-        List<ProductCategory> productCategotyList = handler.getProductCategories();
+        List<ProductCategory> productCategotyList = handlerCategory.getProductCategories();
         request.setAttribute("productCategotyList", productCategotyList);
         request.setAttribute("isProductAdded", isProductAdded);
         RequestDispatcher dispatcher = request.getRequestDispatcher("addProduct.jsp");
@@ -46,7 +48,7 @@ public class AddProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<ProductCategory> productCategotyList = handler.getProductCategories();
+        List<ProductCategory> productCategotyList = handlerCategory.getProductCategories();
         request.setAttribute("productCategotyList", productCategotyList);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("addProduct.jsp");
