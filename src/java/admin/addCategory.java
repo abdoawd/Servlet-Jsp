@@ -5,6 +5,7 @@
  */
 package admin;
 
+import db.CategoryDao;
 import db.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "addCategory", urlPatterns = {"/admin/addCategory"})
 public class addCategory extends HttpServlet {
     
-    ProductDao handler = new ProductDao();
+    CategoryDao handlerCategory = new CategoryDao();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,7 +41,7 @@ public class addCategory extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String categoryName = request.getParameter("categoryName");
-        int isCategoryAdded = handler.addCategory(categoryName);
+        int isCategoryAdded = handlerCategory.addCategory(categoryName);
         request.setAttribute("isCategoryAdded", isCategoryAdded);
         
         processRequest(request, response);

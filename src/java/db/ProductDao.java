@@ -126,21 +126,7 @@ public class ProductDao implements DbInterface {
         return isScuccess;
     }
 
-    public List<ProductCategory> getProductCategories() {
-        PreparedStatement pst;
-        List<ProductCategory> productCategotyList = new ArrayList<>();
-        try {
-            pst = connection.prepareStatement("SELECT * FROM " + Constants.CATEGORY_TABLE_NAME);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                ProductCategory pc = new ProductCategory(rs.getInt(1), rs.getString(2));
-                productCategotyList.add(pc);
-            }
-            pst.close();
-        } catch (SQLException ex) {
-        }
-        return productCategotyList;
-    }
+    
 
     /**
      * @param productId
@@ -487,4 +473,5 @@ public class ProductDao implements DbInterface {
         }
         return Constants.ERROR_FAILED;
     }
+
 }
