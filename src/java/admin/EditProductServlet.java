@@ -7,6 +7,7 @@ package admin;
 
 import beans.Product;
 import beans.ProductCategory;
+import db.CategoryDao;
 import db.ProductDao;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,6 +30,7 @@ import utility.Constants;
 public class EditProductServlet extends HttpServlet {
 
     ProductDao handler = new ProductDao();
+    CategoryDao handlerCategory = new CategoryDao();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -44,7 +46,7 @@ public class EditProductServlet extends HttpServlet {
             List<Product> productsListAll = handler.getAllProducts(Constants.SELECT_ACTIVE);
             request.setAttribute("productsList", productsListAll);
 
-            List<ProductCategory> productCategotyList = handler.getProductCategories();
+            List<ProductCategory> productCategotyList = handlerCategory.getProductCategories();
             request.setAttribute("productCategotyList", productCategotyList);
             request.setAttribute("selectedProduct", selectedProduct);
         }

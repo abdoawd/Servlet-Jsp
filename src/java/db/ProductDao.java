@@ -126,21 +126,7 @@ public class ProductDao implements DbInterface {
         return isScuccess;
     }
 
-    public List<ProductCategory> getProductCategories() {
-        PreparedStatement pst;
-        List<ProductCategory> productCategotyList = new ArrayList<>();
-        try {
-            pst = connection.prepareStatement("SELECT * FROM " + Constants.CATEGORY_TABLE_NAME);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                ProductCategory pc = new ProductCategory(rs.getInt(1), rs.getString(2));
-                productCategotyList.add(pc);
-            }
-            pst.close();
-        } catch (SQLException ex) {
-        }
-        return productCategotyList;
-    }
+    
 
     /**
      * @param productId
@@ -384,32 +370,5 @@ public class ProductDao implements DbInterface {
         }
         return product;
     }
-
-    public int addCategory(String categoryName) {
-        PreparedStatement pst;
-        try {
-            // Step 1: Check if the same product name already exist
-            pst = connection.prepareStatement("SELECT * FROM " + Constants.CATEGORY_TABLE_NAME + " WHERE LOWER(?) = LOWER(?)");
-            pst.setString(1, Constants.COLUMN_CATEGORY_NAME);
-            pst.setString(2, categoryName);
-            ResultSet rs = pst.executeQuery();
-            if (rs.next()) {
-                return Constants.ERROR_ALREADY_EXIST;
-            } else {
-                // Step 2: Add product
-                pst = connection.prepareStatement("INSERT INTO "
-                        + Constants.CATEGORY_TABLE_NAME + " (" + Constants.COLUMN_CATEGORY_NAME + ") VALUES (?)");
-                pst.setString(1, categoryName);
-
-                int i = pst.executeUpdate();
-                if (i != 0) {
-                    return Constants.ERROR_SUCCESS;
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return Constants.ERROR_FAILED;
-        }
-        return Constants.ERROR_FAILED;
-    }
+    
 }

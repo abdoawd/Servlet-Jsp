@@ -2,6 +2,7 @@ package user;
 
 import beans.Product;
 import beans.ProductCategory;
+import db.CategoryDao;
 import db.ProductDao;
 import java.io.IOException;
 import java.util.List;
@@ -15,6 +16,7 @@ import utility.Constants;
 public class UserHomeServlet extends HttpServlet {
 
     ProductDao handler = new ProductDao();
+    CategoryDao handlerCategory = new CategoryDao();
     RequestDispatcher dispatcher;
 
     @Override
@@ -25,7 +27,7 @@ public class UserHomeServlet extends HttpServlet {
         String searchWord = request.getParameter("search");
         System.out.println("search word = " + searchWord);
         List<Product> products = handler.getProductByName(searchWord);
-        List<ProductCategory> categories = handler.getProductCategories();
+        List<ProductCategory> categories = handlerCategory.getProductCategories();
 
         request.setAttribute("products", products);
         request.setAttribute("categories", categories);
@@ -38,7 +40,7 @@ public class UserHomeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        List<ProductCategory> categories = handler.getProductCategories();
+        List<ProductCategory> categories = handlerCategory.getProductCategories();
         int userId = 1;
         List<Product> products = handler.getAllProducts(Constants.SELECT_ACTIVE);
         List<Product> interestsProducts = handler.getInterstsProduct(userId);
