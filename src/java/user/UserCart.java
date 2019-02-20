@@ -35,6 +35,7 @@ public class UserCart extends HttpServlet {
         HttpSession session = req.getSession(false);
         User user = (User) session.getAttribute("user");
         int userId = Integer.valueOf(user.getId());
+
         if (Boolean.valueOf(req.getParameter("addToCart")) == false) {
             int updateProductId = Integer.valueOf(req.getParameter("productId"));
             int itemNumber = Integer.valueOf(req.getParameter("itemNumber"));
@@ -44,18 +45,17 @@ public class UserCart extends HttpServlet {
         } else {
             int productId = Integer.valueOf(req.getParameter("product_id"));
             System.out.println("product id " + productId);
-            if (userCartDAO.isProductInCart(userId, productId)) {
+            if (!userCartDAO.isProductInCart(userId, productId)) {
+                System.out.println("in if ");
                 userCartDAO.addToCart(userId, productId, 1);
             }
+            products = userCartDAO.getUserCart(userId);
 
         }
-        products = userCartDAO.getUserCart(userId);
+        System.out.println("user id  in cart" + userId);
+        System.out.println("size "+ products.size());  
         req.setAttribute("userCartProducts", products);
         req.getRequestDispatcher("cart.jsp").include(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     }
 
 }

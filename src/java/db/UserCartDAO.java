@@ -35,27 +35,6 @@ public class UserCartDAO {
         connection = handlerConnection.establishConnection();
     }
 
-    public boolean isProductInCart(int userId, int productId) {
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
-        try {
-
-            preparedStatement = connection.prepareStatement("select * from " + Constants.SHOPPING_CART_TABLE_NAME + " where " + Constants.SHOPPING_CART_TABLE_NAME + "." + Constants.COLUMN_USER_ID + " = " + userId + " and " + Constants.SHOPPING_CART_TABLE_NAME + "." + Constants.COLUMN_PRODUCT_ID + " = " + productId + ";");
-            resultSet = preparedStatement.executeQuery();
-            System.out.println("result set  is Product  in cart " + resultSet.getString(1));
-
-            if (resultSet.next()) {
-                System.out.println("result set  is Product  in cart " + resultSet);
-                return true;
-            }
-
-        } catch (Exception e) {
-        }
-        System.out.println("result set  is  Product not in cart ");
-
-        return false;
-    }
-
     public void addToCart(int userId, int productId, int quantity) {
 
         PreparedStatement pst;
@@ -77,6 +56,7 @@ public class UserCartDAO {
             Logger.getLogger(UserCartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public void updateToCartQuery(int userId, int productId, int quantity) {
         PreparedStatement pst;
         try {
@@ -101,7 +81,7 @@ public class UserCartDAO {
         List<Product> list = new ArrayList<Product>();
         Product product = null;
         try {
-            PreparedStatement ps = connection.prepareStatement("select MY_PRODUCT.PRODUCT_ID,MY_PRODUCT.IMAGE,MY_PRODUCT.DESCRIPTION,MY_PRODUCT.PRICE,MY_PRODUCT.PRODUCT_NAME from STOREUSERS.E_USERS E_USER,STOREUSERS.PRODUCT MY_PRODUCT,STOREUSERS.SHOPPING_CART CART where E_USER.user_id = " + userId + " and MY_PRODUCT.PRODUCT_ID = CART.product_id");
+            PreparedStatement ps = connection.prepareStatement("select MY_PRODUCT.PRODUCT_ID,MY_PRODUCT.IMAGE,MY_PRODUCT.DESCRIPTION,MY_PRODUCT.PRICE,MY_PRODUCT.PRODUCT_NAME from STOREUSERS.PRODUCT MY_PRODUCT,STOREUSERS.SHOPPING_CART CART where user_id = " + userId + " and MY_PRODUCT.PRODUCT_ID = CART.product_id");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 product = new Product();
@@ -129,4 +109,26 @@ public class UserCartDAO {
         return list;
     }
 
+    public boolean isProductInCart(int userId, int productId) {
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        try {
+            String selectStatment = "select * from " + Constants.SHOPPING_CART_TABLE_NAME 
+                    + " where " + Constants.COLUMN_USER_ID +
+                    " = " + userId + " and "
+                    + Constants.COLUMN_PRODUCT_ID +
+                    " = " + productId;
+            preparedStatement = connection.prepareStatement(selectStatment);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                System.out.println("result set  is Product  in cart " + resultSet);
+                return true;
+            }
+
+        } catch (Exception e) {
+        }
+        System.out.println("result set  is  Product not in cart ");
+
+        return false;
+    }
 }
