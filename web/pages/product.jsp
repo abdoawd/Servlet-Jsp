@@ -41,7 +41,22 @@
                     </div>
 
 
-<<<<<<< HEAD
+
+                    <!-- Right Column -->
+                    <div class="right-column">
+                        <!-- Product Description -->
+                        <div class="product-description">
+                            <span>${product.getName()}</span>
+                            <h1>${product.getName()}</h1>
+                            <p>${product.getDescription()}</p>
+                        </div>
+                        <img data-image="red" class="active"  alt="">
+
+                        <!-- Product Pricing -->
+                        <div class="product-price">
+                            <span>${product.getPrice()}</span>
+                            <a href="#" class="cart-btn no-underline">Add to cart</a>
+                        </div>
                         <!-- Right Column -->
                         <div class="right-column">
                             <!-- Product Description -->
@@ -50,30 +65,13 @@
                                 <h1>${product.getName()}</h1>
                                 <p>${product.getDescription()}</p>
                             </div>
-                            <img data-image="red" class="active"  alt="">
 
                             <!-- Product Pricing -->
                             <div class="product-price">
                                 <span>${product.getPrice()}</span>
-                                <a href="#" class="cart-btn no-underline">Add to cart</a>
+                                <a id="addToCart" href="/dokan/UserCart?addToCart=true&product_id=${product.id}" class="cart-btn no-underline">Add to cart</a>
                             </div>
-=======
-                    <!-- Right Column -->
-                    <div class="right-column">
-                        <!-- Product Description -->
-                        <div class="product-description">
-                            <span>${product.getName()}</span>
-                            <h1>${product.getName()}</h1>
-                            <p>${product.getDescription()}</p>
->>>>>>> 798c6eb1638f3c2846ab59474ed82e923af9509e
                         </div>
-
-                        <!-- Product Pricing -->
-                        <div class="product-price">
-                            <span>${product.getPrice()}</span>
-                            <a href="#" class="cart-btn no-underline">Add to cart</a>
-                        </div>
-                    </div>
                 </main>
 
 
@@ -90,7 +88,11 @@
         <script> document.getElementById("home").classList.add("active");</script>
         <script src="resources/vendor/jquery/jquery.min.js"></script>
         <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+        <script>
+            function search() {
+                document.location.href = "/dokan/UserCart";
+            }
+        </script>
         <!-- Scripts -->
         <script src="../resources/js/script-product-page.js" charset="utf-8"></script>
 

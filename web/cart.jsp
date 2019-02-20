@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +15,10 @@
         <!-- Custom styles for this template -->
         <link href="resources/css/shop-homepage.css" rel="stylesheet">
 
+        <!-- Custom styles for cart page -->
+        <link href="resources/css/flatsome-shop.css" rel="stylesheet">
+        <link href="resources/css/flatsome.css" rel="stylesheet">
+
     </head>
 
     <body>
@@ -26,32 +31,77 @@
             <!-- Page Content -->
             <div class="container containerSpacing">
 
-                <h1 class="divHeader">Shopping Cart</h1>
+
+
                 <div class="row">
-                    <div class="col-md-9">
 
-                        <div class="d-flex">
-                            <div class=""  style="flex-grow: 1">
-                                <div class="image_product">
-                                    <img src="cr71.jpg" width="200" height="200"/>
-                                </div>
-                                Hello, It's me :)
+                    <div class="columnTwoThird cart_table_div">
+                        <h1 class="divHeader">Shopping Cart</h1>
+                        <c:forEach var="cartItem" items="${userCartProducts}">   
 
-                            </div>
-                            <div style="flex-grow: 2">
-                                <p>hgfhadfajgdskudgsjgdsakdasdiasdtasydgasidkgasudgsadi</p>
-                                <br>
-                                <p>hgfhadfajgdskudgsjgdsakdasdiasdtasydgasidkgasudgsadi</p>
-                            </div>
-                            <!-- /.col-lg-9 -->
+                            <table  class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th class="product-name" colspan="3">Product</th>
+                                        <th class="product-price">Price</th>
+                                        <th class="product-quantity">Quantity</th>
+                                        <th class="product-subtotal">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                            <!-- /.col-lg-3 -->
+                                    <tr class="woocommerce-cart-form__cart-item cart_item">
 
-                        </div>
+                                        <td class="product-remove">
+                                            <a href="#" class="noTextDecoration remove" aria-label="Remove this item" data-product_id="364" data-product_sku="">×</a>          
+                                        </td>
+
+                                        <td class="product-thumbnail">
+                                            <a href="#"><img width="300" height="300" src="data:image/jpeg;base64,${cartItem.stringImage}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="Product Image"></a>          
+                                        </td>
+
+                                        <td class="product-name" data-title="Product">
+                                            <a href="#">${cartItem.name}</a>          
+                                        </td>
+
+                                        <td class="product-price" idata-title="Price">
+                                            <span class="woocommerce-Price-amount amount" >${cartItem.price}<span class="woocommerce-Price-currencySymbol">EGP</span></span>          
+                                        </td>
+
+                                        <td class="product-quantity" data-title="Quantity">
+                                            <div class="quantity buttons_added">
+                                                <input type="button"  id = "decreaseBtn" onclick="getTotalAmount()" value="-" class="minus button is-form">    
+                                                <input type="number" id ="${cartItem.id}"   class="input-text qty text" step="1" min="0" max="10" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric">
+                                                <input type="button" id = "inecreaseBtn" onclick = "getTotalAmount(${cartItem.id},${cartItem.price})" value="+" class="plus button is-form">  
+                                            </div>
+                                        </td>
+
+                                        <td class="product-subtotal" data-title="Total">
+                                            <span   id="${cartItem.id}${"d"}" class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">EGP</span></span>            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" class="actions clear">
+
+                                            <div class="continue-shopping pull-left text-left">
+                                                <a class="button-continue-shopping button primary is-outline noTextDecoration mainColor" href="<%=request.getContextPath()%>">
+                                                    Continue shopping    
+                                                </a>
+                                            </div>
+                                            <input
+                                                <input type="submit" class="button primary mt-0 pull-left small" onclick="updateCart(${cartItem.id})" name="update_cart" value="Update cart">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </c:forEach>
+
                     </div>
-                    <div class="col-md-3">
-                        <div class="columnThirdtest">
-                            <div class="list-group">
+                    <!-- /.col-lg-9 -->
+
+                    <div class="columnThird">
+                        <div class="list-group">
+                            <form action="checkout.jsp">
                                 <a class="list-group-item">Order Summary</a>
                                 <div class="list-group-item">
                                     <h4>1 x item</h4>
@@ -59,11 +109,12 @@
                                     <hr>
                                     <h3>Total</h3>
                                 </div>
-                                <a href="checkout.jsp" class="list-group-item">Proceed to checkout</a>
-                            </div>
-
+                                <button type="submit" class="submit-button list-group-item">Proceed to checkout</button>
+                            </form>
                         </div>
                     </div>
+                    <!-- /.col-lg-3 -->
+
                 </div>
                 <!-- /.row -->
 
@@ -80,6 +131,19 @@
         <script> document.getElementById("cart").classList.add("active");</script>
         <script src="resources/vendor/jquery/jquery.min.js"></script>
         <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script>
+            function getTotalAmount(id, m) {
+                var amountValue = document.getElementById(id);
+                var oo = id + "d";
+                document.getElementById(oo).innerText = parseInt(amountValue.value) * parseInt(m) + "EGP";
+            }
+            function updateCart(id)
+            {
+                var amountValue = document.getElementById(id).value;
+
+                document.location.href = "/dokan/UserCart?productId=" + id + "&itemNumber=" + amountValue;
+            }
+        </script>
 
     </body>
 

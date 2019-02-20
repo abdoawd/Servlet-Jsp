@@ -8,11 +8,7 @@ package user;
 import beans.Product;
 import db.ProductDao;
 import db.UsersDao;
-import java.awt.Image;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,7 +38,6 @@ public class ProductDetails extends HttpServlet {
         int id = Integer.valueOf(req.getParameter("product_id"));
         System.out.println("product id = " + id);
         RequestDispatcher dispatcher = req.getRequestDispatcher("pages/product.jsp");
-
 
         product = productDao.getProductById(id);
                 System.out.println("product name = " + product.getName());
