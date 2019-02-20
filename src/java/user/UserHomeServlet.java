@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import utility.Constants;
 
 public class UserHomeServlet extends HttpServlet {
 
@@ -64,7 +65,7 @@ public class UserHomeServlet extends HttpServlet {
 
         List<ProductCategory> categories = handler.getProductCategories();
         int userId = 1;
-        List<Product> products = handler.getAllProducts(0);
+        List<Product> products = handler.getAllProducts(Constants.SELECT_ACTIVE);
         List<Product> interestsProducts = handler.getInterstsProduct(userId);
 
         System.out.println("product size = " + products.size());

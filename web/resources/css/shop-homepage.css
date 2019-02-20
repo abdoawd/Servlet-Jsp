@@ -13,8 +13,8 @@ body {
 
 /* Setting margin for top and bottom */
 .containerSpacing{
-    margin-top: 2%;
-    margin-bottom: 2%;
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 .divHeader{
@@ -74,4 +74,25 @@ body {
 .submit-button-half{
     width: 50%;
     margin: 10px auto;
+}
+
+.mainColor{
+    background-color: #212529;
+}
+
+/* Set a style for all buttons */
+button, .submit-button {
+    background-color: #01395C;
+    color: white;
+    padding: 8px 16px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+    text-decoration: none;
+}
+
+button:hover, .submit-button:hover {
+    opacity:1;
 }

@@ -32,7 +32,7 @@ public class DeleteProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        List<Product> productsList = handler.getAllProducts(0);
+        List<Product> productsList = handler.getAllProducts(Constants.SELECT_ACTIVE);
         request.setAttribute("productsList", productsList);
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("deleteProduct.jsp");
@@ -44,10 +44,10 @@ public class DeleteProductServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             String productId = request.getParameter("productId");
-            boolean isProductDeleted = handler.deleteMethod(productId, Constants.PRODUCT_TABLE_NAME);
+            boolean isProductDeleted = handler.deleteProductTemporarily(productId);
             request.setAttribute("isProductDeleted", isProductDeleted);
             
-            List<Product> productsList = handler.getAllProducts(0);
+            List<Product> productsList = handler.getAllProducts(Constants.SELECT_ACTIVE);
             request.setAttribute("productsList", productsList);
             
             RequestDispatcher dispatcher = request.getRequestDispatcher("deleteProduct.jsp");
