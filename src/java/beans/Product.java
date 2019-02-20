@@ -13,13 +13,30 @@ public class Product implements ListModelInterface {
     private String quantity;
     private String imgPath;
     private String categoryId;
+    private String categoryName;
     private int discount;
     private Image image;
+    private String stringImage;
 
-  
+    public String getCategoryName() {
+        return categoryName;
+    }
 
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+
+    public String getStringImage() {
+        return stringImage;
+    }
+
+    public void setStringImage(String stringImage) {
+        this.stringImage = stringImage;
+    }
     public void setImage(Image image) {
         this.image = image;
+        System.out.println("");
     }
 
     public Image getImage() {

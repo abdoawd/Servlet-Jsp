@@ -1,6 +1,10 @@
 package beans;
 
+import java.util.Date;
+
 public class User  implements ListModelInterface{
+
+ 
 
     /*user_id	fanme 	last name	role	email
             password	job	birthday	credit_limit*/
@@ -11,8 +15,9 @@ public class User  implements ListModelInterface{
     private String email;
     private String password;
     private String job;
-    private String /*date not sure */ birthday;
+    private Date /*date not sure */ birthday;
     private double creditlimits;
+   
 
     public User() {
     }
@@ -22,7 +27,7 @@ public class User  implements ListModelInterface{
         this.lastName = lastName;
     }
 
-    public User(String id, String firstName, String lastName, String email,String password, String job,String birthday, double creditlimits) {
+    public User(String id, String firstName, String lastName, String email,String password, String job,Date birthday, double creditlimits) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -90,11 +95,11 @@ public class User  implements ListModelInterface{
         this.job = job;
     }
 
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 

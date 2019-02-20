@@ -6,10 +6,8 @@
 package admin;
 
 import beans.Product;
-import beans.ProductCategory;
 import db.ProductDao;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +32,7 @@ public class DeleteProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        List<Product> productsList = handler.getAllProducts();
+        List<Product> productsList = handler.getAllProducts(0);
         request.setAttribute("productsList", productsList);
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("deleteProduct.jsp");
@@ -49,7 +47,7 @@ public class DeleteProductServlet extends HttpServlet {
             boolean isProductDeleted = handler.deleteMethod(productId, Constants.PRODUCT_TABLE_NAME);
             request.setAttribute("isProductDeleted", isProductDeleted);
             
-            List<Product> productsList = handler.getAllProducts();
+            List<Product> productsList = handler.getAllProducts(0);
             request.setAttribute("productsList", productsList);
             
             RequestDispatcher dispatcher = request.getRequestDispatcher("deleteProduct.jsp");

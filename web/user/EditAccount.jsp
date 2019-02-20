@@ -4,6 +4,8 @@
     Author     : Nesmaa iTi
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
@@ -56,13 +58,13 @@
                         <div class="card-body">
 
 
-                            <form action='<%=request.getContextPath()%>/admin/addProduct' method='post' enctype="multipart/form-data" class="my-modal-content">
+                            <form action='<%=request.getContextPath()%>//EditAccount' method='post' enctype="multipart/form-data" class="my-modal-content">
                                 <!-- Left Column - .col-lg-9 -->
                                 <div class="columnTwoThird" style="max-width:90%;">
                                     <div class="container">
                                         <div class="centeredDiv">
                                             <label><b>First Name</b></label>
-                                            <input type="text"  name="firstName" value="${user.firstName}">
+                                            <input type="text"  name="firstName" value="${user.firstName} ">
                                         </div>
 
                                         <div class="centeredDiv centeredDiv2">
@@ -72,7 +74,7 @@
 
                                         <div class="centeredDiv">
                                             <label><b>Email</b></label>
-                                            <input type="email"   name="email" value="${user.email}">
+                                            <input type="email"   name="email" value="${user.email} ">
                                         </div>
 
                                         <div class="centeredDiv centeredDiv2">
@@ -87,6 +89,12 @@
                                             <label><b>Credit Limit</b></label>
                                             <input type="number" min="0" step=".01"  name="creditlimits" value="${user.creditlimits}">
                                         </div>
+                                        <div>
+                                            <label><b>Birthday</b></label>
+                                            <c:set var="birthday" value="${user.birthday}" />
+                                            <fmt:formatDate value="${birthday}" var="dateObject" pattern="MM/dd/yyyy" />
+                                            <input type="date"  name="birthday" value="${user.birthday}"pattern="MM/dd/yyyy"/>
+                                        </div>
 
                                         <div>
                                             <label><b>Address</b></label>
@@ -95,10 +103,20 @@
                                             <span><input type="text" value="country"/></span>
                                         </div>
 
-                                        <div class="centeredDiv centeredDiv2">
-                                            <label><b>Profile Image</b></label>
-                                            <input type="file" name="profileImage" size="5" accept="image/*" >
-                                        </div>
+                                       <div class="centeredDiv centeredDiv2">
+                                            <label style="display: block;"><b>Profile Image</b></label>
+                                            <img id="productImageDisplay" hidden="true" src="#"/>
+                                            <input type="file" onchange="loadFile(event)" name="profileImage" size="5" accept="image/*" required>
+                                            <!-- To change the profile image based on the uploaded image -->
+                                            <script>
+                                                var loadFile = function (event) {
+                                                    var output = document.getElementById('productImageDisplay');
+                                                    output.height = 50;
+                                                    output.hidden = false; 
+                                                    output.src = URL.createObjectURL(event.target.files[0]);
+                                                    
+                                                };
+                                            </script>
 
                                         
                                     </div>
