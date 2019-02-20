@@ -70,14 +70,15 @@
 
                                         <td class="product-quantity" data-title="Quantity">
                                             <div class="quantity buttons_added">
-                                                <input type="button"  id = "decreaseBtn" onclick="getTotalAmount()" value="-" class="minus button is-form">    
-                                                <input type="number" id ="${cartItem.id}"   class="input-text qty text" step="1" min="0" max="10" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric">
-                                                <input type="button" id = "inecreaseBtn" onclick = "getTotalAmount(${cartItem.id},${cartItem.price})" value="+" class="plus button is-form">  
+                                                <input type="button"  id = "decreaseBtn" onclick="getTotalAmount(${cartItem.id},${cartItem.price}, 'sub',${cartItem.getQuantity()})" value="-" class="minus button is-form">    
+                                                <input type="number" id ="${cartItem.id}"   class="input-text qty text" step="1" min="1" max="10" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric">
+                                                <input type="button" id = "inecreaseBtn" onclick = "getTotalAmount(${cartItem.id},${cartItem.price}, 'add',${cartItem.getQuantity()})" value="+" class="plus button is-form">  
                                             </div>
+                                                <div><p><span>Total Quantity </span>${cartItem.getQuantity()}</p></div>
                                         </td>
 
                                         <td class="product-subtotal" data-title="Total">
-                                            <span   id="${cartItem.id}${"d"}" class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">EGP</span></span>            
+                                            <span   id="${cartItem.id}${"d"}" class="woocommerce-Price-amount amount">${cartItem.price}<span class="woocommerce-Price-currencySymbol">EGP</span></span>            
                                         </td>
                                     </tr>
                                     <tr>
@@ -131,15 +132,18 @@
         <script src="resources/vendor/jquery/jquery.min.js"></script>
         <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script>
-            function getTotalAmount(id, m) {
+            function getTotalAmount(id, m, type,totalQuntity) {
                 var amountValue = document.getElementById(id);
                 var oo = id + "d";
-                document.getElementById(oo).innerText = parseInt(amountValue.value) * parseInt(m) + "EGP";
+                if ((type === 'sub') && (amountValue.value > 1))
+                    document.getElementById(oo).innerText = parseInt(--amountValue.value) * parseInt(m) + "EGP";
+                else if ((type === 'add') && amountValue.value =< totalQuntity){
+                    document.getElementById(oo).innerText = parseInt(++amountValue.value) * parseInt(m) + "EGP";
+                }
             }
             function updateCart(id)
             {
                 var amountValue = document.getElementById(id).value;
-
                 document.location.href = "/dokan/UserCart?productId=" + id + "&itemNumber=" + amountValue;
             }
         </script>

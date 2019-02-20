@@ -81,7 +81,7 @@ public class UserCartDAO {
         List<Product> list = new ArrayList<Product>();
         Product product = null;
         try {
-            PreparedStatement ps = connection.prepareStatement("select MY_PRODUCT.PRODUCT_ID,MY_PRODUCT.IMAGE,MY_PRODUCT.DESCRIPTION,MY_PRODUCT.PRICE,MY_PRODUCT.PRODUCT_NAME from STOREUSERS.PRODUCT MY_PRODUCT,STOREUSERS.SHOPPING_CART CART where user_id = " + userId + " and MY_PRODUCT.PRODUCT_ID = CART.product_id");
+            PreparedStatement ps = connection.prepareStatement("select MY_PRODUCT.PRODUCT_ID,MY_PRODUCT.QUANTITY,MY_PRODUCT.IMAGE,MY_PRODUCT.DESCRIPTION,MY_PRODUCT.PRICE,MY_PRODUCT.PRODUCT_NAME from STOREUSERS.PRODUCT MY_PRODUCT,STOREUSERS.SHOPPING_CART CART where user_id = " + userId + " and MY_PRODUCT.PRODUCT_ID = CART.product_id");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 product = new Product();
@@ -96,6 +96,7 @@ public class UserCartDAO {
                 String base64Encoded = new String(encodeBase64, "UTF-8");
                 output.close();
                 product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
                 product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
                 product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
                 product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
@@ -113,11 +114,11 @@ public class UserCartDAO {
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         try {
-            String selectStatment = "select * from " + Constants.SHOPPING_CART_TABLE_NAME 
-                    + " where " + Constants.COLUMN_USER_ID +
-                    " = " + userId + " and "
-                    + Constants.COLUMN_PRODUCT_ID +
-                    " = " + productId;
+            String selectStatment = "select * from " + Constants.SHOPPING_CART_TABLE_NAME
+                    + " where " + Constants.COLUMN_USER_ID
+                    + " = " + userId + " and "
+                    + Constants.COLUMN_PRODUCT_ID
+                    + " = " + productId;
             preparedStatement = connection.prepareStatement(selectStatment);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {

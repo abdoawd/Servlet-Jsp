@@ -41,7 +41,6 @@ public class UserCart extends HttpServlet {
             int itemNumber = Integer.valueOf(req.getParameter("itemNumber"));
             System.out.println("item number " + itemNumber);
             userCartDAO.updateToCartQuery(userId, updateProductId, itemNumber);
-
         } else {
             int productId = Integer.valueOf(req.getParameter("product_id"));
             System.out.println("product id " + productId);
@@ -53,7 +52,8 @@ public class UserCart extends HttpServlet {
 
         }
         System.out.println("user id  in cart" + userId);
-        System.out.println("size "+ products.size());  
+        System.out.println("size " + products.size());
+        System.out.println("ounitity " + products.get(0).getQuantity());
         req.setAttribute("userCartProducts", products);
         req.getRequestDispatcher("cart.jsp").include(req, resp);
     }
