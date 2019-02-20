@@ -30,25 +30,41 @@
 
                     <div class="centeredDiv centeredDiv2">
                         <label for="lastName"><b>Last Name</b></label>
-                        <input type="text" placeholder="Enter Your Last Name" name="lastName" required>
+                        <input type="text" placeholder="Enter Your Last Name" name="lastName" pattern="(?=.*[A-Z](?=.*[a-z]){3,})" required>
                     </div>
 
                     <label for="email"><b>E-Mail</b></label>
                     <input type="text" placeholder="Enter your email" name="email" id="userEmail" required>
 
-                    <label for="jop"><b> JOP </b></label>
-                    <input type="text" placeholder="Enter your jop " name="jop" required>
+                    <label for="jop"><b> JOb </b></label>
+                    <input type="text" placeholder="Enter your job " name="jop" required>
 
                     <label for="password"><b>Password</b></label>
                     <input type="password" placeholder="Enter Your Password" name="password"pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="userPassword" required>
 
                     <label for="password2"><b>Confirm Password</b></label>
                     <input type="password" placeholder="Re-Enter Your Password" name="confirmPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="conPassword"required>
+                     
+                    <label><b>Credit Limit</b></label>
+                    <input type="number" min="0" step=".01"  name="creditlimits" value="${user.creditlimits}">
+                   <label><b>Birthday</b></label>         
+                                        
+                   <input type="date"  name="birthday" pattern="MM/dd/yyyy" required/>
+                   
+                      
+                   <label><b>Address</b></label>
+                   <span style="width:30%;"><input type="text" value="street"/></span>  
+                   <span style="width:30%;"><input type="text" value="city"/></span>
+                  <span style="width:30%;"><input type="text" value="country"/></span>
+                                       
 
+                    
+                    
                     <div class="clearfix">
                         <button type="submit" onclick="validate()"  class="signupbtn">Sign up</button>
                     </div>
                     <div class="wrongText" id="wrongText">Wrong Data</div>
+                    
                 </div>
             </form>
         </div>

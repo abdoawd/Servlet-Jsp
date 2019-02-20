@@ -7,6 +7,7 @@ package admin;
 
 import beans.Product;
 import beans.ProductCategory;
+import db.CategoryDao;
 import db.ProductDao;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import utility.Constants;
 
 /**
  *
@@ -28,22 +30,23 @@ import javax.servlet.http.Part;
 public class EditProductServlet extends HttpServlet {
 
     ProductDao handler = new ProductDao();
+    CategoryDao handlerCategory = new CategoryDao();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String productId = request.getParameter("productIdInput");
         if (productId == null) {
-            List<Product> productsList = handler.getAllProducts(0);
+            List<Product> productsList = handler.getAllProducts(Constants.SELECT_ACTIVE);
             request.setAttribute("productsList", productsList);
         } else {
             List<Product> productsList = handler.getAllProducts(Integer.parseInt(productId));
             Product selectedProduct = productsList.get(0);
 
-            List<Product> productsListAll = handler.getAllProducts(0);
+            List<Product> productsListAll = handler.getAllProducts(Constants.SELECT_ACTIVE);
             request.setAttribute("productsList", productsListAll);
 
-            List<ProductCategory> productCategotyList = handler.getProductCategories();
+            List<ProductCategory> productCategotyList = handlerCategory.getProductCategories();
             request.setAttribute("productCategotyList", productCategotyList);
             request.setAttribute("selectedProduct", selectedProduct);
         }

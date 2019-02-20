@@ -114,45 +114,60 @@
                 transition: all 0.5s;
                 cursor: pointer;
             }
-
+            .myButtonClass{
+                background-color: #4CAF50; 
+                border: 3px;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                border-radius: 12px;
+            }
+            .inputTypeNumber{
+                height: 30px;
+                margin-top: 15px;
+                display: inline-block;
+                margin-bottom: 20px;
+            }
         </style>
 
         <!-- Page Content -->
         <div class="container containerSpacing row ">
             <div class="container containerSpacing row ">
                 <div class="col-md-3">
-                    <c:forEach var="category" items="${categories}">                                                
-                        <div class="sidebar navbar-nav" >
-                            <div class="nav-item active">
-                                <div class="nav-link">
-                                    <h4 class="card-title">
-                                        <a href="#">${category.getName()}</a>
-                                    </h4>
+                    <c:forEach var="category" items="${categories}">    
+                        <c:url var="category_selected" value="/UserHomeServlet">
+                            <c:param name="category_id" value="${category.id}"/>
+                        </c:url>
+                        <a href="${category_selected}">
+                            <div class="sidebar navbar-nav" >
+                                <div class="nav-item active">
+                                    <div class="nav-link">
+                                        <h4 class="card-title">
+                                            ${category.getName()}
+                                        </h4>
+                                    </div>
+
                                 </div>
 
                             </div>
-                        </div>
+                        </a>    
+
                     </c:forEach>
+                    <div>
+
+                    <input type="number" id="start_salary" class="inputTypeNumber"  min="0" max="84999" value="">
+                    <input type="number"id="end_salry" 
+                           class="inputTypeNumber" min="2241" value="85000">
+
+                    <button type="button" class="myButtonClass" onc  data-type="Price" onclick="searchByPrice()" >
+                        Search
+                    </button>
+                    </div>
                 </div>
             </div>
-
-            <div class="col-md-1">
-                <label><small>From (EGP)</small>
-                    <div class="quantity">
-                        <input type="number"  min="0" max="84999" value="">
-                    </div>
-                </label>
-                <label><small>To (EGP)</small>
-                    <div class="quantity">
-                        <input type="number" min="2241" value="85000">
-                    </div>
-                </label>
-                <button type="button" class="searchByName"  data-type="Price" onclick="searchByPrice()">
-                    Apply
-                </button>
-            </div>
-
-
 
             <div class=" row col-md-8">
                 <c:forEach var="product" items="${products}">   
@@ -163,7 +178,7 @@
 
 
                         <div class="asds card h-100" id="45" >
-                            <a href="#"><img class="card-img-top" id="45" src="data:image/jpeg;base64,${product.stringImage}" alt=""></a>
+                            <img class="card-img-top" id="45" src="data:image/jpeg;base64,${product.stringImage}" alt=""></a>
 
                             <a href="${product_details}"> 
 
@@ -183,9 +198,6 @@
             </div>
 
         </div>
-
-
-
         <div class="row">
 
             <div class="col-lg-9">
@@ -198,16 +210,15 @@
                 <script src="resources/vendor/jquery/jquery.min.js"></script>
                 <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
                 <script>
-                    var arr = document.getElementsByClassName('asds');
-                    for (var i = 0; i < arr.length; i++) {
-                        arr[i].addEventListener("click", function (e) {
-                            console.log(e.target);
-                        });
+                    function  searchByPrice()
+                    {
+                        if (document.getElementById("start_salary").value !== null ||
+                                document.getElementById("end_salry").value !== null)
+                            document.location.href = "/dokan/UserHomeServlet?start_salry="
+                                    + document.getElementById("start_salary").value + "&end_salary="
+                                    + document.getElementById("end_salry").value;
+                        alert("apply")
                     }
-                    //            function getProductDetails(e)
-                    //            {
-                    //                console.log(e);
-                    //            }
 
                 </script>
 
