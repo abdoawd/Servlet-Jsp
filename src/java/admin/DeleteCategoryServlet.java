@@ -5,10 +5,11 @@
  */
 package admin;
 
+import beans.ProductCategory;
 import db.CategoryDao;
-import db.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,15 +21,20 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author A7med
  */
-@WebServlet(name = "addCategory", urlPatterns = {"/admin/addCategory"})
-public class addCategory extends HttpServlet {
+@WebServlet(name = "DeleteCategoryServlet", urlPatterns = {"/admin/deleteCategory"})
+public class DeleteCategoryServlet extends HttpServlet {
     
     CategoryDao handlerCategory = new CategoryDao();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("addCategory.jsp");
+        
+        List<ProductCategory> categoryList = handlerCategory.getProductCategories();
+        request.setAttribute("categoryList", categoryList);
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("deleteCategory.jsp");
         dispatcher.forward(request, response);
+        
     }
 
     @Override
@@ -40,10 +46,11 @@ public class addCategory extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String categoryName = request.getParameter("categoryName");
-        int isCategoryAdded = handlerCategory.addCategory(categoryName);
-        request.setAttribute("isCategoryAdded", isCategoryAdded);
         
+        int categoryIdInput = Integer.parseInt(request.getParameter("categoryIdInput"));
+        int isCategoryDeleted = handlerCategory.deleteCategory(categoryIdInput);
+        
+        request.setAttribute("isCategoryDeleted", isCategoryDeleted);
         processRequest(request, response);
     }
 }

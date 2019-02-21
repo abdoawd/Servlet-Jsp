@@ -13,15 +13,10 @@ public class User  implements ListModelInterface{
     private String job;
     private String /*date not sure */ birthday;
     private double creditlimits;
-
-    public User() {
-    }
-
-    public User(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
+    private String street;
+    private String city;
+    private String country;
+    
     public User(String id, String firstName, String lastName, String email,String password, String job,String birthday, double creditlimits) {
         this.id = id;
         this.firstName = firstName;
@@ -33,6 +28,40 @@ public class User  implements ListModelInterface{
         
         this.creditlimits = creditlimits;
     }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public User() {
+    }
+
+    public User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    
 
     public String getId() {
         return id;

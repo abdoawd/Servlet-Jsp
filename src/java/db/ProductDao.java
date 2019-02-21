@@ -304,14 +304,14 @@ public class ProductDao implements DbInterface {
 
             pst = connection.prepareStatement("UPDATE " + Constants.PRODUCT_TABLE_NAME
                     + " SET "
-                    + Constants.COLUMN_PRODUCT_NAME + " = '" + productName + "',"
-                    + Constants.COLUMN_PRODUCT_DESCRIPTION + " = '" + productDescription + "',"
-                    + Constants.COLUMN_PRODUCT_PRICE + " = '" + productPrice + "',"
-                    + Constants.COLUMN_PRODUCT_QUANTITY + " = '" + productQuantity + "',"
-                    + Constants.COLUMN_PRODUCT_IMAGE + " = '" + picInputStream + "',"
-                    + Constants.COLUMN_PRODUCT_CATEGORY_ID + " = '" + productCategory + "',"
-                    + Constants.COLUMN_PRODUCT_DISCOUNT + " = '" + productDiscount + "' WHERE "
-                    + Constants.COLUMN_PRODUCT_ID + " = '" + productId + "'");
+                    + Constants.COLUMN_PRODUCT_NAME + " = ?,"
+                    + Constants.COLUMN_PRODUCT_DESCRIPTION + " = ?,"
+                    + Constants.COLUMN_PRODUCT_PRICE + " = ?,"
+                    + Constants.COLUMN_PRODUCT_QUANTITY + " = ?,"
+                    + Constants.COLUMN_PRODUCT_IMAGE + " = ?,"
+                    + Constants.COLUMN_PRODUCT_CATEGORY_ID + " = ?,"
+                    + Constants.COLUMN_PRODUCT_DISCOUNT + " = ? WHERE "
+                    + Constants.COLUMN_PRODUCT_ID + " = ?");
 //            pst.setString(1, productName);
 //            pst.setString(2, productDescription);
 //            pst.setString(3, productPrice);

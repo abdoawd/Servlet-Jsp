@@ -67,9 +67,9 @@
 
                                     <td class="product-quantity" data-title="Quantity">
                                         <div class="quantity buttons_added">
-                                            <input type="button" value="-" class="minus button is-form">    
+                                            <input type="button" value="-" class="minus button is-form" style="margin-right: 0px;">    
                                             <input type="number" class="input-text qty text" step="1" min="0" max="10" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric">
-                                            <input type="button" value="+" class="plus button is-form">  
+                                            <input type="button" value="+" class="plus button is-form" style="margin-right: 0px;">  
                                         </div>
                                     </td>
 

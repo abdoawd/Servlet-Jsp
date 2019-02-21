@@ -97,4 +97,8 @@ public class Constants {
     public static final int ERROR_FAILED = 0;
     public static final int ERROR_ALREADY_EXIST = -1;
     public static final int ERROR_SUCCESS = 1;
+    
+    // Undefined Category
+    public static final String UNDEFINED_CATEGORY = "Undefined";
+    public static final int UNDEFINED_CATEGORY_ID = 0;
 }
