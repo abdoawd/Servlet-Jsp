@@ -14,6 +14,10 @@ public class Product implements ListModelInterface {
     private String imgPath;
     private String categoryId;
     private String categoryName;
+    private int discount;
+
+    private Image image;
+    private String stringImage;
 
     public String getCategoryName() {
         return categoryName;
@@ -22,10 +26,7 @@ public class Product implements ListModelInterface {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
-    
-    private int discount;
-    private Image image;
-    private String stringImage;
+
 
     public String getStringImage() {
         return stringImage;

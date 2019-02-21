@@ -24,15 +24,16 @@ public class CategoryDao implements DbInterface {
     Connection connection;
     HandlerConnection handlerConnection;
 
+    public CategoryDao() {
+        handlerConnection = new HandlerConnection();
+        connection = handlerConnection.establishConnection();
+    }
+
     @Override
     public long getSequence(String sequenceName) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public CategoryDao() {
-        handlerConnection = new HandlerConnection();
-        connection = handlerConnection.establishConnection();
-    }
 
     public int addCategory(String categoryName) {
         PreparedStatement pst;
@@ -99,6 +100,10 @@ public class CategoryDao implements DbInterface {
     }
 
     public int deleteCategory(int categoryIdInput) {
+        if (categoryIdInput == Constants.UNDEFINED_CATEGORY_ID){
+            return Constants.ERROR_FAILED;
+        }
+        
         // 1. Check if the "Undefined" category exist
         PreparedStatement pst;
         try {
@@ -130,22 +135,22 @@ public class CategoryDao implements DbInterface {
 
             // 2. if has products, link them to undefined category
             Statement s = connection.createStatement();
-            String s1 = "UPDATE "+Constants.PRODUCT_TABLE_NAME+" SET "+Constants.COLUMN_CATEGORY_ID+" = "+
-                    Constants.UNDEFINED_CATEGORY_ID+" WHERE "+Constants.COLUMN_CATEGORY_ID+" = " + categoryIdInput;
-            
+            String s1 = "UPDATE " + Constants.PRODUCT_TABLE_NAME + " SET " + Constants.COLUMN_CATEGORY_ID + " = "
+                    + Constants.UNDEFINED_CATEGORY_ID + " WHERE " + Constants.COLUMN_CATEGORY_ID + " = " + categoryIdInput;
+
             // 3. Delete interests with the same product id
-            String s2 = "DELETE FROM "+Constants.INTERESTS_TABLE_NAME+" WHERE "+
-                    Constants.COLUMN_CATEGORY_ID+" = " + categoryIdInput;
-            
+            String s2 = "DELETE FROM " + Constants.INTERESTS_TABLE_NAME + " WHERE "
+                    + Constants.COLUMN_CATEGORY_ID + " = " + categoryIdInput;
+
             // 4. delete the category
-            String s3 = "DELETE FROM "+Constants.CATEGORY_TABLE_NAME+" WHERE "+
-                    Constants.COLUMN_CATEGORY_ID+" = " + categoryIdInput;
-            
+            String s3 = "DELETE FROM " + Constants.CATEGORY_TABLE_NAME + " WHERE "
+                    + Constants.COLUMN_CATEGORY_ID + " = " + categoryIdInput;
+
             s.addBatch(s1);
             s.addBatch(s2);
             s.addBatch(s3);
             int[] k = s.executeBatch();
-            if (k.length == 3){
+            if (k.length == 3) {
                 return Constants.ERROR_SUCCESS;
             }
             connection.commit();
@@ -154,7 +159,5 @@ public class CategoryDao implements DbInterface {
             return Constants.ERROR_FAILED;
         }
         return Constants.ERROR_FAILED;
-
     }
-
 }

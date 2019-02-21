@@ -3,6 +3,7 @@ package db;
 import beans.Product;
 import beans.ProductCategory;
 import beans.User;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,8 +35,20 @@ public class UsersDao implements DbInterface {
 
             rs = ps.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getDouble(9));
-
+                user = new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(5),
+                        rs.getString(6), rs.getString(7), rs.getDate(8), rs.getDouble(9));
+                /*    public User(String id, String firstName, String lastName, String email,
+            String password, String job,String birthday, double creditlimits)*/
+//                user = new User();
+//                user.setId(rs.getString(Constants.COLUMN_USER_ID));
+//                user.setFirstName(rs.getString(Constants.COLUMN_USER_FIRST_NAME));
+//
+//                user.setLastName(rs.getString(Constants.COLUMN_USER_LAST_NAME));
+//                user.setRole(rs.getString(Constants.COLUMN_USER_ROLE));
+//                user.setEmail(rs.getString(Constants.COLUMN_USER_EMAIL));
+//                user.setPassword(rs.getString(Constants.COLUMN_USER_PASSWORD));
+//                user.setJob(rs.getString(Constants.COLUMN_USER_JOP));
+//                user.setCreditlimits(rs.getDouble(Constants.COLUMN_USER_CREDIT_LIMIT));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -117,14 +130,16 @@ public class UsersDao implements DbInterface {
                     + " ORDER BY " + Constants.COLUMN_USER_ID + " ASC");
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                User user = new User(rs.getString(Constants.COLUMN_USER_ID),
-                        rs.getString(Constants.COLUMN_USER_FIRST_NAME),
-                        rs.getString(Constants.COLUMN_USER_LAST_NAME),
-                        rs.getString(Constants.COLUMN_USER_EMAIL),
-                        rs.getString(Constants.COLUMN_USER_PASSWORD),
-                        rs.getString(Constants.COLUMN_USER_JOP),
-                        rs.getString(Constants.COLUMN_USER_BIRTHDAY),
-                        rs.getDouble(Constants.COLUMN_USER_CREDIT_LIMIT));
+                User user = new User();
+                user.setId(rs.getString(Constants.COLUMN_USER_ID));
+                user.setFirstName(rs.getString(Constants.COLUMN_USER_FIRST_NAME));
+
+                user.setLastName(rs.getString(Constants.COLUMN_USER_LAST_NAME));
+                user.setRole(rs.getString(Constants.COLUMN_USER_ROLE));
+                user.setEmail(rs.getString(Constants.COLUMN_USER_EMAIL));
+                user.setPassword(rs.getString(Constants.COLUMN_USER_PASSWORD));
+                user.setJob(rs.getString(Constants.COLUMN_USER_JOP));
+                user.setCreditlimits(rs.getDouble(Constants.COLUMN_USER_CREDIT_LIMIT));
                 usersList.add(user);
             }
             pst.close();
@@ -149,7 +164,7 @@ public class UsersDao implements DbInterface {
                 user.setEmail(rs.getString(Constants.COLUMN_USER_EMAIL));
                 user.setPassword(rs.getString(Constants.COLUMN_USER_PASSWORD));
                 user.setJob(rs.getString(Constants.COLUMN_USER_JOP));
-                user.setBirthday(rs.getString(Constants.COLUMN_USER_BIRTHDAY));
+                user.setBirthday(rs.getDate(Constants.COLUMN_USER_BIRTHDAY));
                 user.setCreditlimits(rs.getDouble(Constants.COLUMN_USER_CREDIT_LIMIT));
                 user.setStreet(rs.getString(Constants.COLUMN_ADDRESSES_STREET));
                 user.setCity(rs.getString(Constants.COLUMN_ADDRESSES_CITY));
@@ -161,6 +176,44 @@ public class UsersDao implements DbInterface {
         }
         return user;
 
+    }    
+    
+    public User updateUserData(User user,InputStream picInputStream){
+        
+            PreparedStatement pst;
+        try {
+            pst = connection.prepareStatement("update " + Constants.USER_TABLE_NAME
+                    + " set "
+                    
+                    + Constants.COLUMN_USER_FIRST_NAME + "= ? ,"
+                    + Constants.COLUMN_USER_LAST_NAME + "= ? ,"
+                    + Constants.COLUMN_USER_ROLE + "= ? ,"
+                    + Constants.COLUMN_USER_EMAIL + "= ? ,"
+                    + Constants.COLUMN_USER_PASSWORD + "= ? ,"
+                    + Constants.COLUMN_USER_IMAGE + " = ? ,"
+                    + Constants.COLUMN_USER_JOP + "= ? where "
+                    + Constants.COLUMN_USER_ID + "= ? "
+                           );
+            pst.setString(1, user.getFirstName());
+              pst.setInt(8,Integer.parseInt(user.getId()) );
+            
+            pst.setString(2, user.getLastName());
+            pst.setString(3, user.getRole());
+            pst.setString(4, user.getEmail());
+            pst.setString(5, user.getPassword());
+            pst.setBlob(6,picInputStream);
+            pst.setString(7, user.getJob());
+            
+            int i = pst.executeUpdate();
+            if (i != 0) {
+               return user;
+            }
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
+        
+    return null;
     }
-
 }

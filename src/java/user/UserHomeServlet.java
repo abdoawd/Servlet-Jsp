@@ -21,23 +21,51 @@ public class UserHomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // handker to get  categories 
-        // handler  ti get intersts user product 
 
         String searchWord = request.getParameter("search");
-        System.out.println("search word = " + searchWord);
-        List<Product> products = handler.getProductByName(searchWord);
-        List<ProductCategory> categories = handlerCategory.getProductCategories();
+        String category = request.getParameter("category_id");
+        String startPrice = request.getParameter("start_salary");
+        String endPrice = request.getParameter("end_salry");
+
+        int category_id;
+
+        List<Product> products = null;
+        List<ProductCategory> categories = null;
+        if (searchWord != null) {
+//            products = handler.getProductByName(searchWord);
+            products = handler.getProductByName(searchWord);
+            System.out.println("products size =" + products.size());
+            System.out.println("products size = ");
+        } else if (category != null) {
+            category_id = Integer.parseInt(category);
+
+            products = handler.getProductsByCategoryId(category_id);
+
+        } else if (endPrice != null && startPrice != null) {
+//             category_id = Integer.parseInt(category);
+
+//            int startPriceInt = Integer.parseInt(startPrice);
+//            int endPriceInt = Integer.parseInt(endPrice);
+            products = handler.getProductsByNmaeAndPrice(1, "as", 10, 100);
+            System.out.println("products size = " + products.size());
+
+        } else {
+            products = handler.getAllProducts(-1);
+
+        }
+
+   
+         categories = handlerCategory.getProductCategories();
 
         request.setAttribute("products", products);
         request.setAttribute("categories", categories);
-        System.out.println("size of searched ptoducts = " + products.size());
         dispatcher = request.getRequestDispatcher("/user/shop.jsp");
         dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 
 
         List<ProductCategory> categories = handlerCategory.getProductCategories();

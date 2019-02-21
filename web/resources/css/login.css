@@ -4,13 +4,11 @@
     Type       : Custom styles for login.jsp page
 */
 
-* {
-    box-sizing: border-box;
-    font-family: Trebuchet MS, sans-serif;
-}
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
 
 /* Full-width input fields */
-input[type=text], input[type=password], textarea, input[type=number], input[type=email],input[type=date]{
+input[type=text], input[type=password],input[type=email] {
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
@@ -20,7 +18,7 @@ input[type=text], input[type=password], textarea, input[type=number], input[type
 }
 
 /* Add a background color when the inputs get focus */
-input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, input[type=email]:focus,input[type=date]:focus{
+input[type=text]:focus, input[type=password]:focus ,input[type=email]:focus{
     background-color: #ddd;
     outline: none;
 }
@@ -136,46 +134,4 @@ hr {
 
 .centeredDiv2{
     margin-right: 0;
-}
-
-.twoThirdDiv{
-    width: 67%;
-    display: inline-block;
-    margin-right: 2%;
-}
-
-.oneThirdDiv{
-    width: 30%;
-    display: inline-block;
-}
-
-.errorColor{
-    background-color: #ea3535;
-}
-
-.warningColor{
-    background-color: #ff5722;
-}
-
-.center-div{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.oneThirdText{
-    text-align: left; 
-    width: 34%;
-}
-
-.textSuccess{
-    color: #009688;
-}
-
-.textFail{
-    color: #e91e63;
-}
-
-.textWarning{
-    color: #FF9800;
 }

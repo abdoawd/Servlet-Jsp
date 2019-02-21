@@ -1,31 +1,44 @@
 package beans;
 
-public class User  implements ListModelInterface{
+import java.util.Date;
+
+public class User implements ListModelInterface {
 
     /*user_id	fanme 	last name	role	email
             password	job	birthday	credit_limit*/
-    private String id ;
+    private String id;
     private String firstName;
     private String lastName;
     private String role;
     private String email;
     private String password;
     private String job;
-    private String /*date not sure */ birthday;
+    private Date /*date not sure */ birthday;
     private double creditlimits;
     private String street;
     private String city;
-    private String country;
-    
-    public User(String id, String firstName, String lastName, String email,String password, String job,String birthday, double creditlimits) {
+    private String country;    
+
+    public User() {
+    }
+
+    public User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public User(String id, String firstName, String lastName, String email, String password, String job,
+            Date birthday, double creditlimits) {
+        // public User(String id, String firstName, String lastName,String role, String email,
+        //String password, String job,String birthday, double creditlimits) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.role = role;
         this.email = email;
-        this.password=password;
+        this.password = password;
         this.job = job;
-        this.birthday=birthday;
-        
+        this.birthday = birthday;
         this.creditlimits = creditlimits;
     }
 
@@ -52,16 +65,6 @@ public class User  implements ListModelInterface{
     public void setCountry(String country) {
         this.country = country;
     }
-
-    public User() {
-    }
-
-    public User(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    
 
     public String getId() {
         return id;
@@ -119,11 +122,11 @@ public class User  implements ListModelInterface{
         this.job = job;
     }
 
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -134,7 +137,4 @@ public class User  implements ListModelInterface{
     public void setCreditlimits(double creditlimits) {
         this.creditlimits = creditlimits;
     }
-    
-    
-
 }
