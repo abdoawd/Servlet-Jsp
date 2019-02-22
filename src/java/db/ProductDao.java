@@ -118,7 +118,7 @@ public class ProductDao implements DbInterface {
         } catch (SQLException ex) {
             System.out.println("SQLException " + ex.getMessage());
             ex.printStackTrace();
-            System.out.println("status = " + isScuccess);
+
         }
         return isScuccess;
     }

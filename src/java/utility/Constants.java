@@ -72,7 +72,7 @@ public class Constants {
     public static final String COLUMN_ORDER_NUMBER = "ORDERS_NUMBER";
     public static final String COLUMN_ORDER_USER_ID = "USER_ID";
     public static final String COLUMN_ORDER_TOTAL_AMOUNT = "TOTAL_AMOUNT";
-    public static final String COLUMN_ORDER_TIMAE = "TIMAE";
+    public static final String COLUMN_ORDER_TIME = "TIMAE";
     public static final String COLUMN_ORDER_STATUS = "STATUS";
 
     // sequences 
