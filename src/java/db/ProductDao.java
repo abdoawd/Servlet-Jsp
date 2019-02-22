@@ -83,7 +83,6 @@ public class ProductDao implements DbInterface {
             }
         } catch (SQLException ex) {
         }
-        System.out.println("my id = " + myId);
 
         return myId;
     }
@@ -166,7 +165,6 @@ public class ProductDao implements DbInterface {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                System.out.println("insid product");
                 product = new Product();
 
                 InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
@@ -400,20 +398,17 @@ public class ProductDao implements DbInterface {
         return list;
     }
 
-    public List<Product> getProductsByNmaeAndPrice(int category_id, String productName, int startprice, int endPrice) {
+    public List<Product> getProductsByNmaeAndPrice(int category_id, int startprice, int endPrice) {
         List<Product> list = new ArrayList<Product>();
         Product product = null;
         try {
-            
-            
+
             PreparedStatement ps = connection.prepareStatement("select * from  product where "
                     + Constants.COLUMN_PRODUCT_CATEGORY_ID + "  =?  and "
-                    + Constants.COLUMN_PRODUCT_NAME + "  like ? and "
                     + Constants.COLUMN_PRODUCT_PRICE + " between  ? and ?" );
             ps.setInt(1, category_id);
-            ps.setString(2, "%" + productName + "%");
-            ps.setInt(3, startprice);
-            ps.setInt(4, endPrice);
+            ps.setInt(2, startprice);
+            ps.setInt(3, endPrice);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
