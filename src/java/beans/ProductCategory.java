@@ -9,7 +9,8 @@ package beans;
  *
  * @author A7med
  */
-public class ProductCategory implements ListModelInterface{
+public class ProductCategory implements ListModelInterface {
+
     int id;
     String name;
 
@@ -33,6 +34,4 @@ public class ProductCategory implements ListModelInterface{
     public void setName(String name) {
         this.name = name;
     }
-    
-    
 }

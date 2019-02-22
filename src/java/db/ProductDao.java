@@ -1,9 +1,7 @@
 package db;
 
 import beans.Product;
-import beans.ProductCategory;
-import java.awt.Image;
-import java.awt.Toolkit;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -124,8 +122,6 @@ public class ProductDao implements DbInterface {
         }
         return isScuccess;
     }
-
-    
 
     /**
      * @param productId
@@ -301,17 +297,32 @@ public class ProductDao implements DbInterface {
         try {
 
             pst = connection.prepareStatement("UPDATE " + Constants.PRODUCT_TABLE_NAME
-                    + " SET "
-                    + Constants.COLUMN_PRODUCT_NAME + " = '" + productName + "',"
-                    + Constants.COLUMN_PRODUCT_DESCRIPTION + " = '" + productDescription + "',"
-                    + Constants.COLUMN_PRODUCT_PRICE + " = '" + productPrice + "',"
-                    + Constants.COLUMN_PRODUCT_QUANTITY + " = '" + productQuantity + "',"
-                    + Constants.COLUMN_PRODUCT_IMAGE + " = '" + picInputStream + "',"
-                    + Constants.COLUMN_PRODUCT_CATEGORY_ID + " = '" + productCategory + "',"
-                    + Constants.COLUMN_PRODUCT_DISCOUNT + " = '" + productDiscount + "' WHERE "
-                    + Constants.COLUMN_PRODUCT_ID + " = '" + productId + "'");
+                    + " SET " + Constants.COLUMN_PRODUCT_NAME + " = ?,"
+                    + Constants.COLUMN_PRODUCT_DESCRIPTION + " = ?,"
+                    + Constants.COLUMN_PRODUCT_PRICE + " = ?,"
+                    + Constants.COLUMN_PRODUCT_QUANTITY + " = ?,"
+                    + Constants.COLUMN_PRODUCT_IMAGE + " = ?,"
+                    + Constants.COLUMN_PRODUCT_CATEGORY_ID + " = ?,"
+                    + Constants.COLUMN_PRODUCT_DISCOUNT + " = ? WHERE "
+                    + Constants.COLUMN_PRODUCT_ID + " = ?");
+            pst.setString(1, productName);
+            pst.setString(2, productDescription);
+            pst.setString(3, productPrice);
+            pst.setString(4, productQuantity);
+            pst.setBlob(5, picInputStream);
+            pst.setString(6, productCategory);
+            pst.setString(7, productDiscount);
 
-            int i = pst.executeUpdate();
+//                    + Constants.COLUMN_PRODUCT_NAME + " = '" + productName + "',"
+//                    + Constants.COLUMN_PRODUCT_DESCRIPTION + " = '" + productDescription + "',"
+//                    + Constants.COLUMN_PRODUCT_PRICE + " = '" + productPrice + "',"
+//                    + Constants.COLUMN_PRODUCT_QUANTITY + " = '" + productQuantity + "',"
+//                    + Constants.COLUMN_PRODUCT_IMAGE + " = '" + picInputStream + "',"
+//                    + Constants.COLUMN_PRODUCT_CATEGORY_ID + " = '" + productCategory + "',"
+//                    + Constants.COLUMN_PRODUCT_DISCOUNT + " = '" + productDiscount + "' WHERE "
+//                    + Constants.COLUMN_PRODUCT_ID + " = '" + productId + "'");
+
+                    int i = pst.executeUpdate();
             if (i != 0) {
                 isScuccess = true;
             }
@@ -439,7 +450,6 @@ public class ProductDao implements DbInterface {
         }
         return list;
     }
-
 
     public int addCategory(String categoryName) {
         PreparedStatement pst;

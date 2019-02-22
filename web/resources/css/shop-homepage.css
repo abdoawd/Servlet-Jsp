@@ -11,6 +11,10 @@ body {
     height: 40px;
 }
 
+.detail-image{
+    width: 20%;
+    height: 20%;
+}
 /* Setting margin for top and bottom */
 .containerSpacing{
     margin-top: 5%;
@@ -21,11 +25,6 @@ body {
     margin-bottom: 1.5rem;
     margin-right: -15px;
     margin-left: -15px;
-}
-
-.columnThird{
-    flex: 0 0 30%;
-    max-width: 30%;
 }
 
 .columnTwoThird{
@@ -76,7 +75,12 @@ body {
     margin: 10px auto;
 }
 
-.mainColor{
+
+.image_product
+{
+ display: flex;   
+
+ .mainColor{
     background-color: #212529;
 }
 
@@ -94,5 +98,5 @@ button, .submit-button {
 }
 
 button:hover, .submit-button:hover {
-    opacity:1;
+    opacity: 1;
 }

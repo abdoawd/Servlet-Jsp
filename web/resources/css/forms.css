@@ -10,7 +10,7 @@
 }
 
 /* Full-width input fields */
-input[type=text], input[type=password], textarea, input[type=number], input[type=email]{
+input[type=text], input[type=password], textarea, input[type=number], input[type=email],input[type=date]{
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
@@ -20,7 +20,7 @@ input[type=text], input[type=password], textarea, input[type=number], input[type
 }
 
 /* Add a background color when the inputs get focus */
-input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, input[type=email]:focus{
+input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, input[type=email]:focus,input[type=date]:focus{
     background-color: #ddd;
     outline: none;
 }
@@ -161,4 +161,21 @@ hr {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.oneThirdText{
+    text-align: left; 
+    width: 34%;
+}
+
+.textSuccess{
+    color: #009688;
+}
+
+.textFail{
+    color: #e91e63;
+}
+
+.textWarning{
+    color: #FF9800;
 }

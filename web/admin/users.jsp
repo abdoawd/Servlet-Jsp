@@ -82,7 +82,7 @@
                                     <tbody>
                                         <c:forEach var="user" items="${usersList}">                                                
                                         <tr>
-                                            <td>${user.id}</td>
+                                            <td><a href="users/user?userId=${user.id}">${user.id}</a></td>
                                             <td>${user.firstName}</td>
                                             <td>${user.lastName}</td>
                                             <td>${user.email}</td>
