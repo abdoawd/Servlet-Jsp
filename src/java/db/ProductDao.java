@@ -53,13 +53,13 @@ public class ProductDao implements DbInterface {
             ps.setInt(1, userId);
             rs = ps.executeQuery();
             while (rs.next()) {
-                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+                product.setCategoryId(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID)));
                 product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
                 product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
-                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setId(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_ID)));
                 product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
                 product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
-                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+                product.setQuantity(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY)));
                 list.add(product);
 
             }
@@ -175,25 +175,23 @@ public class ProductDao implements DbInterface {
                 byte[] encodeBase64 = Base64.encodeBase64(output.toByteArray());
                 String base64Encoded = new String(encodeBase64, "UTF-8");
                 output.close();
-                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+                product.setCategoryId(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID)));
                 product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
                 product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
-                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setId(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_ID)));
                 product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
                 product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
-                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+                product.setQuantity(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY)));
                 product.setCategoryName(rs.getString(Constants.COLUMN_CATEGORY_NAME));
                 product.setStringImage(base64Encoded);
                 list.add(product);
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
+        } catch (SQLException | IOException ex) {
             Logger.getLogger(ProductDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
-
+/*
     public boolean deleteMethod(String id, String tableName) { //Used for product or Category
         PreparedStatement pst;
         boolean isScuccess = false;
@@ -209,11 +207,6 @@ public class ProductDao implements DbInterface {
                 default:
                     return isScuccess;
             }
-
-//            pst = connection.prepareStatement("DELETE FROM ? WHERE ? = ?");
-//            pst.setString(1, tableName);
-//            pst.setString(2, columnName);
-//            pst.setString(3, id);
             pst = connection.prepareStatement("DELETE FROM " + tableName + " WHERE " + columnName + " = " + id);
 
             int i = pst.executeUpdate();
@@ -226,7 +219,7 @@ public class ProductDao implements DbInterface {
         }
         return isScuccess;
     }
-
+*/
     public boolean deleteProductTemporarily(String id) {
         PreparedStatement pst;
         boolean isScuccess = false;
@@ -274,13 +267,13 @@ public class ProductDao implements DbInterface {
                 byte[] encodeBase64 = Base64.encodeBase64(output.toByteArray());
                 String base64Encoded = new String(encodeBase64, "UTF-8");
                 output.close();
-                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+                product.setCategoryId(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID)));
                 product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
                 product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
-                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setId(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_ID)));
                 product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
                 product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
-                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+                product.setQuantity(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY)));
                 product.setStringImage(base64Encoded);
                 list.add(product);
             }
@@ -291,13 +284,10 @@ public class ProductDao implements DbInterface {
         return list;
     }
 
-    public boolean updateProduct(String productId, String productName, String productDescription,
-            String productPrice, String productQuantity, String productCategory, String productDiscount,
-            InputStream picInputStream) {
+    public boolean updateProduct(Product product, InputStream picInputStream) {
         PreparedStatement pst;
         boolean isScuccess = false;
         try {
-
             pst = connection.prepareStatement("UPDATE " + Constants.PRODUCT_TABLE_NAME
                     + " SET " + Constants.COLUMN_PRODUCT_NAME + " = ?,"
                     + Constants.COLUMN_PRODUCT_DESCRIPTION + " = ?,"
@@ -307,24 +297,16 @@ public class ProductDao implements DbInterface {
                     + Constants.COLUMN_PRODUCT_CATEGORY_ID + " = ?,"
                     + Constants.COLUMN_PRODUCT_DISCOUNT + " = ? WHERE "
                     + Constants.COLUMN_PRODUCT_ID + " = ?");
-            pst.setString(1, productName);
-            pst.setString(2, productDescription);
-            pst.setString(3, productPrice);
-            pst.setString(4, productQuantity);
+            pst.setString(1, product.getName());
+            pst.setString(2, product.getDescription());
+            pst.setDouble(3, product.getPrice());
+            pst.setInt(4, product.getQuantity());
             pst.setBlob(5, picInputStream);
-            pst.setString(6, productCategory);
-            pst.setString(7, productDiscount);
+            pst.setInt(6, product.getCategoryId());
+            pst.setDouble(7, product.getDiscount());
+            pst.setInt(8, product.getId());
 
-//                    + Constants.COLUMN_PRODUCT_NAME + " = '" + productName + "',"
-//                    + Constants.COLUMN_PRODUCT_DESCRIPTION + " = '" + productDescription + "',"
-//                    + Constants.COLUMN_PRODUCT_PRICE + " = '" + productPrice + "',"
-//                    + Constants.COLUMN_PRODUCT_QUANTITY + " = '" + productQuantity + "',"
-//                    + Constants.COLUMN_PRODUCT_IMAGE + " = '" + picInputStream + "',"
-//                    + Constants.COLUMN_PRODUCT_CATEGORY_ID + " = '" + productCategory + "',"
-//                    + Constants.COLUMN_PRODUCT_DISCOUNT + " = '" + productDiscount + "' WHERE "
-//                    + Constants.COLUMN_PRODUCT_ID + " = '" + productId + "'");
-
-                    int i = pst.executeUpdate();
+            int i = pst.executeUpdate();
             if (i != 0) {
                 isScuccess = true;
             }
@@ -357,13 +339,13 @@ public class ProductDao implements DbInterface {
                 String base64Encoded = new String(encodeBase64, "UTF-8");
 
                 output.close();
-                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+                product.setCategoryId(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID)));
                 product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
                 product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
-                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setId(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_ID)));
                 product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
                 product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
-                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+                product.setQuantity(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY)));
                 product.setStringImage(base64Encoded);
 
             }
@@ -394,13 +376,13 @@ public class ProductDao implements DbInterface {
                 byte[] encodeBase64 = Base64.encodeBase64(output.toByteArray());
                 String base64Encoded = new String(encodeBase64, "UTF-8");
                 output.close();
-                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+                product.setCategoryId(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID)));
                 product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
                 product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
-                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setId(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_ID)));
                 product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
                 product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
-                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+                product.setQuantity(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY)));
                 product.setStringImage(base64Encoded);
                 list.add(product);
             }
@@ -415,12 +397,11 @@ public class ProductDao implements DbInterface {
         List<Product> list = new ArrayList<Product>();
         Product product = null;
         try {
-            
-            
+
             PreparedStatement ps = connection.prepareStatement("select * from  product where "
                     + Constants.COLUMN_PRODUCT_CATEGORY_ID + "  =?  and "
                     + Constants.COLUMN_PRODUCT_NAME + "  like ? and "
-                    + Constants.COLUMN_PRODUCT_PRICE + " between  ? and ?" );
+                    + Constants.COLUMN_PRODUCT_PRICE + " between  ? and ?");
             ps.setInt(1, category_id);
             ps.setString(2, "%" + productName + "%");
             ps.setInt(3, startprice);
@@ -439,13 +420,13 @@ public class ProductDao implements DbInterface {
                 byte[] encodeBase64 = Base64.encodeBase64(output.toByteArray());
                 String base64Encoded = new String(encodeBase64, "UTF-8");
                 output.close();
-                product.setCategoryId(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID));
+                product.setCategoryId(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_CATEGORY_ID)));
                 product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
                 product.setDiscount(rs.getInt(Constants.COLUMN_PRODUCT_DISCOUNT));
-                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setId(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_ID)));
                 product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
                 product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
-                product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+                product.setQuantity(Integer.parseInt(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY)));
                 product.setStringImage(base64Encoded);
                 list.add(product);
             }

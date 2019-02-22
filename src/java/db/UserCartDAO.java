@@ -95,7 +95,7 @@ public class UserCartDAO {
                 byte[] encodeBase64 = Base64.encodeBase64(output.toByteArray());
                 String base64Encoded = new String(encodeBase64, "UTF-8");
                 output.close();
-                product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                product.setId(rs.getInt(Constants.COLUMN_PRODUCT_ID));
                 product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
                 product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
                 product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));

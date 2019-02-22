@@ -6,16 +6,16 @@ public class Product implements ListModelInterface {
 
     /* product_id	name	description	price	quantity
     image	category_id	discount*/
-    private String id;
+    private int id;
     private String name;
     private String description;
-    private int price;
-    private String quantity;
+    private double price;
+    private int quantity;
     private String imgPath;
-    private String categoryId;
+    private int categoryId;
     private String categoryName;
-    private int discount;
-
+    private double discount;
+    
     private Image image;
     private String stringImage;
 
@@ -37,7 +37,6 @@ public class Product implements ListModelInterface {
     }
     public void setImage(Image image) {
         this.image = image;
-        System.out.println("");
     }
 
     public Image getImage() {
@@ -47,11 +46,11 @@ public class Product implements ListModelInterface {
     public Product() {
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -63,11 +62,11 @@ public class Product implements ListModelInterface {
         this.description = description;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
@@ -75,11 +74,11 @@ public class Product implements ListModelInterface {
         this.imgPath = imgPath;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 
@@ -91,11 +90,11 @@ public class Product implements ListModelInterface {
         return description;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
@@ -103,12 +102,11 @@ public class Product implements ListModelInterface {
         return imgPath;
     }
 
-    public String getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
-    public int getDiscount() {
+    public double getDiscount() {
         return discount;
     }
-
 }

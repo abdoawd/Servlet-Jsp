@@ -65,21 +65,22 @@ public class EditProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {        
-        String id = request.getParameter("toEditProductId");
-        String productName = request.getParameter("productName");
-        String productDescription = request.getParameter("productDescription");
-        String productPrice = request.getParameter("productPrice");
-        String productQuantity = request.getParameter("productQuantity");
-        String productCategory = request.getParameter("productCategory");
-        String productDiscount = request.getParameter("productDiscount");
+        Product product = new Product();
+        product.setId(Integer.parseInt(request.getParameter("toEditProductId")));
+        product.setName(request.getParameter("productName"));
+        product.setDescription(request.getParameter("productDescription"));
+        product.setPrice(Double.parseDouble(request.getParameter("productPrice")));
+        product.setQuantity(Integer.parseInt(request.getParameter("productQuantity")));
+        product.setCategoryId(Integer.parseInt(request.getParameter("productCategory")));
+        product.setDiscount(Double.parseDouble(request.getParameter("productDiscount")));
+//        product.setStringImage(stringImage);
         
-        System.out.println(id);
+        System.out.println(Integer.parseInt(request.getParameter("toEditProductId")));
             /*Part filePart = request.getPart("productImage");*/
             InputStream picInputStream = null/*filePart.getInputStream()*/;
         
-        boolean isSucceed = handler.updateProduct(id, productName, productDescription, productPrice, productQuantity, productCategory, productDiscount, picInputStream);
+        boolean isSucceed = handler.updateProduct(product, picInputStream);
         request.setAttribute("isSucceed", isSucceed);
-//        }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("editProduct.jsp");
         dispatcher.forward(request, response);
