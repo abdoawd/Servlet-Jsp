@@ -16,6 +16,15 @@ public class Product implements ListModelInterface {
     private String categoryName;
     private int discount;
     private String stringImage;
+    private String totalPrice;
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public String getCategoryName() {
         return categoryName;

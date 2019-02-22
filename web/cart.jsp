@@ -72,13 +72,13 @@
                                             <div class="quantity buttons_added">
                                                 <input type="button"  id = "decreaseBtn" onclick="getTotalAmount(${cartItem.id},${cartItem.price}, 'sub',${cartItem.getQuantity()})" value="-" class="minus button is-form">    
                                                 <input type="number" id ="${cartItem.id}"   class="input-text qty text" step="1" min="1" max="10" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric">
-                                                <input type="button" id = "inecreaseBtn" onclick = "getTotalAmount(${cartItem.id},${cartItem.price}, 'add',${cartItem.getQuantity()})" value="+" class="plus button is-form">  
+                                                <input type="button" id = "inecreaseBtn" onclick = "getTotalAmount(${cartItem.id}, ${cartItem.price}, 'add', ${cartItem.getQuantity()})" value="+" class="plus button is-form">  
                                             </div>
-                                                <div><p><span>Total Quantity </span>${cartItem.getQuantity()}</p></div>
+                                            <div><p><span>Total Quantity </span>${cartItem.getQuantity()}</p></div>
                                         </td>
 
                                         <td class="product-subtotal" data-title="Total">
-                                            <span   id="${cartItem.id}${"d"}" class="woocommerce-Price-amount amount">${cartItem.price}<span class="woocommerce-Price-currencySymbol">EGP</span></span>            
+                                            <span   id="${cartItem.id}${"d"}" class="sumProductPrices" class="woocommerce-Price-amount amount">${cartItem.price}<span class="woocommerce-Price-currencySymbol">EGP</span></span>            
                                         </td>
                                     </tr>
                                     <tr>
@@ -101,13 +101,14 @@
 
                     <div class="columnThird">
                         <div class="list-group">
-                            <form action="checkout.jsp">
+                            <form action="checkout.jsp" action="POST">
                                 <a class="list-group-item">Order Summary</a>
                                 <div class="list-group-item">
-                                    <h4>1 x item</h4>
-                                    <h4>1 x item</h4>
-                                    <hr>
-                                    <h3>Total</h3>
+                                    <c:forEach var="summrizeItems" items="${userCartProducts}">   
+                                        <h4 class="itemPriceSummrize" id="${summrizeItems.id}${"e"}">1 item</h4>
+                                        <hr>
+                                    </c:forEach>
+                                    <h3 id ="total">Total</h3>
                                 </div>
                                 <button type="submit" class="submit-button list-group-item">Proceed to checkout</button>
                             </form>
@@ -132,14 +133,30 @@
         <script src="resources/vendor/jquery/jquery.min.js"></script>
         <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script>
-            function getTotalAmount(id, m, type,totalQuntity) {
+            function getTotalAmount(id, m, type, totalQuntity) {
                 var amountValue = document.getElementById(id);
+                var summrizeItemNumber = document.getElementById(id + "e");
+                var itemPriceSummrize = document.getElementsByClassName("sumProductPrices");
+                var x = 0;
+                var total = document.getElementById("total");
                 var oo = id + "d";
+                var finalTotal = document.getElementById(oo);
                 if ((type === 'sub') && (amountValue.value > 1))
-                    document.getElementById(oo).innerText = parseInt(--amountValue.value) * parseInt(m) + "EGP";
-                else if ((type === 'add') && amountValue.value =< totalQuntity){
-                    document.getElementById(oo).innerText = parseInt(++amountValue.value) * parseInt(m) + "EGP";
+                {
+                    finalTotal.innerText = parseInt(--amountValue.value) * parseInt(m) + "EGP";
+
+                } else if ((type === 'add') && (amountValue.value <= totalQuntity))
+                {
+                    finalTotal.innerText = parseInt(++amountValue.value) * parseInt(m) + "EGP";
                 }
+                summrizeItemNumber.innerText = amountValue.value + " item";
+                for (var i = 0; i < itemPriceSummrize.length; i++)
+                {
+                    x += parseInt(itemPriceSummrize[i].innerText);
+                }
+                total.innerText = x;
+
+               
             }
             function updateCart(id)
             {

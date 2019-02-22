@@ -35,23 +35,22 @@
                     <form action='pages/order-complete.jsp' method='post' class="my-modal-content">
                         <!-- Left Column - .col-lg-9 -->
                         <div class="columnTwoThird">
-
                             <div class="container">
                                 <p>Please fill in this form to complete your order.</p>
                                 <hr>
 
                                 <div class="centeredDiv">
-                                    <label for="firstName"><b>First Name</b></label>
-                                    <input type="text" placeholder="Enter Your First Name" name="firstName" required>
+                                    <label for="firstName"><b>FirstName</b></label>
+                                    <input type="text" value="${sessionScope.user.firstName}" placeholder="Enter Your First Name" name="firstName" required>
                                 </div>
 
                                 <div class="centeredDiv centeredDiv2">
                                     <label for="lastName"><b>Last Name</b></label>
-                                    <input type="text" placeholder="Enter Your Last Name" name="lastName" required>
+                                    <input type="text" value="${sessionScope.user.lastName}" placeholder="Enter Your Last Name" name="lastName" required>
                                 </div>
 
                                 <label for="email"><b>E-Mail</b></label>
-                                <input type="text" placeholder="Enter your email" name="email" required>
+                                <input type="text"value="${sessionScope.user.email}" placeholder="Enter your email" name="email" required>
 
                                 <label for="street"><b>Street</b></label>
                                 <input type="password" placeholder="Enter Your Street" name="street" required>
@@ -60,7 +59,7 @@
                                     <label for="city"><b>City</b></label>
                                     <input type="text" placeholder="Enter Your City" name="city" required>
                                 </div>
-
+                            argdgdgsdfgsdfgsdf    ${requestScope.total}
                                 <div class="centeredDiv centeredDiv2">
                                     <label for="country"><b>Country</b></label>
                                     <input type="text" name="country" value="Egypt" placeholder="Enter Your Country" required>

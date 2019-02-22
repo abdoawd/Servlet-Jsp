@@ -57,6 +57,19 @@ public class UserCartDAO {
         }
     }
 
+    public void deleteItemFromCart(int userId, int productId) {
+        PreparedStatement pst;
+        try {
+            pst = connection.prepareStatement("Delete from " + Constants.SHOPPING_CART_TABLE_NAME
+                    + " Where user_id =? and product_id =?");
+            pst.setInt(1, userId);
+            pst.setInt(2, productId);
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserCartDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void updateToCartQuery(int userId, int productId, int quantity) {
         PreparedStatement pst;
         try {
