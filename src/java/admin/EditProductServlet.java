@@ -64,10 +64,7 @@ public class EditProductServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-//        processRequest(request, response);
-//        if (request.getParameter("productName") != null) {
-        
+            throws ServletException, IOException {        
         String id = request.getParameter("toEditProductId");
         String productName = request.getParameter("productName");
         String productDescription = request.getParameter("productDescription");

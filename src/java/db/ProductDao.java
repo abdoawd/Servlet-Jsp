@@ -43,8 +43,6 @@ public class ProductDao implements DbInterface {
         return counter;
     }
 
-    
-
     public List<Product> getInterstsProduct(int userId) {
         List<Product> list = new ArrayList<>();
         Product product = new Product();
@@ -83,7 +81,6 @@ public class ProductDao implements DbInterface {
             }
         } catch (SQLException ex) {
         }
-        System.out.println("my id = " + myId);
 
         return myId;
     }
@@ -126,8 +123,6 @@ public class ProductDao implements DbInterface {
         return isScuccess;
     }
 
-    
-
     /**
      * @param productId
      * @return list of products Accept 3 types of inputs > Constants.SELECT_ALL
@@ -166,7 +161,6 @@ public class ProductDao implements DbInterface {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                System.out.println("insid product");
                 product = new Product();
 
                 InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
@@ -303,16 +297,32 @@ public class ProductDao implements DbInterface {
         try {
 
             pst = connection.prepareStatement("UPDATE " + Constants.PRODUCT_TABLE_NAME
-                    + " SET "
-                    + Constants.COLUMN_PRODUCT_NAME + " = '" + productName + "',"
-                    + Constants.COLUMN_PRODUCT_DESCRIPTION + " = '" + productDescription + "',"
-                    + Constants.COLUMN_PRODUCT_PRICE + " = '" + productPrice + "',"
-                    + Constants.COLUMN_PRODUCT_QUANTITY + " = '" + productQuantity + "',"
-                    + Constants.COLUMN_PRODUCT_IMAGE + " = '" + picInputStream + "',"
-                    + Constants.COLUMN_PRODUCT_CATEGORY_ID + " = '" + productCategory + "',"
-                    + Constants.COLUMN_PRODUCT_DISCOUNT + " = '" + productDiscount + "' WHERE "
-                    + Constants.COLUMN_PRODUCT_ID + " = '" + productId + "'");
-            int i = pst.executeUpdate();
+                    + " SET " + Constants.COLUMN_PRODUCT_NAME + " = ?,"
+                    + Constants.COLUMN_PRODUCT_DESCRIPTION + " = ?,"
+                    + Constants.COLUMN_PRODUCT_PRICE + " = ?,"
+                    + Constants.COLUMN_PRODUCT_QUANTITY + " = ?,"
+                    + Constants.COLUMN_PRODUCT_IMAGE + " = ?,"
+                    + Constants.COLUMN_PRODUCT_CATEGORY_ID + " = ?,"
+                    + Constants.COLUMN_PRODUCT_DISCOUNT + " = ? WHERE "
+                    + Constants.COLUMN_PRODUCT_ID + " = ?");
+            pst.setString(1, productName);
+            pst.setString(2, productDescription);
+            pst.setString(3, productPrice);
+            pst.setString(4, productQuantity);
+            pst.setBlob(5, picInputStream);
+            pst.setString(6, productCategory);
+            pst.setString(7, productDiscount);
+
+//                    + Constants.COLUMN_PRODUCT_NAME + " = '" + productName + "',"
+//                    + Constants.COLUMN_PRODUCT_DESCRIPTION + " = '" + productDescription + "',"
+//                    + Constants.COLUMN_PRODUCT_PRICE + " = '" + productPrice + "',"
+//                    + Constants.COLUMN_PRODUCT_QUANTITY + " = '" + productQuantity + "',"
+//                    + Constants.COLUMN_PRODUCT_IMAGE + " = '" + picInputStream + "',"
+//                    + Constants.COLUMN_PRODUCT_CATEGORY_ID + " = '" + productCategory + "',"
+//                    + Constants.COLUMN_PRODUCT_DISCOUNT + " = '" + productDiscount + "' WHERE "
+//                    + Constants.COLUMN_PRODUCT_ID + " = '" + productId + "'");
+
+                    int i = pst.executeUpdate();
             if (i != 0) {
                 isScuccess = true;
             }
@@ -399,20 +409,17 @@ public class ProductDao implements DbInterface {
         return list;
     }
 
-    public List<Product> getProductsByNmaeAndPrice(int category_id, String productName, int startprice, int endPrice) {
+    public List<Product> getProductsByNmaeAndPrice(int category_id, int startprice, int endPrice) {
         List<Product> list = new ArrayList<Product>();
         Product product = null;
         try {
-            
-            
+
             PreparedStatement ps = connection.prepareStatement("select * from  product where "
                     + Constants.COLUMN_PRODUCT_CATEGORY_ID + "  =?  and "
-                    + Constants.COLUMN_PRODUCT_NAME + "  like ? and "
                     + Constants.COLUMN_PRODUCT_PRICE + " between  ? and ?" );
             ps.setInt(1, category_id);
-            ps.setString(2, "%" + productName + "%");
-            ps.setInt(3, startprice);
-            ps.setInt(4, endPrice);
+            ps.setInt(2, startprice);
+            ps.setInt(3, endPrice);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -443,7 +450,6 @@ public class ProductDao implements DbInterface {
         }
         return list;
     }
-
 
     public int addCategory(String categoryName) {
         PreparedStatement pst;

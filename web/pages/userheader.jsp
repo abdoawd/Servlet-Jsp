@@ -22,7 +22,8 @@
                 border: 5px ;
                 box-shadow: none;
                 margin-left: auto;
-                width: 700px;                border-radius: 4px;
+                width: 700px;  
+                border-radius: 4px;
 
             }
         </style>

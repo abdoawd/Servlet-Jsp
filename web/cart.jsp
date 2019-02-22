@@ -25,13 +25,8 @@
         <!--Add Header Block-->
         <jsp:include page="blocks/header.jsp"/>
 
-        <!-- Page Content -->
-        <div class="container">
-
             <!-- Page Content -->
             <div class="container containerSpacing">
-
-
 
                 <div class="row">
 
@@ -121,9 +116,6 @@
 
             </div>
             <!-- /.container -->
-
-        </div>
-        <!-- /.container -->
 
         <!--Add Footer Block-->
         <jsp:include page="blocks/footer.jsp"/>

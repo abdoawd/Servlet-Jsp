@@ -27,8 +27,6 @@ body {
     margin-left: -15px;
 }
 
-
-
 .columnTwoThird{
     flex: 0 0 70%;
     max-width: 70%;
@@ -77,12 +75,12 @@ body {
     margin: 10px auto;
 }
 
-<<<<<<< HEAD
+
 .image_product
 {
  display: flex;   
-=======
-.mainColor{
+
+ .mainColor{
     background-color: #212529;
 }
 
@@ -100,6 +98,5 @@ button, .submit-button {
 }
 
 button:hover, .submit-button:hover {
-    opacity:1;
->>>>>>> 45f5827425ec5c651a52e851e802562e05d07fd8
+    opacity: 1;
 }
