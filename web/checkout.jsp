@@ -10,6 +10,8 @@
         <title>Checkout</title>
 
         <!-- Bootstrap core CSS -->
+
+
         <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom styles for login page -->
@@ -32,7 +34,7 @@
 
                 <h1 class="divHeader">Shopping Cart</h1>
                 <div class="row">
-                    <form action='pages/order-complete.jsp' method='post' class="my-modal-content">
+                    <form action='checkout' method='post' class="my-modal-content">
                         <!-- Left Column - .col-lg-9 -->
                         <div class="columnTwoThird">
                             <div class="container">
@@ -53,7 +55,7 @@
                                 <input type="text"value="${sessionScope.user.email}" placeholder="Enter your email" name="email" required>
 
                                 <label for="street"><b>Street</b></label>
-                                <input type="password" placeholder="Enter Your Street" name="street" required>
+                                <input type="text" placeholder="Enter Your Street" name="street" required>
 
                                 <div class="centeredDiv">
                                     <label for="city"><b>City</b></label>
@@ -74,8 +76,8 @@
                             <div class="list-group">
                                 <a class="list-group-item">Order Summary</a>
                                 <div class="list-group-item">
-                                    
-                                    <c:forEach var="checkoutItem" items="checkoutCartList">
+
+                                    <c:forEach var="checkoutItem" items="${checkoutCartList}">
                                         <h4>"${checkoutItem.productName}" </h4>
                                     </c:forEach>
 
@@ -127,13 +129,16 @@
         <script src="resources/vendor/jquery/jquery.min.js"></script>
         <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+
         <!--Script to display and hide credit details-->
-        <script>function showCredit() {
+        <script>
+                                        function showCredit() {
                                             document.getElementById('creditDetails').style.display = "block";
                                         }
                                         function hideCredit() {
                                             document.getElementById('creditDetails').style.display = "none";
-                                        }</script>
+                                        }
+        </script>
 
     </body>
 </html>

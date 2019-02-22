@@ -34,14 +34,11 @@
                 <main class="container-product">
                     <!-- Left Column / Headphones Image -->
                     <div class="left-column">
-                        <!--                            <img data-image="red" src="red.png" alt="">
-                                                    <img data-image="blue" src="red.png" alt="">-->
                         <img data-image="red" class="active" src="data:image/jpeg;base64,${product.stringImage}" alt="">
 
                     </div>
 
-
-
+                  <!-- Right Column -->
                     <!-- Right Column -->
                     <div class="right-column">
                         <!-- Product Description -->
@@ -50,34 +47,17 @@
                             <h1>${product.getName()}</h1>
                             <p>${product.getDescription()}</p>
                         </div>
-                        <img data-image="red" class="active"  alt="">
 
                         <!-- Product Pricing -->
                         <div class="product-price">
                             <span>${product.getPrice()}</span>
-                            <a href="#" class="cart-btn no-underline">Add to cart</a>
+                            <a id="addToCart" href="/dokan/UserCart?addToCart=true&product_id=${product.id}" class="cart-btn no-underline">Add to cart</a>
                         </div>
-                        <!-- Right Column -->
-                        <div class="right-column">
-                            <!-- Product Description -->
-                            <div class="product-description">
-                                <span>${product.getName()}</span>
-                                <h1>${product.getName()}</h1>
-                                <p>${product.getDescription()}</p>
-                            </div>
-
-                            <!-- Product Pricing -->
-                            <div class="product-price">
-                                <span>${product.getPrice()}</span>
-                                <a id="addToCart" href="/dokan/UserCart?addToCart=true&product_id=${product.id}" class="cart-btn no-underline">Add to cart</a>
-                            </div>
-                        </div>
+                    </div>
                 </main>
 
 
             </div>
-            <!-- /.row -->
-
         </div>
         <!-- /.container -->
 

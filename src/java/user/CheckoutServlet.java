@@ -5,13 +5,10 @@
  */
 package user;
 
-import beans.Product;
 import beans.User;
 import beans.UserShoppingCart;
-import db.ProductDao;
 import db.UserCartDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -48,5 +45,12 @@ public class CheckoutServlet extends HttpServlet {
         request.setAttribute("checkoutCartList", checkoutCartList);
         request.getRequestDispatcher("checkout.jsp").include(request, response);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPut(req, resp); 
+        
+    }
+    
 
 }

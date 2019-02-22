@@ -26,10 +26,10 @@
                 <label for="email"><b>E-Mail</b></label>
 
 
-                <input type="text" placeholder="Enter your email" name="email" value="anasmohamed656yahoo.com" id ="userEmail" required>
+                <input type="text" placeholder="Enter your email" name="email" value="awadabdo222@gmail.com" id ="userEmail" required>
 
                 <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" value="1234qQ12e12" name="password"  id="userPassword" required>
+                <input type="password" placeholder="Enter Password" value="a" name="password"  id="userPassword" required>
 
           
 
