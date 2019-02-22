@@ -1,6 +1,5 @@
 package beans;
 
-import java.awt.Image;
 
 public class Product implements ListModelInterface {
 

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +31,6 @@
             <div class="container containerSpacing">
 
                 <h1 class="divHeader">Shopping Cart</h1>
-
                 <div class="row">
                     <form action='pages/order-complete.jsp' method='post' class="my-modal-content">
                         <!-- Left Column - .col-lg-9 -->
@@ -59,7 +59,7 @@
                                     <label for="city"><b>City</b></label>
                                     <input type="text" placeholder="Enter Your City" name="city" required>
                                 </div>
-                            argdgdgsdfgsdfgsdf    ${requestScope.total}
+
                                 <div class="centeredDiv centeredDiv2">
                                     <label for="country"><b>Country</b></label>
                                     <input type="text" name="country" value="Egypt" placeholder="Enter Your Country" required>
@@ -74,10 +74,13 @@
                             <div class="list-group">
                                 <a class="list-group-item">Order Summary</a>
                                 <div class="list-group-item">
-                                    <h4>1 x item</h4>
-                                    <h4>1 x item</h4>
+                                    
+                                    <c:forEach var="checkoutItem" items="checkoutCartList">
+                                        <h4>"${checkoutItem.productName}" </h4>
+                                    </c:forEach>
+
                                     <hr>
-                                    <h3>159.99 EGP</h3>
+                                    <h3>${totalPrices} EGP</h3>
                                 </div>
                                 <div class="list-group-item">
                                     <p><b>Payment Method</b></p>
@@ -104,6 +107,8 @@
                                 <div class="wrongText" id="wrongText">An error occurred!</div>
                             </div>
                         </div>
+
+
                         <!-- /Right Column - .col-lg-3 -->
                     </form>
                 </div>
@@ -121,10 +126,14 @@
         <!-- Bootstrap core JavaScript -->
         <script src="resources/vendor/jquery/jquery.min.js"></script>
         <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        
+
         <!--Script to display and hide credit details-->
-        <script>function showCredit(){document.getElementById('creditDetails').style.display="block";}
-                function hideCredit(){document.getElementById('creditDetails').style.display="none";}</script>
+        <script>function showCredit() {
+                                            document.getElementById('creditDetails').style.display = "block";
+                                        }
+                                        function hideCredit() {
+                                            document.getElementById('creditDetails').style.display = "none";
+                                        }</script>
 
     </body>
 </html>

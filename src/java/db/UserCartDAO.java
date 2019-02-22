@@ -6,6 +6,7 @@
 package db;
 
 import beans.Product;
+import beans.UserShoppingCart;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -94,7 +95,7 @@ public class UserCartDAO {
         List<Product> list = new ArrayList<Product>();
         Product product = null;
         try {
-            PreparedStatement ps = connection.prepareStatement("select MY_PRODUCT.PRODUCT_ID,MY_PRODUCT.QUANTITY,MY_PRODUCT.IMAGE,MY_PRODUCT.DESCRIPTION,MY_PRODUCT.PRICE,MY_PRODUCT.PRODUCT_NAME from STOREUSERS.PRODUCT MY_PRODUCT,STOREUSERS.SHOPPING_CART CART where user_id = " + userId + " and MY_PRODUCT.PRODUCT_ID = CART.product_id");
+            PreparedStatement ps = connection.prepareStatement("select MY_PRODUCT.PRODUCT_ID,MY_PRODUCT.QUANTITY,CART.QUANTITY,MY_PRODUCT.IMAGE,MY_PRODUCT.DESCRIPTION,MY_PRODUCT.PRICE,MY_PRODUCT.PRODUCT_NAME from STOREUSERS.PRODUCT MY_PRODUCT,STOREUSERS.SHOPPING_CART CART where user_id = " + userId + " and MY_PRODUCT.PRODUCT_ID = CART.product_id");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 product = new Product();
@@ -119,6 +120,29 @@ public class UserCartDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
+        }
+        return list;
+    }
+
+    public List<UserShoppingCart> getUserCheckoutCart(int userId) {
+        List<UserShoppingCart> list = new ArrayList<UserShoppingCart>();
+        UserShoppingCart userShoppingCart = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement("select MY_PRODUCT.PRODUCT_ID,"
+                    + "CART.QUANTITY,"
+                    + "MY_PRODUCT.PRICE,MY_PRODUCT.PRODUCT_NAME from STOREUSERS.PRODUCT MY_PRODUCT,"
+                    + "STOREUSERS.SHOPPING_CART CART where user_id = " + userId + " and MY_PRODUCT.PRODUCT_ID = CART.product_id");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                userShoppingCart = new UserShoppingCart();
+                userShoppingCart.setProductId(rs.getString(Constants.COLUMN_PRODUCT_ID));
+                userShoppingCart.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+                userShoppingCart.setProductPrice(rs.getString(Constants.COLUMN_PRODUCT_PRICE));
+                userShoppingCart.setProductName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
+                list.add(userShoppingCart);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
         return list;
     }

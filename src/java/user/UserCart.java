@@ -36,9 +36,13 @@ public class UserCart extends HttpServlet {
 
         if (Boolean.valueOf(req.getParameter("addToCart")) == false) {
             int updateProductId = Integer.valueOf(req.getParameter("productId"));
-            int itemNumber = Integer.valueOf(req.getParameter("itemNumber"));
-            System.out.println("item number " + itemNumber);
-            userCartDAO.updateToCartQuery(userId, updateProductId, itemNumber);
+            if (req.getParameter("itemNumber") != null) {
+                int itemNumber = Integer.valueOf(req.getParameter("itemNumber"));
+                userCartDAO.updateToCartQuery(userId, updateProductId, itemNumber);
+
+            } else if (Boolean.parseBoolean(req.getParameter("delete"))) {
+                userCartDAO.deleteItemFromCart(userId, updateProductId);
+            }
         } else {
             int productId = Integer.valueOf(req.getParameter("product_id"));
             System.out.println("product id " + productId);
@@ -46,14 +50,12 @@ public class UserCart extends HttpServlet {
                 System.out.println("in if ");
                 userCartDAO.addToCart(userId, productId, 1);
             }
-            products = userCartDAO.getUserCart(userId);
 
         }
-        System.out.println("user id  in cart" + userId);
-        System.out.println("size " + products.size());
-        System.out.println("ounitity " + products.get(0).getQuantity());
+        products = userCartDAO.getUserCart(userId);
+
         req.setAttribute("userCartProducts", products);
-        req.getRequestDispatcher("cart.jsp").include(req, resp);
+        req.getRequestDispatcher("cart.jsp").forward(req, resp);
     }
 
 }
