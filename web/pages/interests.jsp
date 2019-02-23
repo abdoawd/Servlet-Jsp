@@ -10,11 +10,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>interests</title>
-                <!-- Bootstrap core CSS -->
-        <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Custom styles for this template -->
-        <link href="resources/css/shop-homepage.css" rel="stylesheet">
+
+        <!-- Page level plugin CSS-->
+        <link href="<%=request.getContextPath()%>/resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="<%=request.getContextPath()%>/resources/css/sb-admin.css" rel="stylesheet">
     </head>
    <body id="page-top">
 
@@ -67,10 +72,11 @@
                                             
                                         </tr>
                                     </tfoot>
+                                    <%--
                                     <tbody>
-                                        <c:forEach var="user" items="${usersList}">                                                
+                                        <c:forEach var="user" items="${categoryList}">                                                
                                         <tr>
-                                            <td>${user.id}</td>
+                                            <td></td>
                                             <td>${user.firstName}</td>
                                             <td>${user.lastName}</td>
                                             <td>${user.email}</td>
@@ -79,6 +85,7 @@
                                         </tr>
                                         </c:forEach>
                                     </tbody>
+                                    --%>
                                 </table>
                             </div>
                         </div>

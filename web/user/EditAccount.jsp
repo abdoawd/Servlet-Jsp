@@ -97,10 +97,13 @@
                                         </div>
 
                                         <div>
-                                            <label><b>Address</b></label>
-                                            <span><input type="text" value="street"/></span>  
-                                            <span><input type="text" value="city"/></span>
-                                            <span><input type="text" value="country"/></span>
+                                            <label><h3>Address</h3></label>
+                                            <label><b>Street</b></label>
+                                            <input type="text" value="street" name="street"/> 
+                                            <label><b>City</b></label>
+                                           <input type="text" value="city" name="city"/>
+                                           <label><b>Country</b></label>
+                                            <span><input type="text" value="country" name="country"/></span>
                                         </div>
 
                                        <div class="centeredDiv centeredDiv2">

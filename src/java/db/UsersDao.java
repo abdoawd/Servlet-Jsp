@@ -85,9 +85,10 @@ public class UsersDao implements DbInterface {
           //  pst.setDate(8, new java.sql.Date( date.getTime()));
           
             int i = pst.executeUpdate();
-            connection.commit();
+          
             if (i != 0) {
                 System.out.print("success");
+                System.out.println("id in add user "+id);
                User user=new User(id,firstName,lastName,"user",email,passwrd,jop);
                return user;
             }

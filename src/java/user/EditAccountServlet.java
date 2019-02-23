@@ -61,16 +61,11 @@ public class EditAccountServlet extends HttpServlet {
         InputStream picInputStream = filePart.getInputStream();
         User userMe=(User)session.getAttribute("user");
         user.setId(userMe.getId());
-        
-       
+                System.out.println("user id in session "+userMe.getId());
             userMe= myDb.updateUserData(user,picInputStream);
-            
-        
-                String street = request.getParameter("street");
+        String street = request.getParameter("street");
         String city = request.getParameter("city");
         String country = request.getParameter("country");
-       System.out.println(user.getId());
-       
           Address userAddress=new Address();
        userAddress = handlerAddress.addAdress(userMe.getId(), street, city, country);
        user.setAddress(userAddress);
