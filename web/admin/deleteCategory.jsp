@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<c:set scope="page" var="pageTitle" value="Add Category"/>
+<c:set scope="page" var="pageTitle" value="Delete Category"/>
 
 <html lang="en">
 
@@ -57,29 +57,33 @@
                     <div class="card mb-3">
                         <div class="card-header">
                             <i class="fas fa-table"></i>
-                            Add a category name to be added.</div>
+                            Choose a category name to be deleted.</div>
                         <div class="card-body">
-                            <form action='<%=request.getContextPath()%>/admin/addCategory' method='post' class="my-modal-content">
-                                <div class="columnTwoThird container">
-                                    <div class="twoThirdDiv">
-                                        <label><b>Category Name</b></label>
-                                        <input type="text" placeholder="Enter category name" name="categoryName" required>
+                            <form action='<%=request.getContextPath()%>/admin/deleteCategory' method='post' class="my-modal-content">
+                                <div class="columnTwoThird container text-center">
+                                    <div class=" oneThirdText oneThirdDiv">
+                                        <label><b>Step 1:</b></label>
+                                        <select name="categoryIdInput" class="custom-select" style="width:100%" required>
+                                            <c:forEach var="category" items="${categoryList}">
+                                                <option value="${category.id}">${category.name}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                     <div class="oneThirdDiv">
-                                        <button type="submit" class="submit-button-half">Add</button>
+                                        <button type="submit" class="submit-button-half errorColor">Delete</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
 
                         <c:choose>
-                            <c:when test="${isCategoryAdded == 1}">
-                                <div class="card-footer small textSuccess">Category added successfully.</div>
+                            <c:when test="${isCategoryDeleted == 1}">
+                                <div class="card-footer small textSuccess">Category deleted successfully.</div>
                             </c:when> 
-                            <c:when test="${isCategoryAdded == -1}">
+                            <c:when test="${isCategoryDeleted == -1}">
                                 <div class="card-footer small textWarning">Same category name already exist!</div>
                             </c:when> 
-                            <c:when test="${isCategoryAdded == 0}">
+                            <c:when test="${isCategoryDeleted == 0}">
                                 <div class="card-footer small textFail">An error occurred. Please check your input and try again.</div>
                             </c:when>
                         </c:choose>

@@ -1,6 +1,5 @@
 package beans;
 
-import java.awt.Image;
 
 public class Product implements ListModelInterface {
 
@@ -15,9 +14,16 @@ public class Product implements ListModelInterface {
     private String categoryId;
     private String categoryName;
     private int discount;
-
-    private Image image;
     private String stringImage;
+    private String totalPrice;
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public String getCategoryName() {
         return categoryName;
@@ -35,15 +41,9 @@ public class Product implements ListModelInterface {
     public void setStringImage(String stringImage) {
         this.stringImage = stringImage;
     }
-    public void setImage(Image image) {
-        this.image = image;
-        System.out.println("");
-    }
+ 
 
-    public Image getImage() {
-        return image;
-    }
-
+   
     public Product() {
     }
 

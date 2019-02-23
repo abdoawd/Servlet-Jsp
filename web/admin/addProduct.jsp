@@ -103,9 +103,9 @@
                                                 var loadFile = function (event) {
                                                     var output = document.getElementById('productImageDisplay');
                                                     output.height = 50;
-                                                    output.hidden = false; 
+                                                    output.hidden = false;
                                                     output.src = URL.createObjectURL(event.target.files[0]);
-                                                    
+
                                                 };
                                             </script>
                                         </div>

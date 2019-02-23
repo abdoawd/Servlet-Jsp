@@ -1,4 +1,6 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
         *** GENERATED FROM project.xml - DO NOT EDIT  ***
@@ -1446,6 +1448,7 @@ exists or setup the property manually. For example like this:
     <target depends="clean" description="Clean build products." name="clean-ear"/>
 </project>
 =======
+>>>>>>> 45f5827425ec5c651a52e851e802562e05d07fd8
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
         *** GENERATED FROM project.xml - DO NOT EDIT  ***
@@ -2892,4 +2895,7 @@ exists or setup the property manually. For example like this:
     <target depends="init,undeploy-clean,deps-clean,do-clean,check-clean,-post-clean" description="Clean build products." name="clean"/>
     <target depends="clean" description="Clean build products." name="clean-ear"/>
 </project>
+<<<<<<< HEAD
+=======
 >>>>>>> ae916e74acc980568d01bea12fa0241a7088559a
+>>>>>>> 45f5827425ec5c651a52e851e802562e05d07fd8

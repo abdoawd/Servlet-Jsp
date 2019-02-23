@@ -2,6 +2,7 @@ package beans;
 
 import java.util.Date;
 
+
 public class User  implements ListModelInterface{
 
     /**
@@ -23,6 +24,9 @@ public class User  implements ListModelInterface{
     /*user_id	fanme 	last name	role	email
             password	job	birthday	credit_limit*/
     private int  id ;
+
+
+
     private String firstName;
     private String lastName;
     private String role;
@@ -31,7 +35,13 @@ public class User  implements ListModelInterface{
     private String job;
     private String /*date not sure */ birthday;
     private double creditlimits;
+
    private Address address;
+
+    private String street;
+    private String city;
+    private String country;    
+
 
     public User() {
     }
@@ -42,6 +52,7 @@ public class User  implements ListModelInterface{
     }
 
 
+
     public User(int id, String firstName, String lastName,String role, String email,String password, String job) {
    // public User(String id, String firstName, String lastName,String role, String email,
             //String password, String job,String birthday, double creditlimits) {
@@ -49,15 +60,42 @@ public class User  implements ListModelInterface{
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.role=role;
+        this.role = role;
         this.email = email;
-        this.password=password;
+        this.password = password;
         this.job = job;
+
        
     }
     public int getId() {
+
         return id;
     }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
 
     public void setId(int id) {
         this.id = id;
@@ -126,7 +164,4 @@ public class User  implements ListModelInterface{
     public void setCreditlimits(double creditlimits) {
         this.creditlimits = creditlimits;
     }
-    
-    
-
 }

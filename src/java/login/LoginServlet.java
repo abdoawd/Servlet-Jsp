@@ -28,6 +28,11 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         User user = usersDao.login(name, password);
         if (user != null) {
+
+            out.println("log in successfully ");
+            out.print("role=" + user.getRole());
+            out.print("role=" + user.getFirstName());
+
             // session . add user()
             HttpSession session = request.getSession(true);
             session.setAttribute("user", user);
@@ -37,9 +42,10 @@ public class LoginServlet extends HttpServlet {
             if (user.getRole().equals("admin")) {
                 System.out.println("admin");
                 response.sendRedirect("admin");
-
+                out.print("role=" + user.getRole());
             } else {
                 System.out.println("user");
+                out.print("role=" + user.getRole());
 
                 response.sendRedirect("UserHomeServlet");
 

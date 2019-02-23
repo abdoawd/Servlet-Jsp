@@ -134,9 +134,9 @@
         </style>
 
         <!-- Page Content -->
-        <div class="container containerSpacing row ">
-            <div class="container containerSpacing row ">
-                <div class="col-md-3">
+        <div class="container containerSpacing row justify-content-between ">
+            <div class="col-md-3 containerSpacing">
+                <div>
                     <c:forEach var="category" items="${categories}">    
                         <c:url var="category_selected" value="/UserHomeServlet">
                             <c:param name="category_id" value="${category.id}"/>
@@ -157,19 +157,24 @@
 
                     </c:forEach>
                     <div>
+                        <select id="product" class="custom-select" style="width:100%" onclick="select(this)">
+                            <c:forEach var="category" items="${categories}">
+                                <option value="${category.id}">${category.name}</option>
+                            </c:forEach>
+                        </select>
 
-                    <input type="number" id="start_salary" class="inputTypeNumber"  min="0" max="84999" value="">
-                    <input type="number"id="end_salry" 
-                           class="inputTypeNumber" min="2241" value="85000">
+                        <input type="number" id="start_salary" class="inputTypeNumber"  min="0" max="84999" >
+                        <input type="number"id="end_salary" 
+                               class="inputTypeNumber" min="2241" value="85000">
 
-                    <button type="button" class="myButtonClass" onc  data-type="Price" onclick="searchByPrice()" >
-                        Search
-                    </button>
+                        <button type="button" class="myButtonClass" onc  data-type="Price" onclick="searchByPrice()" >
+                            Search
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class=" row col-md-8">
+            <div class=" col-md-8" style="display: inline-flex; flex-wrap: wrap; margin-top: 55px;">
                 <c:forEach var="product" items="${products}">   
                     <c:url var="product_details" value="ProductDetails">
                         <c:param name="product_id" value="${product.id}"/>
@@ -198,6 +203,19 @@
             </div>
 
         </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <div class="row">
 
             <div class="col-lg-9">
@@ -212,12 +230,18 @@
                 <script>
                     function  searchByPrice()
                     {
-                        if (document.getElementById("start_salary").value !== null ||
-                                document.getElementById("end_salry").value !== null)
-                            document.location.href = "/dokan/UserHomeServlet?start_salry="
+                        if (document.getElementById("start_salary").value != '')
+                        {
+                        var e= document.getElementById("product")
+                        var category = e.options[e.selectedIndex].value;
+                            document.location.href = "/dokan/UserHomeServlet?start_salary="
                                     + document.getElementById("start_salary").value + "&end_salary="
-                                    + document.getElementById("end_salry").value;
-                        alert("apply")
+                                    + document.getElementById("end_salary").value+"&category="+category;
+
+                        } else {
+                            alert("object is null")
+
+                        }
                     }
 
                 </script>

@@ -72,7 +72,7 @@ public class Constants {
     public static final String COLUMN_ORDER_NUMBER = "ORDERS_NUMBER";
     public static final String COLUMN_ORDER_USER_ID = "USER_ID";
     public static final String COLUMN_ORDER_TOTAL_AMOUNT = "TOTAL_AMOUNT";
-    public static final String COLUMN_ORDER_TIMAE = "TIMAE";
+    public static final String COLUMN_ORDER_TIME = "TIMAE";
     public static final String COLUMN_ORDER_STATUS = "STATUS";
 
     // sequences 
@@ -97,4 +97,8 @@ public class Constants {
     public static final int ERROR_FAILED = 0;
     public static final int ERROR_ALREADY_EXIST = -1;
     public static final int ERROR_SUCCESS = 1;
+    
+    // Undefined Category
+    public static final String UNDEFINED_CATEGORY = "Undefined";
+    public static final int UNDEFINED_CATEGORY_ID = 0;
 }

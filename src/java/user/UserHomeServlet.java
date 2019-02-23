@@ -24,8 +24,12 @@ public class UserHomeServlet extends HttpServlet {
 
         String searchWord = request.getParameter("search");
         String category = request.getParameter("category_id");
-        String startPrice = request.getParameter("start_salary");
-        String endPrice = request.getParameter("end_salry");
+        String categoryName = request.getParameter("category");
+
+         String startPrice = request.getParameter("start_salary");
+        String endPrice = request.getParameter("end_salary");
+        System.out.println("startPrice = " + startPrice);
+        System.out.println("endPrice = " + endPrice);
 
         int category_id;
 
@@ -35,27 +39,30 @@ public class UserHomeServlet extends HttpServlet {
 //            products = handler.getProductByName(searchWord);
             products = handler.getProductByName(searchWord);
             System.out.println("products size =" + products.size());
-            System.out.println("products size = ");
+            System.out.println("  search header  ");
         } else if (category != null) {
             category_id = Integer.parseInt(category);
 
             products = handler.getProductsByCategoryId(category_id);
 
-        } else if (endPrice != null && startPrice != null) {
-//             category_id = Integer.parseInt(category);
+            System.out.println("  search category  ");
 
-//            int startPriceInt = Integer.parseInt(startPrice);
-//            int endPriceInt = Integer.parseInt(endPrice);
-            products = handler.getProductsByNmaeAndPrice(1, "as", 10, 100);
+        } else if (startPrice != null) {
+            category_id = Integer.parseInt(categoryName);
+            int startPriceInt = Integer.parseInt(startPrice);
+            int endPriceInt = Integer.parseInt(endPrice);
+            products = handler.getProductsByNmaeAndPrice(category_id, startPriceInt, endPriceInt);
             System.out.println("products size = " + products.size());
+            System.out.println("  search by price   ");
 
         } else {
-            products = handler.getAllProducts(-1);
+            System.out.println("  get all products ");
+
+            products = handler.getAllProducts(Constants.SELECT_ACTIVE);
 
         }
 
-   
-         categories = handlerCategory.getProductCategories();
+        categories = handlerCategory.getProductCategories();
 
         request.setAttribute("products", products);
         request.setAttribute("categories", categories);
@@ -65,8 +72,6 @@ public class UserHomeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
 
         List<ProductCategory> categories = handlerCategory.getProductCategories();
         int userId = 1;

@@ -162,3 +162,20 @@ hr {
     align-items: center;
     justify-content: center;
 }
+
+.oneThirdText{
+    text-align: left; 
+    width: 34%;
+}
+
+.textSuccess{
+    color: #009688;
+}
+
+.textFail{
+    color: #e91e63;
+}
+
+.textWarning{
+    color: #FF9800;
+}

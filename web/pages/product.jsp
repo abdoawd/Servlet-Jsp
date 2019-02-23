@@ -34,13 +34,11 @@
                 <main class="container-product">
                     <!-- Left Column / Headphones Image -->
                     <div class="left-column">
-                        <!--                            <img data-image="red" src="red.png" alt="">
-                                                    <img data-image="blue" src="red.png" alt="">-->
                         <img data-image="red" class="active" src="data:image/jpeg;base64,${product.stringImage}" alt="">
 
                     </div>
 
-
+                  <!-- Right Column -->
                     <!-- Right Column -->
                     <div class="right-column">
                         <!-- Product Description -->
@@ -53,15 +51,13 @@
                         <!-- Product Pricing -->
                         <div class="product-price">
                             <span>${product.getPrice()}</span>
-                            <a href="#" class="cart-btn no-underline">Add to cart</a>
+                            <a id="addToCart" href="/dokan/UserCart?addToCart=true&product_id=${product.id}" class="cart-btn no-underline">Add to cart</a>
                         </div>
                     </div>
                 </main>
 
 
             </div>
-            <!-- /.row -->
-
         </div>
         <!-- /.container -->
 
@@ -72,7 +68,11 @@
         <script> document.getElementById("home").classList.add("active");</script>
         <script src="resources/vendor/jquery/jquery.min.js"></script>
         <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+        <script>
+            function search() {
+                document.location.href = "/dokan/UserCart";
+            }
+        </script>
         <!-- Scripts -->
         <script src="../resources/js/script-product-page.js" charset="utf-8"></script>
 

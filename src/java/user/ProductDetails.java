@@ -7,6 +7,7 @@ package user;
 
 import beans.Product;
 import db.ProductDao;
+import db.UsersDao;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ProductDetails", urlPatterns = {"/ProductDetails"})
 public class ProductDetails extends HttpServlet {
+
 
     Product product = new Product();
     ProductDao productDao = new ProductDao();
