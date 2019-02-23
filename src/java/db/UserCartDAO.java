@@ -91,6 +91,8 @@ public class UserCartDAO {
 
     }
 
+   
+
     public List<Product> getUserCart(int userId) {
         List<Product> list = new ArrayList<Product>();
         Product product = null;
@@ -111,6 +113,7 @@ public class UserCartDAO {
                 output.close();
                 product.setId(rs.getString(Constants.COLUMN_PRODUCT_ID));
                 product.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
+              
                 product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
                 product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
                 product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));

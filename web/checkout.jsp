@@ -34,7 +34,7 @@
 
                 <h1 class="divHeader">Shopping Cart</h1>
                 <div class="row">
-                    <form action='checkout' method='post' class="my-modal-content">
+                    <form action='checkout' method="post" class="my-modal-content">
                         <!-- Left Column - .col-lg-9 -->
                         <div class="columnTwoThird">
                             <div class="container">
@@ -55,11 +55,11 @@
                                 <input type="text"value="${sessionScope.user.email}" placeholder="Enter your email" name="email" required>
 
                                 <label for="street"><b>Street</b></label>
-                                <input type="text" placeholder="Enter Your Street" name="street" required>
+                                <input type="text" placeholder="Enter Your Street" name="street" value="mahram"required>
 
                                 <div class="centeredDiv">
                                     <label for="city"><b>City</b></label>
-                                    <input type="text" placeholder="Enter Your City" name="city" required>
+                                    <input type="text" placeholder="Enter Your City" name="city" value="tanta"required>
                                 </div>
 
                                 <div class="centeredDiv centeredDiv2">
@@ -83,6 +83,7 @@
 
                                     <hr>
                                     <h3>${totalPrices} EGP</h3>
+                                    <input type="hidden" name="total_price" value="${totalPrices}"</h3>
                                 </div>
                                 <div class="list-group-item">
                                     <p><b>Payment Method</b></p>

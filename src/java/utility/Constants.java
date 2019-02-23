@@ -7,7 +7,7 @@ public class Constants {
     public static final String DATABASE_PASSWORD = "1234";
 
     // TABLE NAMES 
-    public static final String ORDER_ITEM_TABLE_NAME = "";
+    public static final String ORDER_ITEM_TABLE_NAME = "ORDER_ITEMS";
 
     // USERS TABLE 
     public static final String USER_TABLE_NAME = "E_USERS";
@@ -66,7 +66,14 @@ public class Constants {
     public static final String COLUMN_INTERESTS_USER_ID = "USER_ID";
     public static final String COLUMN_INTERESTS_CATEGORY_ID = "CATEGORY_ID";
 
-    // ORDER TABLE 
+    //order item columns
+    /*  ORDER_NUMBER  NUMBER                          NOT NULL,
+  PRODUCT_ID    NUMBER                          NOT NULL,
+  QUANTITY      NUMBER  */
+    public static String COLUMN_ORDER_ITEM_ORDER_NUMBER ="ORDER_NUMBER";
+            public static String COULMN_ORDER_ITEM_PRODUCT_ID="PRODUCT_ID";
+    public static String COLUMN_ORDER_ITEM_ORDER_QUANTITY="QUANTITY";
+// ORDER TABLE 
     public static final String ORDER_TABLE_NAME = " USER_ORDERS";
 
     public static final String COLUMN_ORDER_NUMBER = "ORDERS_NUMBER";
@@ -85,19 +92,19 @@ public class Constants {
 
     // getAllProducts Method 
     public static final int SELECT_ALL = 0;
-    
+
     // public static final String SELECT_ID = "SELECT_ID";
     public static final int SELECT_ACTIVE = -1;
-    
+
     //Product Status
     public static final int PRODUCT_ACTIVE = 1;
     public static final int PRODUCT_INACTIVE = 0;
-    
+
     //Error code
     public static final int ERROR_FAILED = 0;
     public static final int ERROR_ALREADY_EXIST = -1;
     public static final int ERROR_SUCCESS = 1;
-    
+
     // Undefined Category
     public static final String UNDEFINED_CATEGORY = "Undefined";
     public static final int UNDEFINED_CATEGORY_ID = 0;

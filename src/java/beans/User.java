@@ -6,7 +6,7 @@ public class User implements ListModelInterface {
 
     /*user_id	fanme 	last name	role	email
             password	job	birthday	credit_limit*/
-    private String id;
+    private int id;
     private String firstName;
     private String lastName;
     private String role;
@@ -27,7 +27,7 @@ public class User implements ListModelInterface {
         this.lastName = lastName;
     }
 
-    public User(String id, String firstName, String lastName, String email, String password, String job,
+    public User(int id, String firstName, String lastName, String email, String password, String job,
             Date birthday, double creditlimits) {
         // public User(String id, String firstName, String lastName,String role, String email,
         //String password, String job,String birthday, double creditlimits) {
@@ -66,11 +66,11 @@ public class User implements ListModelInterface {
         this.country = country;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

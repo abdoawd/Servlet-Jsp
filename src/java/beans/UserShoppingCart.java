@@ -16,7 +16,6 @@ public class UserShoppingCart {
     private String quantity;
     private String productName;
     private String productPrice;
-
     public UserShoppingCart() {
     }
 

@@ -64,7 +64,7 @@
                                         <td class="product-quantity" data-title="Quantity">
                                             <div class="quantity buttons_added">
                                                 <input type="button"  id = "decreaseBtn" onclick="getTotalAmount(${cartItem.id},${cartItem.price}, 'sub',${cartItem.getQuantity()}, '${cartItem.name}')" value="-" class="minus button is-form">    
-                                                <input type="number" id ="${cartItem.id}"   class="input-text qty text" step="1" min="1" max="10" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric">
+                                                <input type="number" id ="${cartItem.id}"   class="input-text qty text" step="1" min="1" max="10" value="" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric">
                                                 <input type="button" id = "inecreaseBtn" onclick = "getTotalAmount(${cartItem.id}, ${cartItem.price}, 'add', ${cartItem.getQuantity()}, '${cartItem.name}')" value="+" class="plus button is-form">  
                                             </div>
                                             <div><p><span>Total Quantity </span>${cartItem.getQuantity()}</p></div>
@@ -154,7 +154,7 @@
                     finalTotal.innerText = parseInt(--amountValue.value) * parseInt(m) + "EGP";
 //                    document.getElementById("checkout_item" + id).value = finalTotal.innerText;
 
-                } else if ((type === 'add') && (amountValue.value <= totalQuntity))
+                } else if ((type === 'add') && (amountValue.value < totalQuntity))
                 {
                     finalTotal.innerText = parseInt(++amountValue.value) * parseInt(m) + "EGP";
 //                    document.getElementById("checkout_item" + id).value = finalTotal.innerText;

@@ -28,8 +28,9 @@ public class OrderDao {
         connection = handlerConnection.establishConnection();
     }
 
-    public void addOrder(Order order) {
+    public boolean addOrder(Order order) {
         PreparedStatement pst;
+        boolean queryStatus = false;
         try {
 
             pst = connection.prepareStatement("insert into " + Constants.ORDER_TABLE_NAME
@@ -46,11 +47,13 @@ public class OrderDao {
 
             int i = pst.executeUpdate();
             if (i != 0) {
+                queryStatus = true;
             }
         } catch (SQLException ex) {
             System.out.println("SQLException " + ex.getMessage());
             ex.printStackTrace();
         }
+        return queryStatus;
     }
 
     public List<Order> getAllOrder(int userId) {
@@ -82,4 +85,26 @@ public class OrderDao {
         }
         return list;
     }
+
+    public int getOrderNumber(int userId, String ordeTime) {
+        PreparedStatement pst;
+        int orderNumber = 0;
+        try {
+            pst = connection.prepareStatement("select " + Constants.COLUMN_ORDER_NUMBER + " from  "
+                    + Constants.ORDER_TABLE_NAME + " where "
+                    + Constants.COLUMN_ORDER_USER_ID + " =? and " + Constants.COLUMN_ORDER_TIME + " =? ");
+            pst.setInt(1, userId);
+            pst.setString(2, ordeTime);
+
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                orderNumber = rs.getInt(Constants.COLUMN_ORDER_NUMBER);
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQLException " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return orderNumber;
+    }
+
 }

@@ -49,7 +49,7 @@
                             <a href="#" class="list-group-item">Account Details</a>
                             <a href="<%=request.getContextPath()%>/user/EditAccount.jsp" class="list-group-item">Edit Profile</a>
                             <a href="#" class="list-group-item">Orders</a>
-                            <a href="#" class="list-group-item">Logout</a>
+                            <a href="<%=request.getContextPath()%>/logout" class="list-group-item">Logout</a>
                         </div>
 
                     </div>
