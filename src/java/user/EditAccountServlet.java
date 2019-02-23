@@ -5,7 +5,9 @@
  */
 package user;
 
+import beans.Address;
 import beans.User;
+import db.AddressDao;
 import db.UsersDao;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +32,8 @@ import javax.servlet.http.Part;
 @WebServlet(name = "EditAccountServlet", urlPatterns = {"/EditAccount"})
 @MultipartConfig 
 public class EditAccountServlet extends HttpServlet {
+    AddressDao handlerAddress = new AddressDao();
+     UsersDao myDb=new UsersDao();
 
  
 
@@ -48,22 +52,23 @@ public class EditAccountServlet extends HttpServlet {
         user.setJob(request.getParameter("job"));
         user.setCreditlimits(Double.parseDouble(request.getParameter("creditlimits")));
         String dateBirthday=request.getParameter("birthday");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            user.setBirthday(sdf.parse(dateBirthday));
-        } catch (ParseException ex) {
-            Logger.getLogger(EditAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
+       
+            user.setBirthday(dateBirthday);
+       
         Part filePart = request.getPart("profileImage");
         InputStream picInputStream = filePart.getInputStream();
-        
         User userMe=(User)session.getAttribute("user");
         user.setId(userMe.getId());
-        user.setRole(user.getRole());
-        
-        
-        UsersDao myDb=new UsersDao();
-        userMe= myDb.updateUserData(user,picInputStream);
+                System.out.println("user id in session "+userMe.getId());
+            userMe= myDb.updateUserData(user,picInputStream);
+        String street = request.getParameter("street");
+        String city = request.getParameter("city");
+        String country = request.getParameter("country");
+          Address userAddress=new Address();
+       userAddress = handlerAddress.addAdress(userMe.getId(), street, city, country);
+       user.setAddress(userAddress);
+       
 	session.setAttribute("user",userMe);
         out.println(userMe.getFirstName());
         
