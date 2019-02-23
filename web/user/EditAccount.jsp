@@ -39,7 +39,7 @@
             <!-- Page Content -->
             <div class="container containerSpacing">
 
-                <h1 class="divHeader">User Name</h1>
+                <h1 class="divHeader">${user.firstName} ${user.lastName}</h1>
 
                 <div class="row" style="flex-flow: inherit;">
 
@@ -132,7 +132,7 @@
 
 
                         </div>
-                                
+                                            <%--   
                         <c:choose>
                             <c:when test="${isChanged == 'true'}">
                                 <div class="card-footer small text-muted">Changes saved successfully.</div>
@@ -144,7 +144,8 @@
                                 <div class="card-footer small text-muted">Everything is just fine.</div>
                             </c:otherwise>
                         </c:choose>
-
+                              
+--%>
                         
                     </div>
                         

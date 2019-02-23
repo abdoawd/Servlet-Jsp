@@ -4,20 +4,34 @@ import java.util.Date;
 
 public class User  implements ListModelInterface{
 
+    /**
+     * @return the address
+     */
+    public Address getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
  
 
     /*user_id	fanme 	last name	role	email
             password	job	birthday	credit_limit*/
-    private String id ;
+    private int  id ;
     private String firstName;
     private String lastName;
     private String role;
     private String email;
     private String password;
     private String job;
-    private Date /*date not sure */ birthday;
+    private String /*date not sure */ birthday;
     private double creditlimits;
-   
+   private Address address;
 
     public User() {
     }
@@ -28,7 +42,7 @@ public class User  implements ListModelInterface{
     }
 
 
-    public User(String id, String firstName, String lastName, String email,String password, String job,Date birthday, double creditlimits) {
+    public User(int id, String firstName, String lastName,String role, String email,String password, String job) {
    // public User(String id, String firstName, String lastName,String role, String email,
             //String password, String job,String birthday, double creditlimits) {
 
@@ -39,17 +53,13 @@ public class User  implements ListModelInterface{
         this.email = email;
         this.password=password;
         this.job = job;
-        this.birthday=birthday; 
-        this.creditlimits = creditlimits;
+       
     }
-
- 
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -101,11 +111,11 @@ public class User  implements ListModelInterface{
         this.job = job;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

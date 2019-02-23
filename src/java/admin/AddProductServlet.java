@@ -48,7 +48,8 @@ public class AddProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<ProductCategory> productCategotyList = handlerCategory.getProductCategories();
+        List<ProductCategory> productCategotyList=null;
+        productCategotyList = handlerCategory.getProductCategories();
         request.setAttribute("productCategotyList", productCategotyList);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("addProduct.jsp");

@@ -16,135 +16,104 @@
         <!-- Custom styles for this template -->
         <link href="resources/css/shop-homepage.css" rel="stylesheet">
     </head>
-    <body>
+   <body id="page-top">
 
- <!--Add Header Block-->
-        <jsp:include page="../blocks/header.jsp"/>  
-       
+        <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-     <!-- Page Content -->
-     <div class="container containerSpacing" style="width: 50%;">
-         <form action="" method="post" style="width: 100%;">
-        <div class="row">
-            
+            <a class="navbar-brand mr-1" href="<%=request.getContextPath()%>/admin">Dokan</a>
 
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                     
+            <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <jsp:include page="../blocks/adminSideBar.jsp"/>
+
+            <div id="content-wrapper">
+
+                <div class="container-fluid">
+
+                    <!-- Breadcrumbs-->
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="<%=request.getContextPath()%>/admin">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active">${pageTitle}</li>
+                    </ol>
+
+                    <!-- DataTables Example -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-table"></i>
+                            Users Data</div>
                         <div class="card-body">
-                            <h4 class="card-title">                           
-                            Clothes
-                            <input type="checkbox" name="interests" value="clothes">
-                             </h4>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                           
+                                            <th>Category</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Category</th>
+                                            
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <c:forEach var="user" items="${usersList}">                                                
+                                        <tr>
+                                            <td>${user.id}</td>
+                                            <td>${user.firstName}</td>
+                                            <td>${user.lastName}</td>
+                                            <td>${user.email}</td>
+                                            <td>${user.job}</td>
+                                            <td>${user.creditlimits}</td>
+                                        </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        
+                        <div class="card-footer small text-muted">Updated 1 min ago.</div> 
                     </div>
                 </div>
+                <!-- /.container-fluid -->
 
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                      
-                        <div class="card-body">
-                           <h4 class="card-title">                           
-                            Electronics
-                            <input type="checkbox" name="interests" value="Electronics">
-                             </h4>
-                           
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                        </div>
-                    </div>
-                </div>
+                <!-- Sticky Footer -->
+                <jsp:include page="../blocks/adminFooter.jsp"/>
 
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <img class="card-img-top" src="../resources/pictures/p1.png" alt="">
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                Fashions <input type="checkbox" name="interests" value="fashion" >
-                            </h4>
-                           
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <img class="card-img-top" src="../resources/pictures/p1.png" alt="">
-                        <div class="card-body">
-                            <h4 class="card-title">
-                            Shoes <input type="checkbox" name="interests" value="Shoes" >
-
-                            </h4>
-                           
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                       <img class="card-img-top" src="../resources/pictures/p1.png" alt="">
-                        <div class="card-body">
-                            <h4 class="card-title">
-                            
-                             Smart Devices <input type="checkbox" name="interests" value="Smart_Devices" >
-
-                            </h4>
-                           
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="../resources/pictures/p1.png" alt=""></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                              Furniture <input type="checkbox" name="interests" value="Furniture" >
-                            </h4>
-                            
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                        </div>
-                    </div>
-                </div>
-                   <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="../resources/pictures/p1.png" alt=""></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                              Books <input type="checkbox" name="interests" value="Books" >
-                            </h4>
-                            
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                        </div>
-                    </div>
-                </div>
-            
-                
-           
-        </div>
-             <div>
-                <input type="submit" value="Go to Home Page"/>
             </div>
-          </form>
+            <!-- /.content-wrapper -->
+
         </div>
-         <script src="resources/vendor/jquery/jquery.min.js"></script>
-        <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        
-        
+        <!-- /#wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="<%=request.getContextPath()%>/resources/vendor/jquery/jquery.min.js"></script>
+        <script src="<%=request.getContextPath()%>/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="<%=request.getContextPath()%>/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="<%=request.getContextPath()%>/resources/js/sb-admin.min.js"></script>
+
+        <!-- Demo scripts for this page-->
+        <script src="<%=request.getContextPath()%>/resources/js/demo/datatables-demo.js"></script>
+        <script src="<%=request.getContextPath()%>/resources/js/demo/chart-area-demo.js"></script>
+
     </body>
 </html>
