@@ -53,9 +53,10 @@ public class UserCart extends HttpServlet {
 
         }
         products = userCartDAO.getUserCart(userId);
+        System.out.println("user cart product " + products.get(0).getQuantity());
 
         req.setAttribute("userCartProducts", products);
-        req.getRequestDispatcher("cart.jsp").forward(req, resp);
+        req.getRequestDispatcher("cart.jsp").include(req, resp);
     }
 
 }

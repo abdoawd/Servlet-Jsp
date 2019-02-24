@@ -28,8 +28,6 @@ public class UserHomeServlet extends HttpServlet {
 
          String startPrice = request.getParameter("start_salary");
         String endPrice = request.getParameter("end_salary");
-        System.out.println("startPrice = " + startPrice);
-        System.out.println("endPrice = " + endPrice);
 
         int category_id;
 
@@ -38,26 +36,16 @@ public class UserHomeServlet extends HttpServlet {
         if (searchWord != null) {
 //            products = handler.getProductByName(searchWord);
             products = handler.getProductByName(searchWord);
-            System.out.println("products size =" + products.size());
-            System.out.println("  search header  ");
         } else if (category != null) {
             category_id = Integer.parseInt(category);
 
             products = handler.getProductsByCategoryId(category_id);
-
-            System.out.println("  search category  ");
-
         } else if (startPrice != null) {
             category_id = Integer.parseInt(categoryName);
             int startPriceInt = Integer.parseInt(startPrice);
             int endPriceInt = Integer.parseInt(endPrice);
             products = handler.getProductsByNmaeAndPrice(category_id, startPriceInt, endPriceInt);
-            System.out.println("products size = " + products.size());
-            System.out.println("  search by price   ");
-
         } else {
-            System.out.println("  get all products ");
-
             products = handler.getAllProducts(Constants.SELECT_ACTIVE);
 
         }
@@ -78,8 +66,6 @@ public class UserHomeServlet extends HttpServlet {
         List<Product> products = handler.getAllProducts(Constants.SELECT_ACTIVE);
         List<Product> interestsProducts = handler.getInterstsProduct(userId);
 
-        System.out.println("product size = " + products.size());
-        System.out.println("ProductCategory size = " + categories.size());
         request.setAttribute("products", products);
         request.setAttribute("categories", categories);
         dispatcher = request.getRequestDispatcher("/user/shop.jsp");

@@ -28,6 +28,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         User user = usersDao.login(name, password);
         if (user != null) {
+
             out.println("log in successfully ");
             out.print("role=" + user.getRole());
             out.print("role=" + user.getFirstName());
@@ -35,7 +36,9 @@ public class LoginServlet extends HttpServlet {
             // session . add user()
             HttpSession session = request.getSession(true);
             session.setAttribute("user", user);
-            session.setAttribute("loggedIn", new String("true"));
+            dispatcher = request.getRequestDispatcher("/user/shop.jsp");
+            dispatcher.forward(request, response);
+            
             if (user.getRole().equals("admin")) {
                 System.out.println("admin");
                 response.sendRedirect("admin");

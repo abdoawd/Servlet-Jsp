@@ -59,7 +59,7 @@ public class CategoryDao implements DbInterface {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return Constants.ERROR_FAILED;
+            
         }
         return Constants.ERROR_FAILED;
     }

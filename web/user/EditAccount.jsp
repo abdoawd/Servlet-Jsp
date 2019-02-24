@@ -39,7 +39,7 @@
             <!-- Page Content -->
             <div class="container containerSpacing">
 
-                <h1 class="divHeader">User Name</h1>
+                <h1 class="divHeader">${user.firstName} ${user.lastName}</h1>
 
                 <div class="row" style="flex-flow: inherit;">
 
@@ -97,10 +97,13 @@
                                         </div>
 
                                         <div>
-                                            <label><b>Address</b></label>
-                                            <span><input type="text" value="street"/></span>  
-                                            <span><input type="text" value="city"/></span>
-                                            <span><input type="text" value="country"/></span>
+                                            <label><h3>Address</h3></label>
+                                            <label><b>Street</b></label>
+                                            <input type="text" value="street" name="street"/> 
+                                            <label><b>City</b></label>
+                                           <input type="text" value="city" name="city"/>
+                                           <label><b>Country</b></label>
+                                            <span><input type="text" value="country" name="country"/></span>
                                         </div>
 
                                        <div class="centeredDiv centeredDiv2">
@@ -132,7 +135,7 @@
 
 
                         </div>
-                                
+                                            <%--   
                         <c:choose>
                             <c:when test="${isChanged == 'true'}">
                                 <div class="card-footer small text-muted">Changes saved successfully.</div>
@@ -144,7 +147,8 @@
                                 <div class="card-footer small text-muted">Everything is just fine.</div>
                             </c:otherwise>
                         </c:choose>
-
+                              
+--%>
                         
                     </div>
                         

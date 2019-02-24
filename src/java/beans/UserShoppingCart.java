@@ -13,7 +13,6 @@ public class UserShoppingCart implements ListModelInterface{
     private String quantity;
     private String productName;
     private String productPrice;
-
     public UserShoppingCart() {
     }
 
