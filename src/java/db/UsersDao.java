@@ -38,10 +38,7 @@ public class UsersDao implements DbInterface {
 
             rs = ps.executeQuery();
             while (rs.next()) {
-//                user = new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(5),
-//                        rs.getString(6), rs.getString(7), rs.getDate(8), rs.getDouble(9));
-                /*    public User(String id, String firstName, String lastName, String email,
-            String password, String job,String birthday, double creditlimits)*/
+
                 user = new User();
                 user.setId(rs.getInt(Constants.COLUMN_USER_ID));
                 user.setFirstName(rs.getString(Constants.COLUMN_USER_FIRST_NAME));
@@ -51,6 +48,7 @@ public class UsersDao implements DbInterface {
                 user.setPassword(rs.getString(Constants.COLUMN_USER_PASSWORD));
                 user.setJob(rs.getString(Constants.COLUMN_USER_JOP));
                 user.setCreditlimits(rs.getDouble(Constants.COLUMN_USER_CREDIT_LIMIT));
+                user.setBirthday(rs.getString(Constants.COLUMN_USER_BIRTHDAY));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -58,15 +56,17 @@ public class UsersDao implements DbInterface {
         return user;
     }
 
-    public User addUser(String firstName, String lastName, String email, String passwrd, String jop) {
+    public boolean addUser(String firstName, String lastName, String email, String passwrd, String jop) {
         PreparedStatement pst;
 
         try {
             int id = (int) getSequence(Constants.USERSES_SEQUENCES);
             //   Date date=new SimpleDateFormat("yyyy-mm-dd").parse(birthday);  
+           //int id= (int) getSequence(Constants.USERSES_SEQUENCES);
+           //   Date date=new SimpleDateFormat("yyyy-mm-dd").parse(birthday);  
             pst = connection.prepareStatement("insert into " + Constants.USER_TABLE_NAME
                     + "( "
-                    + Constants.COLUMN_USER_ID + ","
+                 //   + Constants.COLUMN_USER_ID + ","
                     + Constants.COLUMN_USER_FIRST_NAME + ","
                     + Constants.COLUMN_USER_LAST_NAME + ","
                     + Constants.COLUMN_USER_ROLE + ","
@@ -84,19 +84,21 @@ public class UsersDao implements DbInterface {
             pst.setString(7, jop);
             //  pst.setDate(8, new java.sql.Date( date.getTime()));
 
+
             int i = pst.executeUpdate();
 
             if (i != 0) {
                 System.out.print("success");
-                System.out.println("id in add user " + id);
-                User user = new User(id, firstName, lastName, "user", email, passwrd, jop);
-                return user;
+
+               
+               //User user=new User(id,firstName,lastName,"user",email,passwrd,jop);
+               return true;
             }
         } catch (SQLException ex) {
             System.out.println("SQLException " + ex.getMessage());
             ex.printStackTrace();
         }
-        return null;
+        return false;
     }
 
     public boolean isEmailExist(String userEmail) {

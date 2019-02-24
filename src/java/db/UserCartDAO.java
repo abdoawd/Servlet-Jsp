@@ -141,6 +141,7 @@ public class UserCartDAO {
                 userShoppingCart.setProductPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
                 userShoppingCart.setProductName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
                 list.add(userShoppingCart);
+
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

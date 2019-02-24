@@ -12,6 +12,12 @@ import db.UsersDao;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -30,6 +36,8 @@ import javax.servlet.http.Part;
 public class EditAccountServlet extends HttpServlet {
     AddressDao handlerAddress = new AddressDao();
      UsersDao myDb=new UsersDao();
+     boolean isChanged;
+     User updatedUser;
 
  
 
@@ -57,18 +65,35 @@ public class EditAccountServlet extends HttpServlet {
         User userMe=(User)session.getAttribute("user");
         user.setId(userMe.getId());
                 System.out.println("user id in session "+userMe.getId());
-            userMe= myDb.updateUserData(user,picInputStream);
+          user = myDb.updateUserData(user,picInputStream);
         String street = request.getParameter("street");
         String city = request.getParameter("city");
         String country = request.getParameter("country");
+        
           Address userAddress=new Address();
+          
        userAddress = handlerAddress.addAdress(userMe.getId(), street, city, country);
+       
+       if(userAddress!=null && user!=null){
        user.setAddress(userAddress);
        
-	session.setAttribute("user",userMe);
-        out.println(userMe.getFirstName());
+	session.setAttribute("user",user);
+        isChanged=true;
         
-        
+       }else
+           isChanged=false;
+  
+     request.setAttribute("isChanged", isChanged);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("user/EditAccount.jsp");
+        dispatcher.forward(request, response);
+       
+       
+       
+       
+       
+       
+       
+       
     }
 
   
