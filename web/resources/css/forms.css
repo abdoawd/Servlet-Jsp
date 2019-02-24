@@ -179,3 +179,10 @@ hr {
 .textWarning{
     color: #FF9800;
 }
+
+.imgContainer{
+    position: absolute;
+    text-align: center;
+    border: #f1f1f1 solid 3px;
+    padding: 15px;
+}

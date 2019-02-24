@@ -1,6 +1,7 @@
 package beans;
 
 import java.awt.Image;
+import javax.servlet.http.Part;
 
 public class Product implements ListModelInterface {
 
@@ -18,6 +19,15 @@ public class Product implements ListModelInterface {
     
     private Image image;
     private String stringImage;
+    private Part part;
+
+    public Part getPart() {
+        return part;
+    }
+
+    public void setPart(Part part) {
+        this.part = part;
+    }
 
     public String getCategoryName() {
         return categoryName;

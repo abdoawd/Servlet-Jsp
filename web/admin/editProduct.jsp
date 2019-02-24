@@ -82,23 +82,18 @@
                         <c:if test="${selectedProduct != null}">
                             <div class="card-header">
                                 <i class="fas fa-table"></i>
-                                2. Edit product details then click edit.</div>
+                                2. Edit product details then click edit.
+                            </div>
                             <div class="card-body">
-                                <form action='<%=request.getContextPath()%>/admin/editProduct' method='post' enctype="multipart/form-data" class="my-modal-content">
-                                    <!-- Left Column - .col-lg-9 -->
-                                    <div class="columnTwoThird">
-                                        <div class="container">
-                                            <div class="centeredDiv">
+                                <form action='<%=request.getContextPath()%>/admin/editProduct' enctype="multipart/form-data" method='post' class="my-modal-content">
+                                    <div class="container">
+                                        <!-- Left Column -->
+                                        <div class="twoThirdDiv">
+                                            <div>
                                                 <label><b>Product Name</b></label>
                                                 <input type="text" value="${selectedProduct.name}" placeholder="Enter product name" name="productName" required>
-                                                <input hidden="true" type="text" value="${selectedProduct.id}" name="toEditProductId">
+                                                <input type="text" value="${selectedProduct.id}" name="productId">
                                             </div>
-
-                                            <div class="centeredDiv centeredDiv2">
-                                                <label><b>Quantity</b></label>
-                                                <input type="number" min="0" value="${selectedProduct.quantity}" placeholder="Enter quantity avaiable in stock" name="productQuantity" required>
-                                            </div>
-
                                             <div class="centeredDiv">
                                                 <label><b>Price</b></label>
                                                 <input type="number" min="0" step=".01" value="${selectedProduct.price}" placeholder="Enter product price" name="productPrice" required>
@@ -119,29 +114,35 @@
                                             </div>
 
                                             <div class="centeredDiv centeredDiv2">
+                                                <label><b>Quantity</b></label>
+                                                <input type="number" min="0" value="${selectedProduct.quantity}" placeholder="Enter quantity avaiable in stock" name="productQuantity" required>
+                                            </div>
+                                            <label><b><br>Description</b></label>
+                                            <textarea  placeholder="Enter product description" name="productDescription" required>${selectedProduct.description}</textarea>
+                                        </div>
+                                        <!-- Left Column -->
+
+                                        <!-- Right Column -->
+                                        <div class="imgContainer oneThirdDiv">
+                                            <div>
                                                 <label style="display: block;"><b>Product Image</b></label>
-                                                <img id="productImageDisplay" hidden="true" src="#"/>
-                                                <input type="file" onchange="loadFile(event)" name="productImage" size="5" accept="image/*" required>
+                                                <img id="productImageDisplay" src="data:image/jpeg;base64,${selectedProduct.stringImage}" alt="Product Image" width="100%" style="margin: 1.5rem 0;"/>
+
+                                                <input type="file" name="productImage" onchange="loadFile(event)" size="5" accept="image/*" style="margin: 0 auto;">
                                                 <!-- To change the product image based on the uploaded image -->
                                                 <script>
                                                     var loadFile = function (event) {
                                                         var output = document.getElementById('productImageDisplay');
-                                                        output.height = 50;
-                                                        output.hidden = false;
                                                         output.src = URL.createObjectURL(event.target.files[0]);
-
                                                     };
                                                 </script>
                                             </div>
-
-                                            <label><b><br>Description</b></label>
-                                            <textarea  placeholder="Enter product description" name="productDescription" required>${selectedProduct.description}</textarea>
                                         </div>
-                                        <div class="center-div">
-                                            <button type="submit" class="submit-button-half oneThirdDiv warningColor">Edit</button>
-                                        </div>
+                                        <!-- Right Column -->
                                     </div>
-                                    <!-- / Left Column - .col-lg-9 -->
+                                    <div class="center-div">
+                                        <button type="submit" class="submit-button-half oneThirdDiv warningColor">Edit</button>
+                                    </div>
                                 </form>
                             </div>
                         </c:if>
@@ -159,38 +160,40 @@
                         </c:choose>
                     </div>
                 </div>
-                <!-- /.container-fluid -->
-
-                <!-- Sticky Footer -->
-                <jsp:include page="../blocks/adminFooter.jsp"/>
-
             </div>
-            <!-- /.content-wrapper -->
+            <!-- /.container-fluid -->
+
+            <!-- Sticky Footer -->
+            <jsp:include page="../blocks/adminFooter.jsp"/>
 
         </div>
-        <!-- /#wrapper -->
+        <!-- /.content-wrapper -->
 
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="<%=request.getContextPath()%>/resources/vendor/jquery/jquery.min.js"></script>
-        <script src="<%=request.getContextPath()%>/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    </div>
+    <!-- /#wrapper -->
 
-        <!-- Core plugin JavaScript-->
-        <script src="<%=request.getContextPath()%>/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-        <!-- Custom scripts for all pages-->
-        <script src="<%=request.getContextPath()%>/resources/js/sb-admin.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="<%=request.getContextPath()%>/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Demo scripts for this page-->
-        <script src="<%=request.getContextPath()%>/resources/js/demo/datatables-demo.js"></script>
-        <script src="<%=request.getContextPath()%>/resources/js/demo/chart-area-demo.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="<%=request.getContextPath()%>/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        <!-- Select scripts for this page-->
-        <script src="<%=request.getContextPath()%>/resources/js/demo/customSelect.js"></script>
-    </body>
+    <!-- Custom scripts for all pages-->
+    <script src="<%=request.getContextPath()%>/resources/js/sb-admin.min.js"></script>
+
+    <!-- Demo scripts for this page-->
+    <script src="<%=request.getContextPath()%>/resources/js/demo/datatables-demo.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/demo/chart-area-demo.js"></script>
+
+    <!-- Select scripts for this page-->
+    <script src="<%=request.getContextPath()%>/resources/js/demo/customSelect.js"></script>
+</body>
 
 </html>

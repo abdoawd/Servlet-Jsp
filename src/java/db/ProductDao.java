@@ -191,7 +191,8 @@ public class ProductDao implements DbInterface {
         }
         return list;
     }
-/*
+
+    /*
     public boolean deleteMethod(String id, String tableName) { //Used for product or Category
         PreparedStatement pst;
         boolean isScuccess = false;
@@ -219,7 +220,7 @@ public class ProductDao implements DbInterface {
         }
         return isScuccess;
     }
-*/
+     */
     public boolean deleteProductTemporarily(String id) {
         PreparedStatement pst;
         boolean isScuccess = false;
@@ -284,7 +285,7 @@ public class ProductDao implements DbInterface {
         return list;
     }
 
-    public boolean updateProduct(Product product, InputStream picInputStream) {
+    public boolean updateProduct(Product product) {
         PreparedStatement pst;
         boolean isScuccess = false;
         try {
@@ -293,7 +294,6 @@ public class ProductDao implements DbInterface {
                     + Constants.COLUMN_PRODUCT_DESCRIPTION + " = ?,"
                     + Constants.COLUMN_PRODUCT_PRICE + " = ?,"
                     + Constants.COLUMN_PRODUCT_QUANTITY + " = ?,"
-                    + Constants.COLUMN_PRODUCT_IMAGE + " = ?,"
                     + Constants.COLUMN_PRODUCT_CATEGORY_ID + " = ?,"
                     + Constants.COLUMN_PRODUCT_DISCOUNT + " = ? WHERE "
                     + Constants.COLUMN_PRODUCT_ID + " = ?");
@@ -301,19 +301,35 @@ public class ProductDao implements DbInterface {
             pst.setString(2, product.getDescription());
             pst.setDouble(3, product.getPrice());
             pst.setInt(4, product.getQuantity());
-            pst.setBlob(5, picInputStream);
-            pst.setInt(6, product.getCategoryId());
-            pst.setDouble(7, product.getDiscount());
-            pst.setInt(8, product.getId());
+            pst.setInt(5, product.getCategoryId());
+            pst.setDouble(6, product.getDiscount());
+            pst.setInt(7, product.getId());
 
             int i = pst.executeUpdate();
+
             if (i != 0) {
                 isScuccess = true;
+            }
+
+            if (product.getPart() != null) {
+                pst = connection.prepareStatement("UPDATE " + Constants.PRODUCT_TABLE_NAME
+                        + " SET " + Constants.COLUMN_PRODUCT_IMAGE + " = ? WHERE "
+                        + Constants.COLUMN_PRODUCT_ID + " = ?");
+                pst.setBlob(1, product.getPart().getInputStream());
+                pst.setInt(2, product.getId());
+
+                int j = pst.executeUpdate();
+
+                if (j == 0) { // fail
+                    isScuccess = false;
+                }
             }
         } catch (SQLException ex) {
             System.out.println("SQLException " + ex.getMessage());
             ex.printStackTrace();
             System.out.println("status = " + isScuccess);
+        } catch (IOException ex) {
+            Logger.getLogger(ProductDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return isScuccess;
     }

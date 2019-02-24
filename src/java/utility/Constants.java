@@ -101,4 +101,7 @@ public class Constants {
     // Undefined Category
     public static final String UNDEFINED_CATEGORY = "Undefined";
     public static final int UNDEFINED_CATEGORY_ID = 0;
+    
+    // User logged in status
+    public static final int LOGGED_IN = 1;
 }
