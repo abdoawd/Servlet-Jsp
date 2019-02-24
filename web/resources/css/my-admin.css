@@ -1,0 +1,20 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Feb 14, 2019, 2:02:08 AM
+    Author     : A7med
+*/
+
+.number-main{
+    font-size: 72px;
+    font-style: italic;
+    display: inline-block;
+}
+
+.centerd{
+    margin: 0 auto;
+    text-align: center;
+}

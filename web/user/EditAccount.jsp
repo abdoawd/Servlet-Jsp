@@ -74,7 +74,8 @@
 
                                         <div class="centeredDiv">
                                             <label><b>Email</b></label>
-                                            <input type="email"   name="email" value="${user.email} ">
+                                           
+                                                <input type="email"   name="email" value="${user.email}" readonly />
                                         </div>
 
                                         <div class="centeredDiv centeredDiv2">
@@ -135,7 +136,7 @@
 
 
                         </div>
-                                            <%--   
+                      
                         <c:choose>
                             <c:when test="${isChanged == 'true'}">
                                 <div class="card-footer small text-muted">Changes saved successfully.</div>
@@ -148,7 +149,7 @@
                             </c:otherwise>
                         </c:choose>
                               
---%>
+
                         
                     </div>
                         

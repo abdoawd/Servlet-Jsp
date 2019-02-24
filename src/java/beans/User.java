@@ -49,7 +49,7 @@ public class User  implements ListModelInterface{
         this.lastName = lastName;
     }
 
-    public User(int id, String firstName, String lastName, String email, String password, String job,
+    public User(String firstName, String lastName, String email, String password, String job,
             Date birthday, double creditlimits) {
         // public User(String id, String firstName, String lastName,String role, String email,
         //String password, String job,String birthday, double creditlimits) {
