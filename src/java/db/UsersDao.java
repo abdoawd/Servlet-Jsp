@@ -38,10 +38,7 @@ public class UsersDao implements DbInterface {
 
             rs = ps.executeQuery();
             while (rs.next()) {
-//                user = new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(5),
-//                        rs.getString(6), rs.getString(7), rs.getDate(8), rs.getDouble(9));
-                /*    public User(String id, String firstName, String lastName, String email,
-            String password, String job,String birthday, double creditlimits)*/
+
                 user = new User();
                 user.setId(rs.getInt(Constants.COLUMN_USER_ID));
                 user.setFirstName(rs.getString(Constants.COLUMN_USER_FIRST_NAME));
@@ -51,6 +48,7 @@ public class UsersDao implements DbInterface {
                 user.setPassword(rs.getString(Constants.COLUMN_USER_PASSWORD));
                 user.setJob(rs.getString(Constants.COLUMN_USER_JOP));
                 user.setCreditlimits(rs.getDouble(Constants.COLUMN_USER_CREDIT_LIMIT));
+                user.setBirthday(rs.getString(Constants.COLUMN_USER_BIRTHDAY));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();    

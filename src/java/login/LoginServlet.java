@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utility.Constants;
 
 public class LoginServlet extends HttpServlet {
 
@@ -36,29 +37,20 @@ public class LoginServlet extends HttpServlet {
             // session . add user()
             HttpSession session = request.getSession(true);
             session.setAttribute("user", user);
-            dispatcher = request.getRequestDispatcher("/user/shop.jsp");
-            dispatcher.forward(request, response);
-            
+
+            session.setAttribute("loggedIn", Constants.LOGGED_IN);
+
             if (user.getRole().equals("admin")) {
                 System.out.println("admin");
                 response.sendRedirect("admin");
                 out.print("role=" + user.getRole());
             } else {
                 System.out.println("user");
-                out.print("role=" + user.getRole());
-
                 response.sendRedirect("UserHomeServlet");
-
             }
 
         } else {
             out.println("log in faild ");
         }
     }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }
-
 }
