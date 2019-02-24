@@ -31,7 +31,7 @@
             <a class="nav-link" href="<%=request.getContextPath()%>/account.jsp">Account</a>
           </li>
           <li id="cart" class="nav-item">
-            <a class="nav-link" href="<%=request.getContextPath()%>/cart.jsp">Cart</a>
+            <a class="nav-link" href="<%=request.getContextPath()%>/UserCart">Cart</a>
           </li>
         </ul>
       </div>

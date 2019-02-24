@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
                 System.out.println("user");
                 out.print("role=" + user.getRole());
 
-                response.sendRedirect("UserHomeServlet");
+              //  response.sendRedirect("UserHomeServlet");
 
             }
 

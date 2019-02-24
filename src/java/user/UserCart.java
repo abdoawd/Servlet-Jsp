@@ -7,6 +7,7 @@ package user;
 
 import beans.Product;
 import beans.User;
+import beans.UserShoppingCart;
 import db.UserCartDAO;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "UserCart", urlPatterns = {"/UserCart"})
 public class UserCart extends HttpServlet {
 
-    List<Product> products = new ArrayList<>();
+    List<UserShoppingCart> products = new ArrayList<>();
     UserCartDAO userCartDAO = new UserCartDAO();
 
     @Override
@@ -35,13 +36,15 @@ public class UserCart extends HttpServlet {
         int userId = Integer.valueOf(user.getId());
 
         if (Boolean.valueOf(req.getParameter("addToCart")) == false) {
-            int updateProductId = Integer.valueOf(req.getParameter("productId"));
-            if (req.getParameter("itemNumber") != null) {
-                int itemNumber = Integer.valueOf(req.getParameter("itemNumber"));
-                userCartDAO.updateToCartQuery(userId, updateProductId, itemNumber);
+            if (req.getParameter("productId") != null) {
+                int updateProductId = Integer.valueOf(req.getParameter("productId"));
+                if (req.getParameter("itemNumber") != null) {
+                    int itemNumber = Integer.valueOf(req.getParameter("itemNumber"));
+                    userCartDAO.updateToCartQuery(userId, updateProductId, itemNumber);
 
-            } else if (Boolean.parseBoolean(req.getParameter("delete"))) {
-                userCartDAO.deleteItemFromCart(userId, updateProductId);
+                } else if (Boolean.parseBoolean(req.getParameter("delete"))) {
+                    userCartDAO.deleteItemFromCart(userId, updateProductId);
+                }
             }
         } else {
             int productId = Integer.valueOf(req.getParameter("product_id"));
@@ -53,7 +56,6 @@ public class UserCart extends HttpServlet {
 
         }
         products = userCartDAO.getUserCart(userId);
-        System.out.println("user cart product " + products.get(0).getQuantity());
 
         req.setAttribute("userCartProducts", products);
         req.getRequestDispatcher("cart.jsp").include(req, resp);

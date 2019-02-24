@@ -1,9 +1,10 @@
 package db;
+
 import beans.Product;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection; 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -67,21 +68,26 @@ public class ProductDao implements DbInterface {
         return list;
     }
 
-    public void updateProductQuantity(int quantity, int productId) {
+    public int updateProductQuantity(int quantity, int productId) {
         PreparedStatement pst;
+        int columnEffected = -1;
         try {
             Product product = getProductById(productId);
             pst = connection.prepareStatement("update " + Constants.PRODUCT_TABLE_NAME
                     + " SET  "
                     + Constants.COLUMN_PRODUCT_QUANTITY
                     + " =? Where " + Constants.COLUMN_PRODUCT_ID + " =? ");
+            System.out.println("database product qunntity " + product.getQuantity());
+            System.out.println("database product income qunntity " + quantity);
+
             pst.setInt(1, Integer.parseInt(product.getQuantity()) - quantity);
             pst.setInt(2, productId);
-            pst.executeUpdate();
+            columnEffected = pst.executeUpdate();
 
         } catch (SQLException ex) {
             Logger.getLogger(UserCartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return columnEffected;
 
     }
 

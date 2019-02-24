@@ -78,11 +78,12 @@
                                 <div class="list-group-item">
 
                                     <c:forEach var="checkoutItem" items="${checkoutCartList}">
-                                        <h4>${checkoutItem.quantity} x  ${checkoutItem.productName} </h4>
+                                        <h4>${checkoutItem.userCartProductQuantity} x  ${checkoutItem.productName}</h4>
                                     </c:forEach>
 
                                     <hr>
-                                    <h3>Total Price ${totalPrices} EGP</h3>
+                                    <h3 >Total Price ${totalPrices} EGP</h3>
+                                    <input type="hidden" name="total_price" value="${totalPrices}"</h3>
 
                                 </div>
                                 <div class="list-group-item">
