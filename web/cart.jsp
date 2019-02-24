@@ -166,7 +166,7 @@
                     x += parseInt(itemPriceSummrize[i].innerText);
                 }
                 total.innerText = "Total " + x + " EGP";
-                document.getElementById("checkout_sum").value = total.innerText;
+                document.getElementById("checkout_sum").value = parseInt(total.innerText);
 //                alert(document.getElementById("checkout_sum" + id).value);
             }
             function updateCart(id)

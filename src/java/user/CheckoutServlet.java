@@ -34,19 +34,16 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         int totalPrices = Integer.parseInt(request.getParameter("totalsum"));
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
         checkoutCartList = userCartDAO.getUserCheckoutCart(Integer.parseInt(user.getId()));
         System.out.println("check out list " + checkoutCartList.size());
-        System.out.println("check out list quntitiyu " + checkoutCartList.get(0).getQuantity());
-        System.out.println("check out list name " + checkoutCartList.get(0).getProductName());
+//        System.out.println("check out list quntitiyu " + checkoutCartList.get(0).getQuantity());
+//        System.out.println("check out list name " + checkoutCartList.get(0).getProductName());
         System.out.println("check out list price " + checkoutCartList.get(0).getProductPrice());
-
         request.setAttribute("totalPrices", totalPrices);
         request.setAttribute("checkoutCartList", checkoutCartList);
-        request.getRequestDispatcher("checkout.jsp").include(request, response);
+        request.getRequestDispatcher("checkout.jsp").forward(request, response);
     }
-
 }

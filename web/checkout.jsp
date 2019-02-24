@@ -74,13 +74,12 @@
                             <div class="list-group">
                                 <a class="list-group-item">Order Summary</a>
                                 <div class="list-group-item">
-                                    
-                                    <c:forEach var="checkoutItem" items="checkoutCartList">
-                                        <h4>"${checkoutItem.productName}" </h4>
+                                    <c:forEach var="checkoutItem" items="${checkoutCartList}">
+                                        <h4>${checkoutItem.quantity} x  ${checkoutItem.productName} </h4>
                                     </c:forEach>
 
                                     <hr>
-                                    <h3>${totalPrices} EGP</h3>
+                                    <h3>Total Price ${totalPrices} EGP</h3>
                                 </div>
                                 <div class="list-group-item">
                                     <p><b>Payment Method</b></p>

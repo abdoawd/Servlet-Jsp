@@ -5,11 +5,8 @@
  */
 package beans;
 
-/**
- *
- * @author abdullah
- */
-public class UserShoppingCart {
+
+public class UserShoppingCart implements ListModelInterface{
 
     private String userId;
     private String productId;
