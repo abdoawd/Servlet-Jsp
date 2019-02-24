@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.eclipse.jdt.internal.compiler.impl.Constant;
 import utility.Constants;
 
 public class LoginServlet extends HttpServlet {
@@ -30,17 +29,21 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         User user = usersDao.login(name, password);
         if (user != null) {
-//            out.println("log in successfully ");
 
+            out.println("log in successfully ");
+            out.print("role=" + user.getRole());
+            out.print("role=" + user.getFirstName());
 
             // session . add user()
             HttpSession session = request.getSession(true);
             session.setAttribute("user", user);
+
             session.setAttribute("loggedIn", Constants.LOGGED_IN);
+
             if (user.getRole().equals("admin")) {
                 System.out.println("admin");
                 response.sendRedirect("admin");
-
+                out.print("role=" + user.getRole());
             } else {
                 System.out.println("user");
                 response.sendRedirect("UserHomeServlet");

@@ -31,8 +31,6 @@
                 <label for="password"><b>Password</b></label>
                 <input type="password" placeholder="Enter Password" value="1234qQ12e12" name="password"  id="userPassword" required>
 
-          
-
                 <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
 
                 <div class="clearfix">

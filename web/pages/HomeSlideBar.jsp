@@ -17,13 +17,13 @@
             <i class="fas fa-fw fa-table"></i>
             <span>Users</span></a>
     </li>
-    
+
     <li class="nav-item">
         <a class="nav-link" href="/dokan/admin/addProduct">
             <i class="fas fa-fw fa-table"></i>
             <span>Add Product</span></a>
     </li>
-    
+
     <li class="nav-item" href="#">
         <a class="nav-link">
             <i class="fas fa-fw fa-table"></i>

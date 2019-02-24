@@ -5,8 +5,6 @@ import javax.servlet.http.Part;
 
 public class Product implements ListModelInterface {
 
-    /* product_id	name	description	price	quantity
-    image	category_id	discount*/
     private int id;
     private String name;
     private String description;
@@ -16,10 +14,11 @@ public class Product implements ListModelInterface {
     private int categoryId;
     private String categoryName;
     private double discount;
-    
     private Image image;
     private String stringImage;
     private Part part;
+    private String totalPrice;
+    
 
     public Part getPart() {
         return part;
@@ -27,6 +26,14 @@ public class Product implements ListModelInterface {
 
     public void setPart(Part part) {
         this.part = part;
+    }
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public String getCategoryName() {
@@ -52,7 +59,7 @@ public class Product implements ListModelInterface {
     public Image getImage() {
         return image;
     }
-
+   
     public Product() {
     }
 

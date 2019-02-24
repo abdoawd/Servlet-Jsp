@@ -14,7 +14,7 @@
         <link href="../resources/css/forms.css" rel="stylesheet">
 
         <title>Create an Account</title>
-    </head>
+    </head
     <body>
         <div id="id01" class="modal">
             <form action="<%=request.getContextPath()%>/SinuUp" method='post' class="modal-content">
@@ -25,12 +25,12 @@
 
                     <div class="centeredDiv">
                         <label for="firstName"><b>First Name</b></label>
-                        <input type="text" placeholder="Enter Your First Name" name="firstName" required>
+                        <input type="text" placeholder="Enter Your First Name" name="firstName" value="nsma"required>
                     </div>
 
                     <div class="centeredDiv centeredDiv2">
                         <label for="lastName"><b>Last Name</b></label>
-                        <input type="text" placeholder="Enter Your Last Name" name="lastName" pattern="(?=.*[A-Z](?=.*[a-z]){3,})" required>
+                        <input type="text" value="ahmed" placeholder="Enter Your Last Name" name="lastName" pattern="(?=.*[A-Z](?=.*[a-z]){3,})" required>
                     </div>
 
                     <label for="email"><b>E-Mail</b></label>
@@ -44,22 +44,6 @@
 
                     <label for="password2"><b>Confirm Password</b></label>
                     <input type="password" placeholder="Re-Enter Your Password" name="confirmPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="conPassword"required>
-                     
-                    <label><b>Credit Limit</b></label>
-                    <input type="number" min="0" step=".01"  name="creditlimits" value="${user.creditlimits}">
-                   <label><b>Birthday</b></label>         
-                                        
-                   <input type="date"  name="birthday" pattern="MM/dd/yyyy" required/>
-                   
-                      
-                   <label><b>Address</b></label>
-                   <span style="width:30%;"><input type="text" value="street"/></span>  
-                   <span style="width:30%;"><input type="text" value="city"/></span>
-                  <span style="width:30%;"><input type="text" value="country"/></span>
-                                       
-
-                    
-                    
                     <div class="clearfix">
                         <button type="submit" onclick="validate()"  class="signupbtn">Sign up</button>
                     </div>

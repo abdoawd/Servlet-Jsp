@@ -21,6 +21,7 @@ import utility.Constants;
  */
 public class CategoryDao implements DbInterface {
 
+
     Connection connection;
     HandlerConnection handlerConnection;
 
@@ -29,11 +30,11 @@ public class CategoryDao implements DbInterface {
         connection = handlerConnection.establishConnection();
     }
 
+
     @Override
     public long getSequence(String sequenceName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
-
 
     public int addCategory(String categoryName) {
         PreparedStatement pst;
@@ -58,7 +59,7 @@ public class CategoryDao implements DbInterface {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return Constants.ERROR_FAILED;
+            
         }
         return Constants.ERROR_FAILED;
     }
@@ -78,6 +79,7 @@ public class CategoryDao implements DbInterface {
         }
         return productCategotyList;
     }
+
 
     public int editCategory(int categoryId, String categoryName) {
         PreparedStatement pst;

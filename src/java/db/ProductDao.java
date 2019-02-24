@@ -1,11 +1,9 @@
 package db;
-
 import beans.Product;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
+import java.sql.Connection; 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -69,6 +67,24 @@ public class ProductDao implements DbInterface {
         return list;
     }
 
+    public void updateProductQuantity(int quantity, int productId) {
+        PreparedStatement pst;
+        try {
+            Product product = getProductById(productId);
+            pst = connection.prepareStatement("update " + Constants.PRODUCT_TABLE_NAME
+                    + " SET  "
+                    + Constants.COLUMN_PRODUCT_QUANTITY
+                    + " =? Where " + Constants.COLUMN_PRODUCT_ID + " =? ");
+            pst.setInt(1, product.getQuantity() - quantity);
+            pst.setInt(2, productId);
+            pst.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserCartDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     @Override
     public long getSequence(String sequenceName) {
         PreparedStatement pst;
@@ -81,7 +97,6 @@ public class ProductDao implements DbInterface {
             }
         } catch (SQLException ex) {
         }
-        System.out.println("my id = " + myId);
 
         return myId;
     }
@@ -119,7 +134,7 @@ public class ProductDao implements DbInterface {
         } catch (SQLException ex) {
             System.out.println("SQLException " + ex.getMessage());
             ex.printStackTrace();
-            System.out.println("status = " + isScuccess);
+
         }
         return isScuccess;
     }
@@ -162,7 +177,6 @@ public class ProductDao implements DbInterface {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                System.out.println("insid product");
                 product = new Product();
 
                 InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
@@ -297,6 +311,7 @@ public class ProductDao implements DbInterface {
                     + Constants.COLUMN_PRODUCT_CATEGORY_ID + " = ?,"
                     + Constants.COLUMN_PRODUCT_DISCOUNT + " = ? WHERE "
                     + Constants.COLUMN_PRODUCT_ID + " = ?");
+
             pst.setString(1, product.getName());
             pst.setString(2, product.getDescription());
             pst.setDouble(3, product.getPrice());
@@ -307,6 +322,16 @@ public class ProductDao implements DbInterface {
 
             int i = pst.executeUpdate();
 
+/*
+            pst.setString(1, productName);
+            pst.setString(2, productDescription);
+            pst.setString(3, productPrice);
+            pst.setString(4, productQuantity);
+            pst.setBlob(5, picInputStream);
+            pst.setString(6, productCategory);
+            pst.setString(7, productDiscount);
+            int i = pst.executeUpdate();
+*/
             if (i != 0) {
                 isScuccess = true;
             }
@@ -409,7 +434,7 @@ public class ProductDao implements DbInterface {
         return list;
     }
 
-    public List<Product> getProductsByNmaeAndPrice(int category_id, String productName, int startprice, int endPrice) {
+    public List<Product> getProductsByNmaeAndPrice(int category_id, int startprice, int endPrice) {
         List<Product> list = new ArrayList<Product>();
         Product product = null;
         try {
@@ -419,9 +444,8 @@ public class ProductDao implements DbInterface {
                     + Constants.COLUMN_PRODUCT_NAME + "  like ? and "
                     + Constants.COLUMN_PRODUCT_PRICE + " between  ? and ?");
             ps.setInt(1, category_id);
-            ps.setString(2, "%" + productName + "%");
-            ps.setInt(3, startprice);
-            ps.setInt(4, endPrice);
+            ps.setInt(2, startprice);
+            ps.setInt(3, endPrice);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

@@ -22,7 +22,8 @@
                 border: 5px ;
                 box-shadow: none;
                 margin-left: auto;
-                width: 700px;                border-radius: 4px;
+                width: 700px;  
+                border-radius: 4px;
 
             }
         </style>
@@ -50,7 +51,7 @@
                             <a class="nav-link" href="<%=request.getContextPath()%>/account.jsp">Account</a>
                         </li>
                         <li id="cart" class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/cart.jsp">Cart</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/UserCart">Cart</a>
                         </li>
                     </ul>
                 </div>
