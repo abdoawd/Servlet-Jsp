@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,17 +10,16 @@
         <title>Dokan</title>
 
         <!-- Bootstrap core CSS -->
-        <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="./resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link href="resources/css/shop-homepage.css" rel="stylesheet">
+        <link href="./resources/css/shop-homepage.css" rel="stylesheet">
 
     </head>
 
     <body>
         <!--Add Header Block-->
-        <jsp:include page="../blocks/header.jsp"/>  
-        <jsp:include page="../pages/HomeSlideBar.jsp"/>
+        <jsp:include page="./blocks/header.jsp"/>  
 
 
         <!-- Page Content -->
@@ -37,7 +37,7 @@
                         </ol>
                         <div class="carousel-inner" role="listbox">
                             <div class="carousel-item active">
-                                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+                                <img class="d-block img-fluid" src="http://localhost:9090/dokan/resources/pictures/slider1.png" alt="First slide">
                             </div>
                             <div class="carousel-item">
                                 <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
@@ -160,12 +160,12 @@
         <!-- /.container -->
 
         <!--Add Footer Block-->
-        <jsp:include page="../blocks/footer.jsp"/>
+        <jsp:include page="./blocks/footer.jsp"/>
 
         <!-- Bootstrap core JavaScript -->
         <script> document.getElementById("home").classList.add("active");</script>
-        <script src="resources/vendor/jquery/jquery.min.js"></script>
-        <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="./resources/vendor/jquery/jquery.min.js"></script>
+        <script src="./resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     </body>
 
