@@ -11,10 +11,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <!-- Custom styles for login page -->
-        <link href="../resources/css/forms.css" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>/resources/css/forms.css" rel="stylesheet">
 
         <title>Create an Account</title>
-    </head
+    </head>
     <body>
         <div id="id01" class="modal">
             <form action="<%=request.getContextPath()%>/SinuUp" method='post' class="modal-content">

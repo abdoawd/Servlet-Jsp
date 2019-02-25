@@ -1,6 +1,8 @@
 package login;
 
+import beans.Address;
 import beans.User;
+import db.AddressDao;
 import db.UsersDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +18,7 @@ public class LoginServlet extends HttpServlet {
 
     UsersDao usersDao;
     RequestDispatcher dispatcher;
-
+       AddressDao addressHandler;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
@@ -25,15 +27,14 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         usersDao = new UsersDao();
+        addressHandler=new AddressDao();
         String name = request.getParameter("email");
         String password = request.getParameter("password");
         User user = usersDao.login(name, password);
         if (user != null) {
-
-            out.println("log in successfully ");
-            out.print("role=" + user.getRole());
-            out.print("role=" + user.getFirstName());
-
+           Address userAddress=   addressHandler.getAddress(user.getId());
+           if(userAddress!=null)
+          user.setAddress(userAddress);
             // session . add user()
             HttpSession session = request.getSession(true);
             session.setAttribute("user", user);

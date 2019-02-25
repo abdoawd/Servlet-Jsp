@@ -44,20 +44,12 @@
                 
                 <div class="row">
 
-                    <div class="col-lg-3">
-                        <div class="list-group">
-                            <a href="#" class="list-group-item">Account Details</a>
-                            <a href="<%=request.getContextPath()%>/user/EditAccount.jsp" class="list-group-item">Edit Profile</a>
-                            <a href="#" class="list-group-item">Orders</a>
-                            <a href="<%=request.getContextPath()%>/logout" class="list-group-item">Logout</a>
-                        </div>
-
-                    </div>
+                     <jsp:include page="/user/nav_bar.jsp" />
                     <!-- /.col-lg-3 -->
 
                     <div class="col-lg-9">
                     <br>
-                        The second button supposed to show customer orders.
+                       
                         
                                             <fieldset>
                                                
@@ -88,8 +80,16 @@
                             <td class="data">${user.job}</td>
                         </tr>
                         <tr>
-                            <th>Addresses: </th>
-                            <td class="data" >Street-city-country</td>
+                            <th>Street: </th>
+                            <td class="data" >${user.address.street}</td>
+                        </tr>
+                        <tr>
+                            <th>City: </th>
+                            <td class="data" >${user.address.city}</td>
+                        </tr>
+                        <tr>
+                            <th>Country: </th>
+                            <td class="data" >${user.address.country}</td>
                         </tr>
                         <tr>
                             <th>Credit-limit:  </th>

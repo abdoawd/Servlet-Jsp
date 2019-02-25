@@ -64,14 +64,14 @@ public class AddressDao implements DbInterface {
         return address;
     }
 
-    public Address getAddress(String id) {
+    public Address getAddress(int id) {
 
         Address userAddress = null;
         try {
             ResultSet rs;
             PreparedStatement ps = connection.prepareStatement("select * from " + Constants.ADDRESSES_TABLE_NAME
-                    + " where " + Constants.COLUMN_USER_ID + " =? ;");
-            ps.setInt(1, Integer.parseInt(id));
+                    + " where " + Constants.COLUMN_USER_ID + " =? ");
+            ps.setInt(1, id);
 
             rs = ps.executeQuery();
             while (rs.next()) {
