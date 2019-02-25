@@ -9,15 +9,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
 
         <!-- Custom styles for login page -->
-        <link href="../resources/css/login.css" rel="stylesheet">
+        <!--<link href="../resources/css/login.css" rel="stylesheet">-->
 
         <title>Login</title>
-        
+
     </head>
     <body>
+        <link href="../resources/css/login.css" rel="stylesheet">
         <form action='<%=request.getContextPath()%>/Login' method='post' class="modal-content">
             <div class="container">
                 <h1>iTi | Login</h1>
@@ -27,10 +28,10 @@
                 
 
 
-                <input type="text" placeholder="Enter your email" name="email" value="anasmohamed656yahoo.com" id ="userEmail" required>
+                <input type="text" placeholder="Enter your email" name="email" value="${userEmail}"  id ="userEmail" required>
 
                 <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" value="1234qQ12e12" name="password"  id="userPassword" required>
+                <input type="password" placeholder="Enter Password" value="${userPassword}" name="password"  id="userPassword" required>
 
                 <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
 

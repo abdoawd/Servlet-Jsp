@@ -66,6 +66,8 @@ public class CheckoutServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
         int userId = user.getId();
+        int productColumnsEffected = -1, creditLimitColumnEffected = -1;
+        boolean isCartCleard;
         String city = request.getParameter("city");
         String country = request.getParameter("country");
         String street = request.getParameter("street");
@@ -83,7 +85,6 @@ public class CheckoutServlet extends HttpServlet {
         if (creditLimit >= totalAmount) {
             if (orderDao.addOrder(order)) {
                 int orderNumber = orderDao.getOrderNumber(userId, ordeTime);
-                System.out.println("orderNumber = " + orderNumber);
                 if (orderNumber > 0) {
                     checkoutCartList = userCartDAO.getUserCheckoutCart(userId);
                     System.out.println("checkoutCartList size = " + checkoutCartList.size());
@@ -91,14 +92,30 @@ public class CheckoutServlet extends HttpServlet {
                         item = new OrderItem();
                         item.setOrderNumber(orderNumber);
                         item.setProductId(Integer.parseInt(checkoutCartList.get(i).getProductId()));
-                        item.setQuantity(Integer.parseInt(checkoutCartList.get(i).getQuantity()));
+                        item.setQuantity(Integer.parseInt(checkoutCartList.get(i).getUserCartProductQuantity()));
 
                         orderItemDao.addOrder(item);
-                        productDao.updateProductQuantity(item.getQuantity(), item.getProductId());
+
+                        productColumnsEffected = productDao.updateProductQuantity(item.getQuantity(), item.getProductId());
                         out.println("item number " + i + " add ");
                     }
                     newCreditLimit = user.getCreditlimits() - totalAmount;
-                    usersDao.updateUserCreditLimit(newCreditLimit, userId);
+                    if (productColumnsEffected > 0) {
+                        System.out.println("in productColumnsEffected if");
+                        creditLimitColumnEffected = usersDao.updateUserCreditLimit(newCreditLimit, userId);
+                        if (creditLimitColumnEffected > 0) {
+                            System.out.println("in creditLimitColumnEffected if");
+
+                            isCartCleard = userCartDAO.ClearUserCart(userId);
+                            if (isCartCleard) {
+                                System.out.println("in isCartCleard if");
+
+                                response.sendRedirect("UserHomeServlet");
+                            } else {
+
+                            }
+                        }
+                    }
 
                 }
                 out.println("order add successfully");

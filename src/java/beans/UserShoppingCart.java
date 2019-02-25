@@ -5,22 +5,48 @@
  */
 package beans;
 
-
-public class UserShoppingCart implements ListModelInterface{
+public class UserShoppingCart implements ListModelInterface {
 
     private String userId;
     private String productId;
-    private String quantity;
+    private String productQuantity;
+    private String userCartProductQuantity;
     private String productName;
-    private String productPrice;
+    private int productPrice;
+    private String stringImage;
+
+    public String getUserCartProductQuantity() {
+        return userCartProductQuantity;
+    }
+
+    public void setUserCartProductQuantity(String userCartProductQuantity) {
+        this.userCartProductQuantity = userCartProductQuantity;
+    }
+
+    public String getProductQuantity() {
+        return productQuantity;
+    }
+
+    public void setProductQuantity(String productQuantity) {
+        this.productQuantity = productQuantity;
+    }
+
+    public String getStringImage() {
+        return stringImage;
+    }
+
+    public void setStringImage(String stringImage) {
+        this.stringImage = stringImage;
+    }
+
     public UserShoppingCart() {
     }
 
-    public String getProductPrice() {
+    public int getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(String productPrice) {
+    public void setProductPrice(int productPrice) {
         this.productPrice = productPrice;
     }
 
@@ -40,14 +66,6 @@ public class UserShoppingCart implements ListModelInterface{
         this.productId = productId;
     }
 
-    public String getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
-    }
-
     public void setProductName(String productName) {
         this.productName = productName;
     }
@@ -55,4 +73,5 @@ public class UserShoppingCart implements ListModelInterface{
     public String getProductName() {
         return productName;
     }
+
 }

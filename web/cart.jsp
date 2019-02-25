@@ -47,7 +47,7 @@
                                 <tbody>
                                     <tr class="woocommerce-cart-form__cart-item cart_item">
                                         <td class="product-remove">
-                                            <a href="/dokan/UserCart?productId=${cartItem.id}&delete=true"  class="noTextDecoration remove" aria-label="Remove this item" data-product_id="${cartItem.id}" data-product_sku="">×</a>          
+                                            <a href="/dokan/UserCart?productId=${cartItem.productId}&delete=true"  class="noTextDecoration remove" aria-label="Remove this item" data-product_id="${cartItem.productId}" data-product_sku="">×</a>          
                                         </td>
 
                                         <td class="product-thumbnail">
@@ -55,30 +55,38 @@
                                         </td>
 
                                         <td class="product-name" data-title="Product">
-                                            <a href="#">${cartItem.name}</a>          
+                                            <a href="#">${cartItem.productName}</a>          
                                         </td>
 
                                         <td class="product-price" idata-title="Price">
-                                            <span class="woocommerce-Price-amount amount" >${cartItem.price}<span class="woocommerce-Price-currencySymbol">EGP</span></span>          
+                                            <span class="woocommerce-Price-amount amount" >${cartItem.productPrice}<span class="woocommerce-Price-currencySymbol">EGP</span></span>          
                                         </td>
                                         <td class="product-quantity" data-title="Quantity">
                                             <div class="quantity buttons_added">
-                                                <input type="button"  id = "decreaseBtn" onclick="getTotalAmount(${cartItem.id},${cartItem.price}, 'sub',${cartItem.getQuantity()}, '${cartItem.name}')" value="-" class="minus button is-form">    
-                                                <input type="number" id ="${cartItem.id}"   class="input-text qty text" step="1" min="1" max="10" value="" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric">
-                                                <input type="button" id = "inecreaseBtn" onclick = "getTotalAmount(${cartItem.id}, ${cartItem.price}, 'add', ${cartItem.getQuantity()}, '${cartItem.name}')" value="+" class="plus button is-form">  
+                                                <input type="button"  id = "decreaseBtn" onclick="getTotalAmount(${cartItem.productId},${cartItem.productPrice}, 'sub',${cartItem.productQuantity}, '${cartItem.productName}')" value="-" class="minus button is-form">    
+                                                <input type="number" id ="${cartItem.productId}" 
+                                                       class="input-text qty text" step="1" min="1" max="10"
+                                                       value="${cartItem.userCartProductQuantity}" title="Qty" size="4"
+                                                       pattern="[0-9]*" inputmode="numeric">
+                                                <input type="button" id = "inecreaseBtn"
+                                                       onclick = "getTotalAmount(${cartItem.productId},
+                                                       ${cartItem.productPrice}, 'add', ${cartItem.productQuantity}, 
+                                                                   '${cartItem.productName}')" value="+" class="plus button is-form">  
                                             </div>
-                                            <div><p><span>Total Quantity </span>${cartItem.getQuantity()}</p></div>
+                                            <div><p><span>Total Quantity </span>${cartItem.productQuantity}</p></div>
                                         </td>
-
                                         <td class="product-subtotal" data-title="Total">
-                                            <span   id="${cartItem.id}${"d"}" class="sumProductPrices" class="woocommerce-Price-amount amount">${cartItem.price}<span class="woocommerce-Price-currencySymbol">EGP</span></span>            
+                                            <span   id="${cartItem.productId}${"d"}" class="sumProductPrices" class="woocommerce-Price-amount amount">${cartItem.productPrice * cartItem.userCartProductQuantity}<span class="woocommerce-Price-currencySymbol">EGP</span></span>            
+                                                                               <c:set var="finalTotal" value="${finalTotal + (cartItem.productPrice * cartItem.userCartProductQuantity)}"/>
+
                                         </td>
+                                        
 
                                     </tr>
                                     <tr>
                                         <td colspan="6" class="actions clear">
 
-                                            <input type="submit" class="button primary mt-0 pull-left small" ac onclick="updateCart(${cartItem.id})" name="update_cart" value="Update cart">
+                                            <input type="submit" class="button primary mt-0 pull-left small" ac onclick="updateCart(${cartItem.productId})" name="update_cart" value="Update cart">
                                         </td>
                                     </tr>
 
@@ -112,14 +120,14 @@
                                 <c:set var="cartTotal" value="${0}" scope="page" />
 
                                 <c:forEach var="summrizeItems" items="${userCartProducts}">   
-                                    <h4 class="itemPriceSummrize" id="${summrizeItems.id}${"e"}">1 ${summrizeItems.name}</h4>
+                                    <h4 class="itemPriceSummrize" id="${summrizeItems.productId}${"e"}">${summrizeItems.userCartProductQuantity} ${summrizeItems.productName}</h4>
                                     <hr>
-                                    <c:set var="cartTotal" value="${cartTotal + summrizeItems.price}" />
-
+                                    
+                                    <c:set var="cartTotal" value="${cartTotal + summrizeItems.productPrice}" />
                                 </c:forEach>
-                                <h3 id ="total">Total  ${cartTotal}  EGP</h3>
+                                    <h3 id ="total">Total  ${finalTotal}  EGP</h3>
                             </div>
-                            <input type="hidden" id="checkout_sum" name="totalsum" value="${cartTotal}"/>
+                            <input type="hidden" id="checkout_sum" name="totalsum" value="${finalTotal}"/>
                             <button type="submit" class="submit-button list-group-item">Proceed to checkout</button>
                         </form>
                     </div>
@@ -152,12 +160,10 @@
                 if ((type === 'sub') && (amountValue.value > 1))
                 {
                     finalTotal.innerText = parseInt(--amountValue.value) * parseInt(m) + "EGP";
-//                    document.getElementById("checkout_item" + id).value = finalTotal.innerText;
 
                 } else if ((type === 'add') && (amountValue.value < totalQuntity))
                 {
                     finalTotal.innerText = parseInt(++amountValue.value) * parseInt(m) + "EGP";
-//                    document.getElementById("checkout_item" + id).value = finalTotal.innerText;
 
                 }
                 summrizeItemNumber.innerText = amountValue.value + " " + productName;
@@ -167,7 +173,6 @@
                 }
                 total.innerText = "Total " + x + " EGP";
                 document.getElementById("checkout_sum").value = parseInt(total.innerText);
-//                alert(document.getElementById("checkout_sum" + id).value);
             }
             function updateCart(id)
             {
