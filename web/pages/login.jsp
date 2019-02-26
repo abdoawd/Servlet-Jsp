@@ -1,12 +1,10 @@
-<<<<<<< HEAD
 <%-- 
     Document   : login
     Created on : Feb 13, 2019, 11:42:44 AM
     Author     : A7med
 --%>
 
-=======
->>>>>>> aeedabe8be63fc7f6eabadb8b563d9ab9af412d0
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <c:set scope="page" var="pageTitle" value="Login"/>

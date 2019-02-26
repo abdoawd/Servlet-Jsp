@@ -34,7 +34,7 @@
                 <div class="list-group">
                     <h6>Categories</h6>
                     <c:forEach var="category" items="${categories}">    
-                        <c:url var="category_selected" value="/UserHomeServlet">
+                        <c:url var="category_selected" value="/shop">
                             <c:param name="category_id" value="${category.id}"/>
                         </c:url>
                         <a href="${category_selected}" class="list-group-item">${category.getName()}</a>
@@ -103,7 +103,7 @@
                 {
                     var e = document.getElementById("product")
                     var category = e.options[e.selectedIndex].value;
-                    document.location.href = "/dokan/UserHomeServlet?start_salary="
+                    document.location.href = "/dokan/shop?start_salary="
                             + document.getElementById("start_salary").value + "&end_salary="
                             + document.getElementById("end_salary").value + "&category=" + category;
 

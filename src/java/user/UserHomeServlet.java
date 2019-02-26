@@ -26,7 +26,7 @@ public class UserHomeServlet extends HttpServlet {
         String category = request.getParameter("category_id");
         String categoryName = request.getParameter("category");
 
-         String startPrice = request.getParameter("start_salary");
+        String startPrice = request.getParameter("start_salary");
         String endPrice = request.getParameter("end_salary");
 
         int category_id;
@@ -41,10 +41,17 @@ public class UserHomeServlet extends HttpServlet {
 
             products = handler.getProductsByCategoryId(category_id);
         } else if (startPrice != null) {
+
             category_id = Integer.parseInt(categoryName);
             int startPriceInt = Integer.parseInt(startPrice);
             int endPriceInt = Integer.parseInt(endPrice);
+            System.out.println("category_id=" + category_id);
+            System.out.println("startPriceInt=" + startPriceInt);
+            System.out.println("endPriceInt=" + endPriceInt);
+
             products = handler.getProductsByNmaeAndPrice(category_id, startPriceInt, endPriceInt);
+                        System.out.println("products size =" + products.size());
+
         } else {
             products = handler.getAllProducts(Constants.SELECT_ACTIVE);
 
