@@ -4,6 +4,8 @@ import beans.User;
 import db.UsersDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -20,29 +22,34 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();     // request is an instance of type 
-        String userEmail = null;
-        String userPassword = null;
-        String remember = null;
-        for (int i = 0; i < cookies.length; i++) {
-            Cookie cookie = cookies[i];
-            if (cookie.getName().equals("userEmail")) {
-                userEmail = cookie.getValue();
-            }
-            if (cookie.getName().equals("userPassword")) {
-                userPassword = cookie.getValue();
+        Cookie[] cookies = request.getCookies();
+        String remeberMeParam = request.getParameter("remember");
 
-            }
-            if (cookie.getName().equals("remember")) {
-                remember = cookie.getValue();
+        String userEmailCookie = null;
+        String userPasswordCookie = null;
+        String rememberMe = null;
+            if (cookies != null) {
+                for (int i = 0; i < cookies.length; i++) {
+                    Cookie cookie = cookies[i];
+                    if (cookie.getName().equals("userEmail")) {
+                        userEmailCookie = cookie.getValue();
+                    }
+                    if (cookie.getName().equals("userPassword")) {
+                        userPasswordCookie = cookie.getValue();
+                    }
+                    if (cookie.getName().equals("remember")) {
+                        rememberMe = cookie.getValue();
+                    }
 
+                }
             }
-
-        }
-        if (userEmail != null && userPassword != null) {
-            request.setAttribute("userEmail", userEmail);
-            request.setAttribute("userPassword", userPassword);
-            request.setAttribute("remember", remember);
+        
+        if (userEmailCookie != null && userPasswordCookie != null && rememberMe != null) {
+            System.out.println("insid if cookie");
+            request.setAttribute("userEmail", userEmailCookie);
+            request.setAttribute("userPassword", userPasswordCookie);
+            request.setAttribute("remember", rememberMe);
+//<c:if test="${remember}">checked</c:if>
         }
         request.getRequestDispatcher("pages/login.jsp").forward(request, response);
 
@@ -51,15 +58,12 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
-        String remeberMe = request.getParameter("remember");
-
+         String remeberMe = request.getParameter("remember");
         usersDao = new UsersDao();
-
         String name = request.getParameter("email");
-
+        Cookie[] cookie = request.getCookies();
         String password = request.getParameter("password");
         User user = usersDao.login(name, password);
-        System.out.println("remer me   " + remeberMe);
         if (user != null) {
 
             out.println("log in successfully ");
@@ -67,23 +71,24 @@ public class LoginServlet extends HttpServlet {
             out.print("role=" + user.getFirstName());
 
             // session . add user()
+            if (remeberMe != null && remeberMe.equalsIgnoreCase("on")) {
+                if (cookie == null) {
+                    System.out.println("inside remmber me if ");
+                    Cookie emailCookie = new Cookie("userEmail", user.getEmail());
+                    Cookie passwordCookie = new Cookie("userPassword", user.getPassword());
+                    Cookie rememberCookie = new Cookie("remember", "checked");
+                    emailCookie.setMaxAge(24 * 60 * 60);
+                    passwordCookie.setMaxAge(24 * 60 * 60);
+                    rememberCookie.setMaxAge(24 * 60 * 60);
+                    response.addCookie(emailCookie);
+                    response.addCookie(passwordCookie);
+                    response.addCookie(rememberCookie);
+                }
+            }
+
             HttpSession session = request.getSession(true);
             session.setAttribute("user", user);
-
             session.setAttribute("loggedIn", Constants.LOGGED_IN);
-            if (remeberMe.equalsIgnoreCase("checked")) {
-                Cookie emailCookie = new Cookie("userEmail", user.getEmail());
-                Cookie passwordCookie = new Cookie("userPassword", user.getPassword());
-                Cookie rememberCookie = new Cookie("remember", user.getEmail());
-
-                emailCookie.setMaxAge(24 * 60 * 60);
-                passwordCookie.setMaxAge(24 * 60 * 60);
-                rememberCookie.setMaxAge(24 * 60 * 60);
-                response.addCookie(emailCookie);
-                response.addCookie(passwordCookie);
-                response.addCookie(rememberCookie);
-
-            }
 
             if (user.getRole().equals("admin")) {
                 System.out.println("admin");
@@ -92,7 +97,6 @@ public class LoginServlet extends HttpServlet {
             } else {
                 System.out.println("user");
                 out.print("role=" + user.getRole());
-
                 response.sendRedirect("UserHomeServlet");
             }
 
@@ -100,4 +104,5 @@ public class LoginServlet extends HttpServlet {
             out.println("log in faild ");
         }
     }
+
 }

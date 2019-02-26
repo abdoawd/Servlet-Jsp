@@ -4,6 +4,7 @@
     Author     : A7med
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,13 +13,12 @@
 
 
         <!-- Custom styles for login page -->
-        <!--<link href="../resources/css/login.css" rel="stylesheet">-->
+        <link href="../resources/css/login.css" rel="stylesheet">
 
         <title>Login</title>
 
     </head>
     <body>
-        <link href="../resources/css/login.css" rel="stylesheet">
         <form action='<%=request.getContextPath()%>/Login' method='post' class="modal-content">
             <div class="container">
                 <h1>iTi | Login</h1>
@@ -31,8 +31,8 @@
 
                 <label for="password"><b>Password</b></label>
                 <input type="password" placeholder="Enter Password" value="${userPassword}" name="password"  id="userPassword" required>
-
-                <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+               
+                <input type="checkbox"  name="remember" style="margin-bottom:15px"> Remember me
 
                 <div class="clearfix">
                     <button type="submit" class="signupbtn" >Login</button>

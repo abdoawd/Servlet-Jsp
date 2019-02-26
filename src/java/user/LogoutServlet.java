@@ -6,9 +6,9 @@
 package user;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +24,12 @@ public class LogoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        Cookie emailCookie = new Cookie("userEmail", "");
+        Cookie passwordCookie = new Cookie("userPassword", "");
+        emailCookie.setMaxAge(0);
+        passwordCookie.setMaxAge(0);
+        response.addCookie(emailCookie);
+        response.addCookie(passwordCookie);
         HttpSession session = request.getSession(false);
         session.invalidate();
         response.sendRedirect("pages/login.jsp");
