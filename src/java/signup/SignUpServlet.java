@@ -1,8 +1,10 @@
 package signup;
 
 import beans.Address;
+import beans.ProductCategory;
 import beans.User;
 import db.AddressDao;
+import db.CategoryDao;
 import db.ProductDao;
 import db.UsersDao;
 import java.io.IOException;
@@ -10,6 +12,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,16 +22,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
+
 
 public class SignUpServlet extends HttpServlet {
 
     UsersDao handler = new UsersDao();
-    RequestDispatcher dispatcher;
+    RequestDispatcher dispatcher,dispatcherSignUp;
+    
+   
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       
+       User user=new User();
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
@@ -38,18 +43,24 @@ public class SignUpServlet extends HttpServlet {
           
         boolean isSignUp = handler.addUser(firstName, lastName, email, password, jop);
         if(isSignUp ){
-         
-           // session.setAttribute("user", user);
-            dispatcher = request.getRequestDispatcher("/pages/login.jsp");
-            dispatcher.forward(request, response);
+            
+            
+            
+               
+           user=handler.login(email, password);
+             HttpSession session = request.getSession(true);
+            session.setAttribute("user", user);
+            response.sendRedirect("account/AddInterest");
+           
             
         }
         
     }
 
-    @Override
-    public String getServletInfo() {
-        return "Short description";
+ @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        dispatcherSignUp=request.getRequestDispatcher("/pages/signup.jsp");
+        dispatcherSignUp.forward(request, response);
     }
 
 }

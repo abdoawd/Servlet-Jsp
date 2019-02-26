@@ -1,25 +1,25 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="currency" value="EGP"/>
+
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
-
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <title>Dokan</title>
 
         <!-- Bootstrap core CSS -->
-        <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link href="resources/css/shop-homepage.css" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>/resources/css/shop-homepage.css" rel="stylesheet">
 
     </head>
 
     <body>
         <!--Add Header Block-->
-        <jsp:include page="../blocks/header.jsp"/>  
-        <jsp:include page="../pages/HomeSlideBar.jsp"/>
+        <jsp:include page="/blocks/header.jsp"/>  
 
 
         <!-- Page Content -->
@@ -37,13 +37,13 @@
                         </ol>
                         <div class="carousel-inner" role="listbox">
                             <div class="carousel-item active">
-                                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+                                <img class="d-block img-fluid" src="http://localhost:9090/dokan/resources/pictures/slider01.png" alt="First slide">
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+                                <img class="d-block img-fluid" src="http://localhost:9090/dokan/resources/pictures/slider02.png" alt="Second slide">
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+                                <img class="d-block img-fluid" src="http://localhost:9090/dokan/resources/pictures/slider03.png" alt="Third slide">
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -58,16 +58,17 @@
 
                     <div class="row">
                         <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100">
+                            <div class="card h-100 myProductCardContainer">
                                 <a href="#"><img class="card-img-top" src="resources/pictures/p1.png" alt=""></a>
                                 <div class="card-body">
                                     <h4 class="card-title">
-                                        <a href="#">Item One</a>
+                                        <a href="#" class="productName">Item One</a>
                                     </h4>
-                                    <h5>$24.99</h5>
+                                    <h5 class="productPriceFinal">24.99 ${currency}</h5>
+                                    <p class="productPriceDiscounted text-muted">30 ${currency}</p>
                                 </div>
                                 <div class="card-footer">
-                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                    <button>ADD TO CART</button>
                                 </div>
                             </div>
                         </div>
@@ -160,12 +161,12 @@
         <!-- /.container -->
 
         <!--Add Footer Block-->
-        <jsp:include page="../blocks/footer.jsp"/>
+        <jsp:include page="/blocks/footer.jsp"/>
 
         <!-- Bootstrap core JavaScript -->
         <script> document.getElementById("home").classList.add("active");</script>
-        <script src="resources/vendor/jquery/jquery.min.js"></script>
-        <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="<%=request.getContextPath()%>/resources/vendor/jquery/jquery.min.js"></script>
+        <script src="<%=request.getContextPath()%>/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     </body>
 

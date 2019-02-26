@@ -1,9 +1,3 @@
-<%-- 
-    Document   : admin
-    Created on : Feb 14, 2019, 1:40:29 AM
-    Author     : A7med
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set scope="page" var="pageTitle" value="Admin Dashboard"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

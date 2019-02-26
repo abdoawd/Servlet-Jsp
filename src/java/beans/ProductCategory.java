@@ -11,8 +11,11 @@ package beans;
  */
 public class ProductCategory implements ListModelInterface {
 
-    int id;
-    String name;
+   private int id;
+   private String name;
+   public ProductCategory(){
+   
+   }
 
     public ProductCategory(int id, String name) {
         this.id = id;

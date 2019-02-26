@@ -1,6 +1,8 @@
 package login;
 
+import beans.Address;
 import beans.User;
+import db.AddressDao;
 import db.UsersDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +21,7 @@ public class LoginServlet extends HttpServlet {
 
     UsersDao usersDao;
     RequestDispatcher dispatcher;
+    AddressDao addressHandler;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,22 +31,22 @@ public class LoginServlet extends HttpServlet {
         String userEmailCookie = null;
         String userPasswordCookie = null;
         String rememberMe = null;
-            if (cookies != null) {
-                for (int i = 0; i < cookies.length; i++) {
-                    Cookie cookie = cookies[i];
-                    if (cookie.getName().equals("userEmail")) {
-                        userEmailCookie = cookie.getValue();
-                    }
-                    if (cookie.getName().equals("userPassword")) {
-                        userPasswordCookie = cookie.getValue();
-                    }
-                    if (cookie.getName().equals("remember")) {
-                        rememberMe = cookie.getValue();
-                    }
-
+        if (cookies != null) {
+            for (int i = 0; i < cookies.length; i++) {
+                Cookie cookie = cookies[i];
+                if (cookie.getName().equals("userEmail")) {
+                    userEmailCookie = cookie.getValue();
                 }
+                if (cookie.getName().equals("userPassword")) {
+                    userPasswordCookie = cookie.getValue();
+                }
+                if (cookie.getName().equals("remember")) {
+                    rememberMe = cookie.getValue();
+                }
+
             }
-        
+        }
+
         if (userEmailCookie != null && userPasswordCookie != null && rememberMe != null) {
             System.out.println("insid if cookie");
             request.setAttribute("userEmail", userEmailCookie);
@@ -58,18 +61,19 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
-         String remeberMe = request.getParameter("remember");
+        String remeberMe = request.getParameter("remember");
         usersDao = new UsersDao();
+        addressHandler = new AddressDao();
+
         String name = request.getParameter("email");
         Cookie[] cookie = request.getCookies();
         String password = request.getParameter("password");
         User user = usersDao.login(name, password);
         if (user != null) {
-
-            out.println("log in successfully ");
-            out.print("role=" + user.getRole());
-            out.print("role=" + user.getFirstName());
-
+            Address userAddress = addressHandler.getAddress(user.getId());
+            if (userAddress != null) {
+                user.setAddress(userAddress);
+            }
             // session . add user()
             if (remeberMe != null && remeberMe.equalsIgnoreCase("on")) {
                 if (cookie == null) {

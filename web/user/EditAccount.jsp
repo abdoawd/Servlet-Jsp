@@ -14,19 +14,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit Profile</title>
-                <!-- Bootstrap core CSS -->
+        <!-- Bootstrap core CSS -->
         <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
-        
-                <!-- Page level plugin CSS-->
+
+        <!-- Page level plugin CSS-->
         <link href="<%=request.getContextPath()%>/resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
-                <!-- Form CSS-->
+        <!-- Form CSS-->
         <link href="<%=request.getContextPath()%>/resources/css/login.css" rel="stylesheet">
-        
-        
-        
+
+
+
     </head>
     <body>
 
@@ -43,14 +43,7 @@
 
                 <div class="row" style="flex-flow: inherit;">
 
-                    <div class="col-lg-3">
-                        <div class="list-group">
-                            <a href="../account.jsp" class="list-group-item">Account Details</a>
-                            <a href="EditAccount.jsp" class="list-group-item">Edit Profile</a>
-                            <a href="#" class="list-group-item">Orders</a>
-                            <a href="#" class="list-group-item">Logout</a>
-                        </div>
-                    </div>
+                    <jsp:include page="nav_bar.jsp" />
 
 
                     <!-- DataTables Example -->
@@ -74,8 +67,8 @@
 
                                         <div class="centeredDiv">
                                             <label><b>Email</b></label>
-                                           
-                                                <input type="email"   name="email" value="${user.email}" readonly />
+                                            <input type="email"   name="email" value="${user.email}" readonly />
+                                            <span style="color: red; font-size:10; ">can't be updated</span>
                                         </div>
 
                                         <div class="centeredDiv centeredDiv2">
@@ -98,16 +91,16 @@
                                         </div>
 
                                         <div>
-                                            <label><h3>Address</h3></label>
+
                                             <label><b>Street</b></label>
                                             <input type="text" value="street" name="street"/> 
                                             <label><b>City</b></label>
-                                           <input type="text" value="city" name="city"/>
-                                           <label><b>Country</b></label>
+                                            <input type="text" value="city" name="city"/>
+                                            <label><b>Country</b></label>
                                             <span><input type="text" value="country" name="country"/></span>
                                         </div>
 
-                                       <div class="centeredDiv centeredDiv2">
+                                        <div class="centeredDiv centeredDiv2">
                                             <label style="display: block;"><b>Profile Image</b></label>
                                             <img id="productImageDisplay" hidden="true" src="#"/>
                                             <input type="file" onchange="loadFile(event)" name="profileImage" size="5" accept="image/*" required>
@@ -116,19 +109,19 @@
                                                 var loadFile = function (event) {
                                                     var output = document.getElementById('productImageDisplay');
                                                     output.height = 50;
-                                                    output.hidden = false; 
+                                                    output.hidden = false;
                                                     output.src = URL.createObjectURL(event.target.files[0]);
-                                                    
+
                                                 };
                                             </script>
 
-                                        
+
+                                        </div>
+                                        <div>
+                                            <button type="submit" >Save Changes</button>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <button type="submit" >Save Changes</button>
-                                    </div>
-                                </div>
-                                <!-- / Left Column - .col-lg-9 -->
+                                    <!-- / Left Column - .col-lg-9 -->
                             </form>
 
 
@@ -136,7 +129,7 @@
 
 
                         </div>
-                      
+
                         <c:choose>
                             <c:when test="${isChanged == 'true'}">
                                 <div class="card-footer small text-muted">Changes saved successfully.</div>
@@ -148,19 +141,19 @@
                                 <div class="card-footer small text-muted">Everything is just fine.</div>
                             </c:otherwise>
                         </c:choose>
-                              
 
-                        
-                    </div>
-                        
+
 
                     </div>
+
+
                 </div>
-            </div>       
- <jsp:include page="/blocks/footer.jsp"/>
+            </div>
+        </div>       
+        <jsp:include page="/blocks/footer.jsp"/>
 
- <script src="<%=request.getContextPath()%>/resources/js/demo/datatables-demo.js"></script>
- 
+        <script src="<%=request.getContextPath()%>/resources/js/demo/datatables-demo.js"></script>
+
         <!-- Bootstrap core JavaScript-->
         <script src="<%=request.getContextPath()%>/resources/vendor/jquery/jquery.min.js"></script>
         <script src="<%=request.getContextPath()%>/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
