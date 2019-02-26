@@ -14,13 +14,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit Profile</title>
-<<<<<<< HEAD
+
                 <!-- Bootstrap core CSS -->
         <link href="<%=request.getContextPath()%>/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-=======
-        <!-- Bootstrap core CSS -->
-        <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
->>>>>>> cfd50819a971ecab8b301049e54c113efe31f09a
+
 
 
 
@@ -48,16 +45,9 @@
 
                 <div class="row" style="flex-flow: inherit;">
 
-                    <div class="col-lg-3">
-                        <div class="list-group">
-                            <a href="../account.jsp" class="list-group-item">Account Details</a>
-                            <a href="EditAccount.jsp" class="list-group-item">Edit Profile</a>
-                            <a  href="<%=request.getContextPath()%>/orders" class="list-group-item">Orders</a>
-                            <a href="<%=request.getContextPath()%>/logout" class="list-group-item">Logout</a>
-                        </div>
-                    </div>
+                    
 
-
+<jsp:include page="/user/nav_bar.jsp" />
 
                     <!-- DataTables Example -->
                     <div class="card mb-3" id="form">

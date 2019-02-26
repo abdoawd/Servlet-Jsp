@@ -38,7 +38,7 @@
                                 Cart</a>
                         </li>
                         <li id="account" class="nav-item">   
-                            <a class="nav-link headerImagesContainer" href="<%=request.getContextPath()%>/account.jsp">
+                            <a class="nav-link headerImagesContainer" href="<%=request.getContextPath()%>/account">
                                 <img src="<%=request.getContextPath()%>/resources/pictures/account.png" class="headerImages"/>
                                 Account</a>
                         </li>

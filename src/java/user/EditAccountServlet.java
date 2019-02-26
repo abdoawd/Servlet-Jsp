@@ -52,12 +52,9 @@ public class EditAccountServlet extends HttpServlet {
 
         user.setFirstName(request.getParameter("firstName"));
         user.setLastName(request.getParameter("lastName"));
-        user.setEmail(request.getParameter("email"));
         user.setPassword(request.getParameter("password"));
         user.setJob(request.getParameter("job"));
-        user.setCreditlimits(Double.parseDouble(request.getParameter("creditlimits")));
         String dateBirthday = request.getParameter("birthday");
-
         user.setBirthday(dateBirthday);
 
         Part filePart = request.getPart("profileImage");

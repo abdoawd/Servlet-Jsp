@@ -14,52 +14,52 @@
         <!-- Custom styles for this template -->
         <link href="resources/css/shop-homepage.css" rel="stylesheet">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-
         <!-- CSS -->
-        <link href="../resources/css/style-product-page.css" rel="stylesheet">
+        <link href="resources/css/style-product-page.css" rel="stylesheet">
 
     </head>
 
     <body>
         <!--Add Header Block-->
         <jsp:include page="../blocks/header.jsp"/>
-
-        <!-- Page Content -->
+        
+       <!-- Page Content -->
         <div class="container containerSpacing">
-
             <div class="row">
-
-                <main class="container-product">
-                    <!-- Left Column / Headphones Image -->
-                    <div class="left-column">
-                        <img data-image="red" class="active" src="data:image/jpeg;base64,${product.stringImage}" alt="">
-
-                    </div>
-
-                  <!-- Right Column -->
-                    <!-- Right Column -->
-                    <div class="right-column">
-                        <!-- Product Description -->
-                        <div class="product-description">
-                            <span>${product.getName()}</span>
-                            <h1>${product.getName()}</h1>
-                            <p>${product.getDescription()}</p>
+                    <main class="container-product">
+                        <!-- Left Column / Headphones Image -->
+                        <div class="left-column col-8">
+                            <img data-image="red" class="active" src="data:image/jpeg;base64,${product.stringImage}" alt="">
                         </div>
 
-                        <!-- Product Pricing -->
-                        <div class="product-price">
-                            <span>${product.getPrice()}</span>
-                            <a id="addToCart" href="/dokan/UserCart?addToCart=true&product_id=${product.id}" class="cart-btn no-underline">Add to cart</a>
+
+                        <!-- Right Column -->
+                        <div class="right-column col-4">
+                            <!-- Product Description -->
+                            <div class="product-description">
+                                <span>${product.getCategoryName()}</span>
+                                <h1>${product.getName()}</h1>
+                                <p>${product.getDescription()}</p>
+                            </div>
+                            <!-- Product Pricing -->
+                            <div class="product-price">
+                                <h4 class="productPriceDiscounted">${product.getPrice()+product.getDiscount()}</h4>
+                                <h2 class="productPriceFinal">${product.getPrice()} EGP</h2>
+                            </div>
+                            <div>
+                                <a id="addToCart" href="/dokan/UserCart?addToCart=true&product_id=${product.id}" class="submit-button no-underline">
+                                    Add to cart</a>
+                            </div>
                         </div>
-                    </div>
-                </main>
+                    </main>
+                </div>
+            <!-- /.row -->
 
-
-            </div>
         </div>
         <!-- /.container -->
+        
+        
+        
 
         <!--Add Footer Block-->
         <jsp:include page="../blocks/footer.jsp"/>

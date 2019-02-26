@@ -40,7 +40,7 @@
             <!-- Page Content -->
             <div class="container containerSpacing">
                 
-                <h1 class="divHeader">User Name</h1>
+                <h1 class="divHeader">${user.firstName} ${user.lastName}</h1>
                 
                 <div class="row">
 
