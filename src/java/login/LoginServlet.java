@@ -6,6 +6,8 @@ import db.AddressDao;
 import db.UsersDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -24,6 +26,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
+        usersDao = new UsersDao();
         String userEmailCookie = null;
         String userPasswordCookie = null;
         String rememberMe = null;
@@ -32,8 +35,6 @@ public class LoginServlet extends HttpServlet {
                 Cookie cookie = cookies[i];
                 if (cookie.getName().equals("userEmail")) {
                     userEmailCookie = cookie.getValue();
-                    System.out.println("in cookeie" + cookie.getValue());
-
                 }
                 if (cookie.getName().equals("userPassword")) {
                     userPasswordCookie = cookie.getValue();
@@ -46,13 +47,14 @@ public class LoginServlet extends HttpServlet {
         }
 
         if (userEmailCookie != null && userPasswordCookie != null) {
-            System.out.println("insid if cookie");
-            request.setAttribute("userEmail", userEmailCookie);
-            request.setAttribute("userPassword", userPasswordCookie);
-            request.setAttribute("remember", rememberMe);
+            User user = getUserFromDatabase(rememberMe, rememberMe);
+            putUserIntoSession(user, request, response);
+            request.getRequestDispatcher("user/shop.jsp").forward(request, response);
+
+        } else {
+            request.getRequestDispatcher("pages/login.jsp").forward(request, response);
 
         }
-        request.getRequestDispatcher("pages/login.jsp").forward(request, response);
 
     }
 
@@ -66,7 +68,7 @@ public class LoginServlet extends HttpServlet {
         String name = request.getParameter("email");
         Cookie[] cookie = request.getCookies();
         String password = request.getParameter("password");
-        User user = usersDao.login(name, password);
+        User user = getUserFromDatabase(name, password);
         if (user != null) {
             Address userAddress = addressHandler.getAddress(user.getId());
             if (userAddress != null) {
@@ -94,11 +96,7 @@ public class LoginServlet extends HttpServlet {
                 response.addCookie(emailCookie);
                 response.addCookie(passwordCookie);
             }
-
-            HttpSession session = request.getSession(true);
-            session.setAttribute("user", user);
-            session.setAttribute("loggedIn", Constants.LOGGED_IN);
-
+            putUserIntoSession(user, request, response);
             if (user.getRole().equals("admin")) {
                 System.out.println("admin");
                 response.sendRedirect("admin");
@@ -112,6 +110,17 @@ public class LoginServlet extends HttpServlet {
         } else {
             out.println("log in faild ");
         }
+    }
+
+    User getUserFromDatabase(String email, String password) {
+        return usersDao.login(email, password);
+    }
+
+    void putUserIntoSession(User user, HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(true);
+        session.setAttribute("user", user);
+        session.setAttribute("loggedIn", Constants.LOGGED_IN);
+
     }
 
 }
