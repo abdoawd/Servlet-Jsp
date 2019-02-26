@@ -447,7 +447,6 @@ public class ProductDao implements DbInterface {
 
             PreparedStatement ps = connection.prepareStatement("select * from  product where "
                     + Constants.COLUMN_PRODUCT_CATEGORY_ID + "  =?  and "
-                    + Constants.COLUMN_PRODUCT_NAME + "  like ? and "
                     + Constants.COLUMN_PRODUCT_PRICE + " between  ? and ?");
             ps.setInt(1, category_id);
             ps.setInt(2, startprice);

@@ -7,10 +7,10 @@ package filter;
 
 import beans.User;
 import java.io.IOException;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import java.io.PrintWriter;
 import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -20,18 +20,16 @@ import utility.Constants;
 
 /**
  *
- * @author A7med
+ * @author Abdelrahman
  */
-public class AdminFilter implements Filter {
+public class UserFilter implements Filter{
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         PrintWriter out = new PrintWriter(System.out);
@@ -40,8 +38,8 @@ public class AdminFilter implements Filter {
             int loggedIn = (int) req.getSession().getAttribute("loggedIn");
             User user = (User) req.getSession().getAttribute("user");
             if (loggedIn == Constants.LOGGED_IN & user != null) {
-                if (user.getRole().equals("admin")) {
-                    System.out.println("admin");
+                if (user.getRole().equals("user")) {
+                    System.out.println("user");
 //                    response.sendRedirect("admin");
                     // pass the request along the filter chain 
                     chain.doFilter(request, response);
@@ -51,21 +49,18 @@ public class AdminFilter implements Filter {
                 }
             } else {
                 System.out.println("Not logged in");
-                res.sendRedirect(req.getContextPath() + "/pages/login.jsp");
+                res.sendRedirect(req.getContextPath() + "/Login");
             }
         } else {
             System.out.println("Session problem - Cannot get loggedIn attribue");
-            res.sendRedirect(req.getContextPath() + "/pages/login.jsp");
+            res.sendRedirect(req.getContextPath() + "/Login");
         }
 
         System.out.println(
-                "Filter called 2 ~~~~~~~~~~~~\t\t 2");
-
-    }
+                "Filter called 2 ~~~~~~~~~~~~\t\t 2");    }
 
     @Override
     public void destroy() {
-
     }
-
+    
 }
