@@ -33,7 +33,7 @@
 </head>
 <body>
 
-                                <form action="<%=request.getContextPath()%>//AddInterest" method="post" class="modal-content">
+                                <form action="<%=request.getContextPath()%>/account/AddInterest" method="post" class="modal-content">
                                     
                                     <div class="table-response container" style="text-align:center">
                                     

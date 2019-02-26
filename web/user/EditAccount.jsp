@@ -15,7 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit Profile</title>
                 <!-- Bootstrap core CSS -->
-        <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
         
@@ -51,7 +51,7 @@
                         <div class="card-body">
 
 
-                            <form action='<%=request.getContextPath()%>//EditAccount' method='post' enctype="multipart/form-data" class="my-modal-content">
+                            <form action='<%=request.getContextPath()%>/account/EditAccount' method='post' enctype="multipart/form-data" class="my-modal-content">
                                 <!-- Left Column - .col-lg-9 -->
                                 <div class="columnTwoThird" style="max-width:90%;">
                                     <div class="container">
@@ -83,23 +83,23 @@
                                         </div>
                                         <div class="centeredDiv centeredDiv2">
                                             <label><b>Credit Limit</b></label>
-                                            <input type="number" min="0" step=".01"  name="creditlimits" value="${user.creditlimits}">
+                                            <input type="number" min="0" step=".01"  name="creditlimits" value="${user.creditlimits}" readonly>
                                         </div>
                                         <div>
                                             <label><b>Birthday</b></label>
                                             <c:set var="birthday" value="${user.birthday}" />
                                             <fmt:formatDate value="${birthday}" var="dateObject" pattern="MM/dd/yyyy" />
-                                            <input type="date"  name="birthday" value="${user.birthday}"pattern="MM/dd/yyyy"/>
+                                            <input type="date"  name="birthday" value="${birthday}"pattern="MM/dd/yyyy"/>
                                         </div>
 
                                         <div>
                                            
                                             <label><b>Street</b></label>
-                                            <input type="text" value="street" name="street"/> 
+                                            <input type="text" value="${user.address.street}" name="street"/> 
                                             <label><b>City</b></label>
-                                           <input type="text" value="city" name="city"/>
+                                           <input type="text" value="${user.address.city}" name="city"/>
                                            <label><b>Country</b></label>
-                                            <span><input type="text" value="country" name="country"/></span>
+                                            <span><input type="text" value="${useraddress.country}" name="country"/></span>
                                         </div>
 
                                        <div class="centeredDiv centeredDiv2">

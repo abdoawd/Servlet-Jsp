@@ -26,6 +26,7 @@ public class LoginServlet extends HttpServlet {
         String userEmail = null;
         String userPassword = null;
         String remember = null;
+        /*
         for (int i = 0; i < cookies.length; i++) {
             Cookie cookie = cookies[i];
             if (cookie.getName().equals("userEmail")) {
@@ -41,6 +42,7 @@ public class LoginServlet extends HttpServlet {
             }
 
         }
+*/
         if (userEmail != null && userPassword != null) {
             request.setAttribute("userEmail", userEmail);
             request.setAttribute("userPassword", userPassword);
@@ -63,7 +65,7 @@ public class LoginServlet extends HttpServlet {
 
         String password = request.getParameter("password");
         User user = usersDao.login(name, password);
-        System.out.println("remer me   " + remeberMe);
+        System.out.println("remember me   " + remeberMe);
         if (user != null) {
            Address userAddress=   addressHandler.getAddress(user.getId());
            if(userAddress!=null)

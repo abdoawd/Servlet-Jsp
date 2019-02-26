@@ -18,7 +18,7 @@
 
     </head>
     <body>
-        <link href="../resources/css/login.css" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>/resources/css/login.css" rel="stylesheet">
         <form action='<%=request.getContextPath()%>/Login' method='post' class="modal-content">
             <div class="container">
                 <h1>iTi | Login</h1>

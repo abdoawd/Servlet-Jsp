@@ -28,7 +28,7 @@
             <a class="nav-link" href="<%=request.getContextPath()%>">Home</a>
           </li>
           <li id="account" class="nav-item">
-            <a class="nav-link" href="<%=request.getContextPath()%>/account.jsp">Account</a>
+            <a class="nav-link" href="<%=request.getContextPath()%>/account">Account</a>
           </li>
           <li id="cart" class="nav-item">
             <a class="nav-link" href="<%=request.getContextPath()%>/UserCart">Cart</a>
