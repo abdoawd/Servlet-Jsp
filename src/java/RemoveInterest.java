@@ -61,8 +61,12 @@ public class RemoveInterest extends HttpServlet {
     }
     public int getUser(HttpServletRequest request){
       HttpSession session=request.getSession(false);
+      if(session!=null){
         User user=(User) session.getAttribute("user");
         return user.getId();
+      }
+      else 
+          return -1;
     }
 
    

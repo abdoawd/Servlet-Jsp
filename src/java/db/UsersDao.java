@@ -197,7 +197,6 @@ public class UsersDao implements DbInterface {
                     + " set "
                     + Constants.COLUMN_USER_FIRST_NAME + "= ? ,"
                     + Constants.COLUMN_USER_LAST_NAME + "= ? ,"
-                    + Constants.COLUMN_USER_EMAIL + "= ? ,"
                     + Constants.COLUMN_USER_PASSWORD + "= ? ,"
                     + Constants.COLUMN_USER_IMAGE + " = ? ,"
                     + Constants.COLUMN_USER_BIRTHDAY + " = ? ,"
@@ -206,13 +205,13 @@ public class UsersDao implements DbInterface {
             );
             pst.setString(1, user.getFirstName());
             pst.setString(2, user.getLastName());
-            pst.setString(3, user.getEmail());
-            pst.setString(4, user.getPassword());
-            pst.setBlob(5, picInputStream);
+           
+            pst.setString(3, user.getPassword());
+            pst.setBlob(4, picInputStream);
             //  Date date=new SimpleDateFormat("yyyy-mm-dd").parse(user.getBirthday());
-            pst.setString(6, user.getBirthday());
-            pst.setString(7, user.getJob());
-            pst.setInt(8, user.getId());
+            pst.setString(5, user.getBirthday());
+            pst.setString(6, user.getJob());
+            pst.setInt(7, user.getId());
             System.out.println(user.getId() + user.getFirstName());
             int i = pst.executeUpdate();
             if (i != 0) {

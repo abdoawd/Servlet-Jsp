@@ -40,6 +40,8 @@ public class AddNewInterest extends HttpServlet {
             throws ServletException, IOException {
        
         HttpSession session = request.getSession(false);
+        if(session!=null){
+       
           user=(User)session.getAttribute("user");
          
         categories=handler.getAllUnSelectedCategory(user.getId());
@@ -49,7 +51,7 @@ public class AddNewInterest extends HttpServlet {
         myDispatcher.include(request, response);
         
     }
-
+    }
  
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
