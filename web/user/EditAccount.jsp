@@ -43,7 +43,15 @@
 
                 <div class="row" style="flex-flow: inherit;">
 
-                    <jsp:include page="nav_bar.jsp" />
+                    <div class="col-lg-3">
+                        <div class="list-group">
+                            <a href="../account.jsp" class="list-group-item">Account Details</a>
+                            <a href="EditAccount.jsp" class="list-group-item">Edit Profile</a>
+                            <a  href="<%=request.getContextPath()%>/orders" class="list-group-item">Orders</a>
+                            <a href="<%=request.getContextPath()%>/logout" class="list-group-item">Logout</a>
+                        </div>
+                    </div>
+
 
 
                     <!-- DataTables Example -->

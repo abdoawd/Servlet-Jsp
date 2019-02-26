@@ -52,7 +52,6 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("userEmail", userEmailCookie);
             request.setAttribute("userPassword", userPasswordCookie);
             request.setAttribute("remember", rememberMe);
-//<c:if test="${remember}">checked</c:if>
         }
         request.getRequestDispatcher("pages/login.jsp").forward(request, response);
 
@@ -101,7 +100,7 @@ public class LoginServlet extends HttpServlet {
             } else {
                 System.out.println("user");
                 out.print("role=" + user.getRole());
-                response.sendRedirect("UserHomeServlet");
+                response.sendRedirect("shop");
             }
 
         } else {

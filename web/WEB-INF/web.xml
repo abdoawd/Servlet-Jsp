@@ -22,7 +22,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserHomeServlet</servlet-name>
-        <url-pattern>/UserHomeServlet</url-pattern>
+        <url-pattern>/shop</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -45,7 +45,14 @@
     
     <!--        <welcome-file>/home/home.jsp</welcome-file>
 -->
-    
+    <filter>
+        <filter-name>user</filter-name>
+        <filter-class>filter.UserFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>user</filter-name>
+        <url-pattern>/shop</url-pattern>
+    </filter-mapping>
     <welcome-file-list>
         <welcome-file>/home/home.jsp</welcome-file>
     </welcome-file-list>

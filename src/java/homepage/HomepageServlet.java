@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author A7med
  */
-@WebServlet(name = "HomepageServlet", urlPatterns = {"/shop"})
+@WebServlet(name = "HomepageServlet", urlPatterns = {"/home"})
 public class HomepageServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
