@@ -6,8 +6,6 @@ import db.AddressDao;
 import db.UsersDao;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -26,8 +24,6 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
-        String remeberMeParam = request.getParameter("remember");
-
         String userEmailCookie = null;
         String userPasswordCookie = null;
         String rememberMe = null;
@@ -36,6 +32,8 @@ public class LoginServlet extends HttpServlet {
                 Cookie cookie = cookies[i];
                 if (cookie.getName().equals("userEmail")) {
                     userEmailCookie = cookie.getValue();
+                    System.out.println("in cookeie" + cookie.getValue());
+
                 }
                 if (cookie.getName().equals("userPassword")) {
                     userPasswordCookie = cookie.getValue();
@@ -47,11 +45,12 @@ public class LoginServlet extends HttpServlet {
             }
         }
 
-        if (userEmailCookie != null && userPasswordCookie != null && rememberMe != null) {
+        if (userEmailCookie != null && userPasswordCookie != null) {
             System.out.println("insid if cookie");
             request.setAttribute("userEmail", userEmailCookie);
             request.setAttribute("userPassword", userPasswordCookie);
             request.setAttribute("remember", rememberMe);
+
         }
         request.getRequestDispatcher("pages/login.jsp").forward(request, response);
 
@@ -75,8 +74,7 @@ public class LoginServlet extends HttpServlet {
             }
             // session . add user()
             if (remeberMe != null && remeberMe.equalsIgnoreCase("on")) {
-                if (cookie == null) {
-                    System.out.println("inside remmber me if ");
+                {
                     Cookie emailCookie = new Cookie("userEmail", user.getEmail());
                     Cookie passwordCookie = new Cookie("userPassword", user.getPassword());
                     Cookie rememberCookie = new Cookie("remember", "checked");
@@ -87,6 +85,14 @@ public class LoginServlet extends HttpServlet {
                     response.addCookie(passwordCookie);
                     response.addCookie(rememberCookie);
                 }
+
+            } else {
+                Cookie emailCookie = new Cookie("userEmail", "");
+                Cookie passwordCookie = new Cookie("userPassword", "");
+                emailCookie.setMaxAge(0);
+                passwordCookie.setMaxAge(0);
+                response.addCookie(emailCookie);
+                response.addCookie(passwordCookie);
             }
 
             HttpSession session = request.getSession(true);
