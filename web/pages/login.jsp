@@ -14,13 +14,12 @@
         <title>${pageTitle}</title>
     </head>
     <body>
-        
         <div id="id01" class="modal">
             <form action='<%=request.getContextPath()%>/Login' method='post' class="modal-content">
                 <div class="container">
                     <img class="logoImage" src="<%=request.getContextPath()%>/resources/pictures/Dokan-Logo.png" />
                     <h1>${pageTitle}</h1>
-
+                    
                     <p>Please fill in this form to Login.</p>
                     <hr>
                     <label for="email"><b>E-Mail</b></label>

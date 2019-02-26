@@ -9,8 +9,6 @@
         <!-- Custom styles for login page -->
         <link href="<%=request.getContextPath()%>/resources/css/forms.css" rel="stylesheet">
 
-        <link href="../resources/css/login.css" rel="stylesheet">
-
         <title>${pageTitle}</title>
     </head
     <body>

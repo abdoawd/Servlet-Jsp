@@ -43,14 +43,7 @@
 
                 <div class="row" style="flex-flow: inherit;">
 
-                    <div class="col-lg-3">
-                        <div class="list-group">
-                            <a href="../account.jsp" class="list-group-item">Account Details</a>
-                            <a href="EditAccount.jsp" class="list-group-item">Edit Profile</a>
-                            <a href="#" class="list-group-item">Orders</a>
-                            <a href="#" class="list-group-item">Logout</a>
-                        </div>
-                    </div>
+                    <jsp:include page="nav_bar.jsp" />
 
 
                     <!-- DataTables Example -->
@@ -74,8 +67,8 @@
 
                                         <div class="centeredDiv">
                                             <label><b>Email</b></label>
-
                                             <input type="email"   name="email" value="${user.email}" readonly />
+                                            <span style="color: red; font-size:10; ">can't be updated</span>
                                         </div>
 
                                         <div class="centeredDiv centeredDiv2">
@@ -98,7 +91,7 @@
                                         </div>
 
                                         <div>
-                                            <label><h3>Address</h3></label>
+
                                             <label><b>Street</b></label>
                                             <input type="text" value="street" name="street"/> 
                                             <label><b>City</b></label>

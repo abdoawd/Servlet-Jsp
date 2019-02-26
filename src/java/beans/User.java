@@ -4,23 +4,6 @@ import java.util.Date;
 
 
 public class User  implements ListModelInterface{
-
-    /**
-     * @return the address
-     */
-    public Address getAddress() {
-        return address;
-    }
-
-    /**
-     * @param address the address to set
-     */
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
- 
-
     /*user_id	fanme 	last name	role	email
             password	job	birthday	credit_limit*/
     private int id;
@@ -68,6 +51,19 @@ public class User  implements ListModelInterface{
         this.job = job;
 
        
+    }
+    /**
+     * @return the address
+     */
+    public Address getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(Address address) {
+        this.address = address;
     }
     public int getId() {
 

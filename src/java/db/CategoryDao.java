@@ -66,7 +66,7 @@ public class CategoryDao implements DbInterface {
 
     public List<ProductCategory> getProductCategories() {
         PreparedStatement pst;
-        List<ProductCategory> productCategotyList = new ArrayList<>();
+        ArrayList<ProductCategory> productCategotyList = new ArrayList<>();
         try {
             pst = connection.prepareStatement("SELECT * FROM " + Constants.CATEGORY_TABLE_NAME);
             ResultSet rs = pst.executeQuery();
