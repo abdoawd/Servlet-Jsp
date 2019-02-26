@@ -30,7 +30,6 @@ public class CategoryDao implements DbInterface {
         connection = handlerConnection.establishConnection();
     }
 
-
     @Override
     public long getSequence(String sequenceName) {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -79,7 +78,6 @@ public class CategoryDao implements DbInterface {
         }
         return productCategotyList;
     }
-
 
     public int editCategory(int categoryId, String categoryName) {
         PreparedStatement pst;

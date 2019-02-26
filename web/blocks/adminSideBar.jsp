@@ -47,4 +47,10 @@
             <a class="dropdown-item" href="<%=request.getContextPath()%>/admin/deleteCategory">Delete Category</a>
         </div>
     </li>
+    
+    <li class="nav-item">
+        <a class="nav-link" href="<%=request.getContextPath()%>/admin/creditcards">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Credit Cards</span></a>
+    </li>
 </ul>

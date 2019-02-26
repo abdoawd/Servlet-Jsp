@@ -33,7 +33,7 @@ public class Constants {
     public static final String COLUMN_ADDRESSES_COUNTRY = "COUNTRY";
 
     // CREDIT CARD TABLE 
-    public static final String CREDIT_CARD_TABLE_NAME = "CREDIT_CARDS";
+    public static final String CREDIT_CARD_TABLE_NAME = "CREDIT_CARD";
     public static final String COLUMN_CARD_NUMBER = "CARD_NUMBER";
     public static final String COLUMN_CARD_AMOUNT = "AMOUNT";
 
@@ -85,7 +85,7 @@ public class Constants {
     // sequences 
     public static final String ADDRESSES_SEQUENCES = "ADDRESSES_SEQ";
     public static final String PRODUCT_SEQUENCES = "PRODUCT_SEQ";
-    public static final String CREDIT_SEQUENCES = "CREDIT_CARD_SEQ";
+//    public static final String CREDIT_SEQUENCES = "CREDIT_CARD_SEQ";
     public static final String USERSES_SEQUENCES = "E_USERS_SEQ";
     public static final String CATEGORY_SEQUENCES = "PRODUCT_CATEGORY_SEQ";
     public static final String ORDERS_SEQUENCES = "USER_ORDERS_SEQ";

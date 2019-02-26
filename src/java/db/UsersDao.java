@@ -1,5 +1,6 @@
 package db;
 
+import beans.Creditcard;
 import beans.Product;
 import beans.ProductCategory;
 import beans.User;
@@ -62,11 +63,11 @@ public class UsersDao implements DbInterface {
         try {
             int id = (int) getSequence(Constants.USERSES_SEQUENCES);
             //   Date date=new SimpleDateFormat("yyyy-mm-dd").parse(birthday);  
-           //int id= (int) getSequence(Constants.USERSES_SEQUENCES);
-           //   Date date=new SimpleDateFormat("yyyy-mm-dd").parse(birthday);  
+            //int id= (int) getSequence(Constants.USERSES_SEQUENCES);
+            //   Date date=new SimpleDateFormat("yyyy-mm-dd").parse(birthday);  
             pst = connection.prepareStatement("insert into " + Constants.USER_TABLE_NAME
                     + "( "
-                 //   + Constants.COLUMN_USER_ID + ","
+                    //   + Constants.COLUMN_USER_ID + ","
                     + Constants.COLUMN_USER_FIRST_NAME + ","
                     + Constants.COLUMN_USER_LAST_NAME + ","
                     + Constants.COLUMN_USER_ROLE + ","
@@ -84,15 +85,13 @@ public class UsersDao implements DbInterface {
             pst.setString(7, jop);
             //  pst.setDate(8, new java.sql.Date( date.getTime()));
 
-
             int i = pst.executeUpdate();
 
             if (i != 0) {
                 System.out.print("success");
 
-               
-               //User user=new User(id,firstName,lastName,"user",email,passwrd,jop);
-               return true;
+                //User user=new User(id,firstName,lastName,"user",email,passwrd,jop);
+                return true;
             }
         } catch (SQLException ex) {
             System.out.println("SQLException " + ex.getMessage());
@@ -243,6 +242,46 @@ public class UsersDao implements DbInterface {
             Logger.getLogger(UserCartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return columnEffected;
+    }
+
+    public int addCreditcard(long cardNumber, double cardValue) {
+        PreparedStatement pst;
+        try {
+            // Step 2: Add product
+            pst = connection.prepareStatement("INSERT INTO " + Constants.CREDIT_CARD_TABLE_NAME
+                    + " (" + Constants.COLUMN_CARD_NUMBER + "," + Constants.COLUMN_CARD_AMOUNT + ") VALUES (?,?)");
+            pst.setLong(1, cardNumber);
+            pst.setDouble(2, cardValue);
+
+            int i = pst.executeUpdate();
+            if (i != 0) {
+                return Constants.ERROR_SUCCESS;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return Constants.ERROR_FAILED;
+        }
+        return Constants.ERROR_FAILED;
+    }
+
+    public List<Creditcard> getCreditcardsList() {
+        PreparedStatement pst;
+        List<Creditcard> cardsList = new ArrayList<>();
+        try {
+            pst = connection.prepareStatement("SELECT * FROM " + Constants.CREDIT_CARD_TABLE_NAME
+                    + " ORDER BY " + Constants.COLUMN_CARD_NUMBER + " ASC");
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Creditcard card = new Creditcard();
+                card.setNumber(rs.getLong(Constants.COLUMN_CARD_NUMBER));
+                card.setAmount(rs.getDouble(Constants.COLUMN_CARD_AMOUNT));
+                cardsList.add(card);
+            }
+            pst.close();
+        } catch (SQLException ex) {
+        }
+        return cardsList;
     }
 
 }
