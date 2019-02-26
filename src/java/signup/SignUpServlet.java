@@ -1,21 +1,7 @@
 package signup;
-
-import beans.Address;
-import beans.ProductCategory;
 import beans.User;
-import db.AddressDao;
-import db.CategoryDao;
-import db.ProductDao;
 import db.UsersDao;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -39,14 +25,10 @@ public class SignUpServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
-        String jop = request.getParameter("jop");
+        String jop = request.getParameter("job");
           
         boolean isSignUp = handler.addUser(firstName, lastName, email, password, jop);
-        if(isSignUp ){
-            
-            
-            
-               
+        if(isSignUp ){     
            user=handler.login(email, password);
              HttpSession session = request.getSession(true);
             session.setAttribute("user", user);

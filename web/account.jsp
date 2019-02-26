@@ -40,7 +40,7 @@
             <!-- Page Content -->
             <div class="container containerSpacing">
                 
-                <h1 class="divHeader">User Name</h1>
+                <h1 class="divHeader">${user.firstName} ${user.lastName}</h1>
                 
                 <div class="row">
 
@@ -100,7 +100,7 @@
                         
                     </table>
                     <br>
-                    <form action="<%=request.getContextPath()%>/user/EditAccount.jsp" method="post">
+                    <form action="<%=request.getContextPath()%>/account/EditAccount" method="get">
                     <input type="submit" value="Edit Profile" id="editbtn" />
                     </form>
                 </fieldset>

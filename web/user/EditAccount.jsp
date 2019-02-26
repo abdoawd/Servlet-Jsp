@@ -14,8 +14,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit Profile</title>
-        <!-- Bootstrap core CSS -->
-        <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+                <!-- Bootstrap core CSS -->
+        <link href="<%=request.getContextPath()%>/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
 
 
 
@@ -43,23 +45,16 @@
 
                 <div class="row" style="flex-flow: inherit;">
 
-                    <div class="col-lg-3">
-                        <div class="list-group">
-                            <a href="../account.jsp" class="list-group-item">Account Details</a>
-                            <a href="EditAccount.jsp" class="list-group-item">Edit Profile</a>
-                            <a  href="<%=request.getContextPath()%>/orders" class="list-group-item">Orders</a>
-                            <a href="<%=request.getContextPath()%>/logout" class="list-group-item">Logout</a>
-                        </div>
-                    </div>
+                    
 
-
+<jsp:include page="/user/nav_bar.jsp" />
 
                     <!-- DataTables Example -->
                     <div class="card mb-3" id="form">
                         <div class="card-body">
 
 
-                            <form action='<%=request.getContextPath()%>//EditAccount' method='post' enctype="multipart/form-data" class="my-modal-content">
+                            <form action='<%=request.getContextPath()%>/account/EditAccount' method='post' enctype="multipart/form-data" class="my-modal-content">
                                 <!-- Left Column - .col-lg-9 -->
                                 <div class="columnTwoThird" style="max-width:90%;">
                                     <div class="container">
@@ -89,23 +84,24 @@
                                         </div>
                                         <div class="centeredDiv centeredDiv2">
                                             <label><b>Credit Limit</b></label>
-                                            <input type="number" min="0" step=".01"  name="creditlimits" value="${user.creditlimits}">
+                                            <input type="number" min="0" step=".01"  name="creditlimits" value="${user.creditlimits}" readonly>
                                         </div>
                                         <div>
                                             <label><b>Birthday</b></label>
                                             <c:set var="birthday" value="${user.birthday}" />
                                             <fmt:formatDate value="${birthday}" var="dateObject" pattern="MM/dd/yyyy" />
-                                            <input type="date"  name="birthday" value="${user.birthday}"pattern="MM/dd/yyyy"/>
+                                            <input type="date"  name="birthday" value="${birthday}"pattern="MM/dd/yyyy"/>
                                         </div>
 
                                         <div>
 
                                             <label><b>Street</b></label>
-                                            <input type="text" value="street" name="street"/> 
+                                            <input type="text" value="${user.address.street}" name="street"/> 
                                             <label><b>City</b></label>
-                                            <input type="text" value="city" name="city"/>
-                                            <label><b>Country</b></label>
-                                            <span><input type="text" value="country" name="country"/></span>
+                                           <input type="text" value="${user.address.city}" name="city"/>
+                                           <label><b>Country</b></label>
+                                            <span><input type="text" value="${useraddress.country}" name="country"/></span>
+
                                         </div>
 
                                         <div class="centeredDiv centeredDiv2">

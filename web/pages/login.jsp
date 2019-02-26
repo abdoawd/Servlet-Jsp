@@ -17,12 +17,21 @@
 
         <link href="<%=request.getContextPath()%>/resources/css/login.css" rel="stylesheet">
 
-        <link href="../resources/css/login.css" rel="stylesheet">
 
 
         <title>${pageTitle}</title>
     </head>
     <body>
+
+        
+        <form action='<%=request.getContextPath()%>/Login' method='post' class="modal-content">
+            <div class="container">
+                <h1>iTi | Login</h1>
+                <p>Please fill in this form to Login.</p>
+                <hr>
+                <label for="email"><b>E-Mail</b></label>
+                
+
 
         <div id="id01" class="modal">
             <form action='<%=request.getContextPath()%>/Login' method='post' class="modal-content">

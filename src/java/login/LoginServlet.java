@@ -25,6 +25,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         Cookie[] cookies = request.getCookies();
         usersDao = new UsersDao();
         String userEmailCookie = null;
@@ -43,6 +44,7 @@ public class LoginServlet extends HttpServlet {
                     rememberMe = cookie.getValue();
                 }
 
+
             }
         }
 
@@ -56,6 +58,8 @@ public class LoginServlet extends HttpServlet {
 
         }
 
+
+
     }
 
     @Override
@@ -68,7 +72,9 @@ public class LoginServlet extends HttpServlet {
         String name = request.getParameter("email");
         Cookie[] cookie = request.getCookies();
         String password = request.getParameter("password");
+
         User user = getUserFromDatabase(name, password);
+
         if (user != null) {
             Address userAddress = addressHandler.getAddress(user.getId());
             if (userAddress != null) {
@@ -120,6 +126,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         session.setAttribute("user", user);
         session.setAttribute("loggedIn", Constants.LOGGED_IN);
+        session.setMaxInactiveInterval(1000*60*60*24*24);
 
     }
 

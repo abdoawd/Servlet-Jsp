@@ -60,13 +60,13 @@ public class UsersDao implements DbInterface {
         PreparedStatement pst;
 
         try {
-            int id = (int) getSequence(Constants.USERSES_SEQUENCES);
+           // int id = (int) getSequence(Constants.USERSES_SEQUENCES);
             //   Date date=new SimpleDateFormat("yyyy-mm-dd").parse(birthday);  
            //int id= (int) getSequence(Constants.USERSES_SEQUENCES);
            //   Date date=new SimpleDateFormat("yyyy-mm-dd").parse(birthday);  
             pst = connection.prepareStatement("insert into " + Constants.USER_TABLE_NAME
                     + "( "
-                 //   + Constants.COLUMN_USER_ID + ","
+              
                     + Constants.COLUMN_USER_FIRST_NAME + ","
                     + Constants.COLUMN_USER_LAST_NAME + ","
                     + Constants.COLUMN_USER_ROLE + ","
@@ -74,14 +74,14 @@ public class UsersDao implements DbInterface {
                     + Constants.COLUMN_USER_PASSWORD + ","
                     + Constants.COLUMN_USER_JOP
                     + ")"
-                    + " values (?,?,?,?,?,?,?)");
-            pst.setInt(1, id);
-            pst.setString(2, firstName);
-            pst.setString(3, lastName);
-            pst.setString(4, "user");
-            pst.setString(5, email);
-            pst.setString(6, passwrd);
-            pst.setString(7, jop);
+                    + " values (?,?,?,?,?,?)");
+       
+            pst.setString(1, firstName);
+            pst.setString(2, lastName);
+            pst.setString(3, "user");
+            pst.setString(4, email);
+            pst.setString(5, passwrd);
+            pst.setString(6, jop);
             //  pst.setDate(8, new java.sql.Date( date.getTime()));
 
 
@@ -197,7 +197,6 @@ public class UsersDao implements DbInterface {
                     + " set "
                     + Constants.COLUMN_USER_FIRST_NAME + "= ? ,"
                     + Constants.COLUMN_USER_LAST_NAME + "= ? ,"
-                    + Constants.COLUMN_USER_EMAIL + "= ? ,"
                     + Constants.COLUMN_USER_PASSWORD + "= ? ,"
                     + Constants.COLUMN_USER_IMAGE + " = ? ,"
                     + Constants.COLUMN_USER_BIRTHDAY + " = ? ,"
@@ -206,13 +205,13 @@ public class UsersDao implements DbInterface {
             );
             pst.setString(1, user.getFirstName());
             pst.setString(2, user.getLastName());
-            pst.setString(3, user.getEmail());
-            pst.setString(4, user.getPassword());
-            pst.setBlob(5, picInputStream);
+           
+            pst.setString(3, user.getPassword());
+            pst.setBlob(4, picInputStream);
             //  Date date=new SimpleDateFormat("yyyy-mm-dd").parse(user.getBirthday());
-            pst.setString(6, user.getBirthday());
-            pst.setString(7, user.getJob());
-            pst.setInt(8, user.getId());
+            pst.setString(5, user.getBirthday());
+            pst.setString(6, user.getJob());
+            pst.setInt(7, user.getId());
             System.out.println(user.getId() + user.getFirstName());
             int i = pst.executeUpdate();
             if (i != 0) {
