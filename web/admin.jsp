@@ -1,33 +1,37 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set scope="page" var="pageTitle" value="Admin Dashboard"/>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%-- 
+    Document   : admin
+    Created on : Feb 14, 2019, 1:40:29 AM
+    Author     : A7med
+--%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>${pageTitle}</title>
+        <title>Dokan - Admin Dashboard</title>
 
         <!-- Page level plugin CSS-->
         <link href="resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
         <!-- Custom styles for this template-->
         <link href="resources/css/sb-admin.css" rel="stylesheet">
-
-        <!-- My Admin CSS-->
-        <link href="resources/css/admin.css" rel="stylesheet">
         
+        <!-- My Admin CSS-->
+        <link href="resources/css/my-admin.css" rel="stylesheet">
+
     </head>
 
     <body id="page-top">
 
         <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-            <a class="navbar-brand mr-1" href="<%=request.getContextPath()%>/admin">Dokan</a>
+            <a class="navbar-brand mr-1" href="<%=request.getContextPath()%>/admin.jsp">Admin Dashboard</a>
 
             <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
                 <i class="fas fa-bars"></i>
@@ -37,7 +41,24 @@
         <div id="wrapper">
 
             <!-- Sidebar -->
-            <jsp:include page="../blocks/adminSideBar.jsp"/>
+            <ul class="sidebar navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Orders</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="admin/users.jsp">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Users</span></a>
+                </li>
+            </ul>
 
             <div id="content-wrapper">
 
@@ -46,7 +67,7 @@
                     <!-- Breadcrumbs-->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="<%=request.getContextPath()%>/admin">Dashboard</a>
+                            <a href="<%=request.getContextPath()%>/admin.jsp">Dashboard</a>
                         </li>
                         <li class="breadcrumb-item active">Overview</li>
                     </ol>
@@ -60,7 +81,7 @@
                                         <i class="fas fa-fw fa-comments"></i>
                                     </div>
                                     <div class="centerd">
-                                        <p class="number-main">${productsNumber}</p>
+                                        <p class="number-main">26</p>
                                         <p>Products</p>
                                     </div>
                                 </div>
@@ -73,7 +94,7 @@
                                         <i class="fas fa-fw fa-list"></i>
                                     </div>
                                     <div class="centerd">
-                                        <p class="number-main">${categoriesNumber}</p>
+                                        <p class="number-main">3</p>
                                         <p>Categories</p>
                                     </div>
                                 </div>
@@ -86,7 +107,7 @@
                                         <i class="fas fa-fw fa-shopping-cart"></i>
                                     </div>
                                     <div class="centerd">
-                                        <p class="number-main">${ordersNumber}</p>
+                                        <p class="number-main">134</p>
                                         <p>Orders</p>
                                     </div>
                                 </div>
@@ -99,7 +120,7 @@
                                         <i class="fas fa-fw fa-life-ring"></i>
                                     </div>
                                     <div class="centerd">
-                                        <p class="number-main">${usersNumber}</p>
+                                        <p class="number-main">2</p>
                                         <p>Users</p>
                                     </div>
                                 </div>
@@ -110,7 +131,13 @@
                 <!-- /.container-fluid -->
 
                 <!-- Sticky Footer -->
-                <jsp:include page="../blocks/adminFooter.jsp"/>
+                <footer class="sticky-footer">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright © Dokan 2019 | iTi Project</span>
+                        </div>
+                    </div>
+                </footer>
 
             </div>
             <!-- /.content-wrapper -->
@@ -120,8 +147,27 @@
 
         <!-- Scroll to Top Button-->
         <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up">Top</i>
+            <i class="fas fa-angle-up"></i>
         </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Bootstrap core JavaScript-->
         <script src="resources/vendor/jquery/jquery.min.js"></script>

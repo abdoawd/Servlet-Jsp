@@ -51,50 +51,54 @@ public class UsersDao implements DbInterface {
                 user.setBirthday(rs.getString(Constants.COLUMN_USER_BIRTHDAY));
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();    
+            ex.printStackTrace();
         }
         return user;
     }
 
-    public User addUser(String firstName, String lastName, String email, String passwrd, String jop) {
+    public boolean addUser(String firstName, String lastName, String email, String passwrd, String jop) {
         PreparedStatement pst;
 
         try {
-           int id= (int) getSequence(Constants.USERSES_SEQUENCES);
+            int id = (int) getSequence(Constants.USERSES_SEQUENCES);
+            //   Date date=new SimpleDateFormat("yyyy-mm-dd").parse(birthday);  
+           //int id= (int) getSequence(Constants.USERSES_SEQUENCES);
            //   Date date=new SimpleDateFormat("yyyy-mm-dd").parse(birthday);  
             pst = connection.prepareStatement("insert into " + Constants.USER_TABLE_NAME
                     + "( "
-                    + Constants.COLUMN_USER_ID + ","
+                 //   + Constants.COLUMN_USER_ID + ","
                     + Constants.COLUMN_USER_FIRST_NAME + ","
                     + Constants.COLUMN_USER_LAST_NAME + ","
                     + Constants.COLUMN_USER_ROLE + ","
                     + Constants.COLUMN_USER_EMAIL + ","
                     + Constants.COLUMN_USER_PASSWORD + ","
-                    + Constants.COLUMN_USER_JOP +
-                    ")"
+                    + Constants.COLUMN_USER_JOP
+                    + ")"
                     + " values (?,?,?,?,?,?,?)");
-            pst.setInt(1,id );
+            pst.setInt(1, id);
             pst.setString(2, firstName);
             pst.setString(3, lastName);
             pst.setString(4, "user");
             pst.setString(5, email);
             pst.setString(6, passwrd);
             pst.setString(7, jop);
-          //  pst.setDate(8, new java.sql.Date( date.getTime()));
-          
+            //  pst.setDate(8, new java.sql.Date( date.getTime()));
+
+
             int i = pst.executeUpdate();
-          
+
             if (i != 0) {
                 System.out.print("success");
-                System.out.println("id in add user "+id);
-               User user=new User(id,firstName,lastName,"user",email,passwrd,jop);
-               return user;
+
+               
+               //User user=new User(id,firstName,lastName,"user",email,passwrd,jop);
+               return true;
             }
         } catch (SQLException ex) {
             System.out.println("SQLException " + ex.getMessage());
             ex.printStackTrace();
         }
-        return null;
+        return false;
     }
 
     public boolean isEmailExist(String userEmail) {
@@ -192,26 +196,24 @@ public class UsersDao implements DbInterface {
             pst = connection.prepareStatement("update " + Constants.USER_TABLE_NAME
                     + " set "
                     + Constants.COLUMN_USER_FIRST_NAME + "= ? ,"
-
                     + Constants.COLUMN_USER_LAST_NAME + "= ? ,"
                     + Constants.COLUMN_USER_EMAIL + "= ? ,"
                     + Constants.COLUMN_USER_PASSWORD + "= ? ,"
                     + Constants.COLUMN_USER_IMAGE + " = ? ,"
                     + Constants.COLUMN_USER_BIRTHDAY + " = ? ,"
                     + Constants.COLUMN_USER_JOP + "= ? where "
-
-                    + Constants.COLUMN_USER_ID + "= ?" 
-                           );
+                    + Constants.COLUMN_USER_ID + "= ?"
+            );
             pst.setString(1, user.getFirstName());
             pst.setString(2, user.getLastName());
             pst.setString(3, user.getEmail());
             pst.setString(4, user.getPassword());
-            pst.setBlob(5,picInputStream);
-          //  Date date=new SimpleDateFormat("yyyy-mm-dd").parse(user.getBirthday());
+            pst.setBlob(5, picInputStream);
+            //  Date date=new SimpleDateFormat("yyyy-mm-dd").parse(user.getBirthday());
             pst.setString(6, user.getBirthday());
             pst.setString(7, user.getJob());
-              pst.setInt(8,user.getId());  
-              System.out.println(user.getId()+user.getFirstName());
+            pst.setInt(8, user.getId());
+            System.out.println(user.getId() + user.getFirstName());
             int i = pst.executeUpdate();
             if (i != 0) {
                 return user;
@@ -224,10 +226,10 @@ public class UsersDao implements DbInterface {
         return null;
     }
 
-    public void updateUserCreditLimit(double creditLimit, int userId) {
+    public int updateUserCreditLimit(double creditLimit, int userId) {
 
         PreparedStatement pst;
-
+        int columnEffected = -1;
         try {
             pst = connection.prepareStatement("update " + Constants.USER_TABLE_NAME
                     + " SET  "
@@ -235,12 +237,12 @@ public class UsersDao implements DbInterface {
                     + " =? Where " + Constants.COLUMN_USER_ID + "  =?");
             pst.setDouble(1, creditLimit);
             pst.setInt(2, userId);
-            pst.executeUpdate();
+            columnEffected = pst.executeUpdate();
 
         } catch (SQLException ex) {
             Logger.getLogger(UserCartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return columnEffected;
     }
-    
-    
+
 }

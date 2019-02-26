@@ -71,6 +71,24 @@ public class UserCartDAO {
         }
     }
 
+    public boolean ClearUserCart(int userId) {
+        PreparedStatement pst;
+        boolean isCleared = false;
+        try {
+            pst = connection.prepareStatement("Delete from " + Constants.SHOPPING_CART_TABLE_NAME
+                    + " Where user_id =? ");
+            pst.setInt(1, userId);
+            int rowsEffected = pst.executeUpdate();
+            if (rowsEffected > 0) {
+                isCleared = true;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return isCleared;
+    }
+
     public void updateToCartQuery(int userId, int productId, int quantity) {
         PreparedStatement pst;
         try {
@@ -91,16 +109,21 @@ public class UserCartDAO {
 
     }
 
-   
-
-    public List<Product> getUserCart(int userId) {
-        List<Product> list = new ArrayList<Product>();
-        Product product = null;
+    public List<UserShoppingCart> getUserCart(int userId) {
+        List<UserShoppingCart> list = new ArrayList<UserShoppingCart>();
+        UserShoppingCart userShoppingCart = null;
         try {
-            PreparedStatement ps = connection.prepareStatement("select MY_PRODUCT.PRODUCT_ID,MY_PRODUCT.QUANTITY,CART.QUANTITY,MY_PRODUCT.IMAGE,MY_PRODUCT.DESCRIPTION,MY_PRODUCT.PRICE,MY_PRODUCT.PRODUCT_NAME from STOREUSERS.PRODUCT MY_PRODUCT,STOREUSERS.SHOPPING_CART CART where user_id = " + userId + " and MY_PRODUCT.PRODUCT_ID = CART.product_id");
+            PreparedStatement ps = connection.prepareStatement("select"
+                    + " MY_PRODUCT.PRODUCT_ID,"
+                    + "MY_PRODUCT.QUANTITY,"
+                    + "CART.QUANTITY,"
+                    + "MY_PRODUCT.IMAGE,"
+                    + "MY_PRODUCT.PRICE,"
+                    + "MY_PRODUCT.PRODUCT_NAME "
+                    + "from STOREUSERS.PRODUCT MY_PRODUCT,STOREUSERS.SHOPPING_CART CART where user_id = " + userId + " and MY_PRODUCT.PRODUCT_ID = CART.product_id");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                product = new Product();
+                userShoppingCart = new UserShoppingCart();
                 InputStream stream = rs.getBinaryStream(Constants.COLUMN_PRODUCT_IMAGE);
                 ByteArrayOutputStream output = new ByteArrayOutputStream();
                 int a1 = stream.read();
@@ -111,14 +134,14 @@ public class UserCartDAO {
                 byte[] encodeBase64 = Base64.encodeBase64(output.toByteArray());
                 String base64Encoded = new String(encodeBase64, "UTF-8");
                 output.close();
+                userShoppingCart.setProductId(rs.getString(1));
+                userShoppingCart.setProductQuantity(rs.getString(2));
+                userShoppingCart.setUserCartProductQuantity(rs.getString(3));
+                userShoppingCart.setStringImage(base64Encoded);
+                userShoppingCart.setProductPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
+                userShoppingCart.setProductName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
+                list.add(userShoppingCart);
 
-                product.setId(rs.getInt(Constants.COLUMN_PRODUCT_ID));
-                product.setQuantity(rs.getInt(Constants.COLUMN_PRODUCT_QUANTITY));
-                product.setDescription(rs.getString(Constants.COLUMN_PRODUCT_DESCRIPTION));
-                product.setName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
-                product.setPrice(rs.getInt(Constants.COLUMN_PRODUCT_PRICE));
-                product.setStringImage(base64Encoded);
-                list.add(product);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -138,10 +161,10 @@ public class UserCartDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 userShoppingCart = new UserShoppingCart();
-                userShoppingCart.setProductId(rs.getString(Constants.COLUMN_PRODUCT_ID));
-                userShoppingCart.setQuantity(rs.getString(Constants.COLUMN_PRODUCT_QUANTITY));
-                userShoppingCart.setProductPrice(rs.getString(Constants.COLUMN_PRODUCT_PRICE));
-                userShoppingCart.setProductName(rs.getString(Constants.COLUMN_PRODUCT_NAME));
+                userShoppingCart.setProductId(rs.getString(1));
+                userShoppingCart.setUserCartProductQuantity(rs.getString(2));
+                userShoppingCart.setProductPrice(rs.getInt(3));
+                userShoppingCart.setProductName(rs.getString(4));
                 list.add(userShoppingCart);
             }
         } catch (SQLException ex) {

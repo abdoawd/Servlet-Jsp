@@ -1,26 +1,26 @@
-<%-- 
-    Document   : signup
-    Created on : Feb 13, 2019, 11:57:40 AM
-    Author     : A7med
---%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<c:set scope="page" var="pageTitle" value="Create an Account"/>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <!-- Custom styles for login page -->
-        <link href="../resources/css/forms.css" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>/resources/css/forms.css" rel="stylesheet">
 
-        <title>Create an Account</title>
+        <link href="../resources/css/login.css" rel="stylesheet">
+
+        <title>${pageTitle}</title>
     </head
     <body>
         <div id="id01" class="modal">
             <form action="<%=request.getContextPath()%>/SinuUp" method='post' class="modal-content">
                 <div class="container">
-                    <h1>iTi | sinup</h1>
-                    <p>Please fill in this form to Login.</p>
+                    <img class="logoImage" src="<%=request.getContextPath()%>/resources/pictures/Dokan-Logo.png" />
+                    <h1>${pageTitle}</h1>
+
+                    <p>Please fill in this form to create an account.</p>
                     <hr>
 
                     <div class="centeredDiv">
@@ -48,7 +48,7 @@
                         <button type="submit" onclick="validate()"  class="signupbtn">Sign up</button>
                     </div>
                     <div class="wrongText" id="wrongText">Wrong Data</div>
-                    
+
                 </div>
             </form>
         </div>

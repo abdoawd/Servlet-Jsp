@@ -35,15 +35,16 @@ public class SignUpServlet extends HttpServlet {
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
         String jop = request.getParameter("jop");
-        User user = new User();    
-        user = handler.addUser(firstName, lastName, email, password, jop);
-        if(user!=null ){
-         HttpSession session = request.getSession(true);
-            session.setAttribute("user", user);
-            dispatcher = request.getRequestDispatcher("/user/shop.jsp");
+          
+        boolean isSignUp = handler.addUser(firstName, lastName, email, password, jop);
+        if(isSignUp ){
+         
+           // session.setAttribute("user", user);
+            dispatcher = request.getRequestDispatcher("/pages/login.jsp");
             dispatcher.forward(request, response);
             
         }
+        
     }
 
     @Override

@@ -18,13 +18,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author A7med
  */
-@WebServlet(name = "HomepageServlet", urlPatterns = {"/"})
+@WebServlet(name = "HomepageServlet", urlPatterns = {"/shop"})
 public class HomepageServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("./home/home.jsp");
-        dispatcher.forward(request, response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/home/home.jsp");
+        dispatcher.include(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
