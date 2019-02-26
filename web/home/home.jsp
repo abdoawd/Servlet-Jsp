@@ -72,10 +72,8 @@
                                     <!-------------------------------------------------------->
                                     <!-- Trigger/Open The Modal -->
                                     <button id="myBtn">ADD TO CART</button>
-
                                     <!-- The Modal -->
                                     <div id="myModal" class="modal">
-
                                         <!-- Modal content -->
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -83,7 +81,6 @@
                                                 <span class="close">&times;</span>
                                             </div>
                                         </div>
-
                                     </div>
                                     <!-------------------------------------------------------->
                                 </div>

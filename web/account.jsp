@@ -100,7 +100,7 @@
                         
                     </table>
                     <br>
-                    <form action="<%=request.getContextPath()%>/user/EditAccount.jsp" method="post">
+                    <form action="<%=request.getContextPath()%>/account/EditAccount" method="get">
                     <input type="submit" value="Edit Profile" id="editbtn" />
                     </form>
                 </fieldset>

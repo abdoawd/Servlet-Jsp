@@ -55,8 +55,9 @@ public class AddInterest extends HttpServlet {
             }
         }
            else
-                System.out.println("no selection  ");
-          response.sendRedirect("UserHomeServlet");
+                System.out.println("no selection for interests ");
+          response.sendRedirect("../UserHomeServlet");
+           
            
            
     }
@@ -65,7 +66,7 @@ public class AddInterest extends HttpServlet {
 @Override
 public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
-     dispatcher = request.getRequestDispatcher("/pages/interests.jsp");
+     dispatcher = request.getRequestDispatcher("/user/interests.jsp");
      
      categories=(ArrayList<ProductCategory>) categoryHandler.getProductCategories();
              request.setAttribute("categoryList", categories);

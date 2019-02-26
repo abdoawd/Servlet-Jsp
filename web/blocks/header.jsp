@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
 
         <meta charset="utf-8">
@@ -59,10 +60,11 @@
         <script>
                             function search(ele) {
                                 if (event.key === 'Enter') {
-                                    document.location.href = "/dokan/UserHomeServlet?search=" + document.getElementById("search_value").value;
+                                    document.location.href = "/dokan/shop?search=" + document.getElementById("search_value").value;
                                 }
                             }
         </script>
     </body>
+
 
 </html>
