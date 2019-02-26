@@ -17,8 +17,6 @@
 
         <link href="<%=request.getContextPath()%>/resources/css/login.css" rel="stylesheet">
 
-
-
         <title>${pageTitle}</title>
     </head>
     <body>
@@ -52,7 +50,7 @@
 
                     <div class="clearfix">
                         <button type="submit" class="signupbtn" >Login</button>
-                        <p><a href="signup.jsp">Create new account</a></p>
+                        <p><a href="<%=request.getContextPath()%>/SinuUp">Create new account</a></p>
                     </div>
                     <div class="wrongText" id="wrongText">Wrong Username/ password</div>
                 </div>
