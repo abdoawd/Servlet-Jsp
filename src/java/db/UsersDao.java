@@ -60,13 +60,12 @@ public class UsersDao implements DbInterface {
         PreparedStatement pst;
 
         try {
-           // int id = (int) getSequence(Constants.USERSES_SEQUENCES);
+            // int id = (int) getSequence(Constants.USERSES_SEQUENCES);
             //   Date date=new SimpleDateFormat("yyyy-mm-dd").parse(birthday);  
-           //int id= (int) getSequence(Constants.USERSES_SEQUENCES);
-           //   Date date=new SimpleDateFormat("yyyy-mm-dd").parse(birthday);  
+            //int id= (int) getSequence(Constants.USERSES_SEQUENCES);
+            //   Date date=new SimpleDateFormat("yyyy-mm-dd").parse(birthday);  
             pst = connection.prepareStatement("insert into " + Constants.USER_TABLE_NAME
                     + "( "
-              
                     + Constants.COLUMN_USER_FIRST_NAME + ","
                     + Constants.COLUMN_USER_LAST_NAME + ","
                     + Constants.COLUMN_USER_ROLE + ","
@@ -75,7 +74,7 @@ public class UsersDao implements DbInterface {
                     + Constants.COLUMN_USER_JOP
                     + ")"
                     + " values (?,?,?,?,?,?)");
-       
+
             pst.setString(1, firstName);
             pst.setString(2, lastName);
             pst.setString(3, "user");
@@ -84,15 +83,13 @@ public class UsersDao implements DbInterface {
             pst.setString(6, jop);
             //  pst.setDate(8, new java.sql.Date( date.getTime()));
 
-
             int i = pst.executeUpdate();
 
             if (i != 0) {
                 System.out.print("success");
 
-               
-               //User user=new User(id,firstName,lastName,"user",email,passwrd,jop);
-               return true;
+                //User user=new User(id,firstName,lastName,"user",email,passwrd,jop);
+                return true;
             }
         } catch (SQLException ex) {
             System.out.println("SQLException " + ex.getMessage());
@@ -105,8 +102,10 @@ public class UsersDao implements DbInterface {
         try {
             PreparedStatement ps = connection.prepareStatement("select * from " + Constants.USER_TABLE_NAME
                     + " where " + Constants.COLUMN_USER_EMAIL + " =?");
+            ResultSet resultSet;
             ps.setString(1, userEmail);
-            if (ps.execute()) {
+            resultSet = ps.executeQuery();
+            if (resultSet.next()) {
                 return true;
             }
         } catch (SQLException ex) {
@@ -205,7 +204,7 @@ public class UsersDao implements DbInterface {
             );
             pst.setString(1, user.getFirstName());
             pst.setString(2, user.getLastName());
-           
+
             pst.setString(3, user.getPassword());
             pst.setBlob(4, picInputStream);
             //  Date date=new SimpleDateFormat("yyyy-mm-dd").parse(user.getBirthday());
