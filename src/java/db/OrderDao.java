@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utility.Constants;
 
 /**
@@ -53,6 +55,12 @@ public class OrderDao {
             System.out.println("SQLException " + ex.getMessage());
             ex.printStackTrace();
         }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+            }
+        }
         return queryStatus;
     }
 
@@ -83,6 +91,13 @@ public class OrderDao {
             System.out.println("SQLException " + ex.getMessage());
             ex.printStackTrace();
         }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return list;
     }
 
@@ -103,6 +118,13 @@ public class OrderDao {
         } catch (SQLException ex) {
             System.out.println("SQLException " + ex.getMessage());
             ex.printStackTrace();
+        }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return orderNumber;
     }

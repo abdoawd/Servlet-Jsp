@@ -39,6 +39,13 @@ public class ProductDao implements DbInterface {
             pst.close();
         } catch (SQLException ex) {
         }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return counter;
     }
 
@@ -65,6 +72,13 @@ public class ProductDao implements DbInterface {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return list;
     }
 
@@ -87,6 +101,13 @@ public class ProductDao implements DbInterface {
         } catch (SQLException ex) {
             Logger.getLogger(UserCartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return columnEffected;
 
     }
@@ -102,6 +123,13 @@ public class ProductDao implements DbInterface {
                 myId = rs.getLong(1);
             }
         } catch (SQLException ex) {
+        }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         return myId;
@@ -141,6 +169,13 @@ public class ProductDao implements DbInterface {
             System.out.println("SQLException " + ex.getMessage());
             ex.printStackTrace();
 
+        }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return isScuccess;
     }
@@ -209,38 +244,16 @@ public class ProductDao implements DbInterface {
         } catch (SQLException | IOException ex) {
             Logger.getLogger(ProductDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return list;
     }
 
-    /*
-    public boolean deleteMethod(String id, String tableName) { //Used for product or Category
-        PreparedStatement pst;
-        boolean isScuccess = false;
-        try {
-            String columnName;
-            switch (tableName) {
-                case Constants.PRODUCT_TABLE_NAME:
-                    columnName = Constants.COLUMN_PRODUCT_ID;
-                    break;
-                case Constants.CATEGORY_TABLE_NAME:
-                    columnName = Constants.COLUMN_CATEGORY_ID;
-                    break;
-                default:
-                    return isScuccess;
-            }
-            pst = connection.prepareStatement("DELETE FROM " + tableName + " WHERE " + columnName + " = " + id);
-
-            int i = pst.executeUpdate();
-            if (i != 0) {
-                isScuccess = true;
-            }
-        } catch (SQLException ex) {
-            System.out.println("SQLException " + ex.getMessage());
-            ex.printStackTrace();
-        }
-        return isScuccess;
-    }
-     */
     public boolean deleteProductTemporarily(String id) {
         PreparedStatement pst;
         boolean isScuccess = false;
@@ -250,9 +263,7 @@ public class ProductDao implements DbInterface {
             pst = connection.prepareStatement("UPDATE " + Constants.PRODUCT_TABLE_NAME
                     + " SET " + Constants.COLUMN_PRODUCT_STATUS + " = '0' WHERE "
                     + Constants.COLUMN_PRODUCT_ID + " = " + id);
-//            pst.setString(1, tableName);
-//            pst.setString(2, columnName);
-//            pst.setString(3, id);
+
 
             int i = pst.executeUpdate();
             if (i != 0) {
@@ -261,6 +272,13 @@ public class ProductDao implements DbInterface {
         } catch (SQLException ex) {
             System.out.println("SQLException " + ex.getMessage());
             ex.printStackTrace();
+        }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return isScuccess;
 
@@ -302,6 +320,13 @@ public class ProductDao implements DbInterface {
             ex.printStackTrace();
         } catch (IOException ex) {
         }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return list;
     }
 
@@ -328,16 +353,6 @@ public class ProductDao implements DbInterface {
 
             int i = pst.executeUpdate();
 
-/*
-            pst.setString(1, productName);
-            pst.setString(2, productDescription);
-            pst.setString(3, productPrice);
-            pst.setString(4, productQuantity);
-            pst.setBlob(5, picInputStream);
-            pst.setString(6, productCategory);
-            pst.setString(7, productDiscount);
-            int i = pst.executeUpdate();
-*/
             if (i != 0) {
                 isScuccess = true;
             }
@@ -361,6 +376,12 @@ public class ProductDao implements DbInterface {
             System.out.println("status = " + isScuccess);
         } catch (IOException ex) {
             Logger.getLogger(ProductDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+            }
         }
         return isScuccess;
     }
@@ -400,6 +421,13 @@ public class ProductDao implements DbInterface {
             ex.printStackTrace();
         } catch (IOException ex) {
         }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return product;
     }
 
@@ -436,6 +464,13 @@ public class ProductDao implements DbInterface {
         } catch (SQLException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
+        }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return list;
     }
@@ -479,6 +514,13 @@ public class ProductDao implements DbInterface {
             ex.printStackTrace();
         } catch (IOException ex) {
         }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return list;
     }
 
@@ -506,6 +548,13 @@ public class ProductDao implements DbInterface {
         } catch (SQLException ex) {
             ex.printStackTrace();
             return Constants.ERROR_FAILED;
+        }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return Constants.ERROR_FAILED;
     }
