@@ -57,15 +57,31 @@ public class OrderDao {
     }
 
     public List<Order> getAllOrder(int userId) {
-        PreparedStatement pst;
+        PreparedStatement pst = null;
         List<Order> list = new ArrayList<>();
         Order order;
         try {
-
-            pst = connection.prepareStatement("select * from  " + Constants.ORDER_TABLE_NAME
-                    + " where "
-                    + Constants.COLUMN_ORDER_USER_ID + " =? ");
-            pst.setInt(1, userId);
+            switch (userId) {
+                case 0:
+                    pst = connection.prepareStatement("SELECT O.*, (U."
+                            + Constants.COLUMN_USER_FIRST_NAME+" || ' ' ||  U."
+                            + Constants.COLUMN_USER_LAST_NAME+") AS  USERNAME FROM "
+                            + Constants.ORDER_TABLE_NAME+" O, "
+                            + Constants.USER_TABLE_NAME+" U WHERE O."
+                            + Constants.COLUMN_ORDER_USER_ID+" = U."
+                            + Constants.COLUMN_USER_ID);
+                    break;
+                default:
+                    pst = connection.prepareStatement("SELECT O.*, (U."
+                            + Constants.COLUMN_USER_FIRST_NAME+" || ' ' ||  U."
+                            + Constants.COLUMN_USER_LAST_NAME+") AS  USERNAME FROM "
+                            + Constants.ORDER_TABLE_NAME+" O, "
+                            + Constants.USER_TABLE_NAME+" U where "
+                            + Constants.COLUMN_ORDER_USER_ID + " = ? AND O."
+                            + Constants.COLUMN_ORDER_USER_ID+" = U."
+                            + Constants.COLUMN_USER_ID);
+                    pst.setInt(1, userId);
+            }
 
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
@@ -76,6 +92,7 @@ public class OrderDao {
                 order.setUserId(rs.getInt(Constants.COLUMN_ORDER_USER_ID));
                 order.setOrderTime(rs.getString(Constants.COLUMN_ORDER_TIME));
                 order.setStatus(rs.getString(Constants.COLUMN_ORDER_STATUS));
+                order.setUserName(rs.getString("USERNAME"));
 
                 list.add(order);
             }

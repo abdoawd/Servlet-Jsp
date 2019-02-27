@@ -7,7 +7,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="<%=request.getContextPath()%>/admin/orders">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Orders</span></a>
     </li>

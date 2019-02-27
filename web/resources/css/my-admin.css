@@ -18,3 +18,17 @@ and open the template in the editor.
     margin: 0 auto;
     text-align: center;
 }
+
+.orderStatus{
+    padding: .3em .6em;
+    border-radius: .4em;
+    color: white;
+}
+
+.s-confirmed{
+    background-color: #00b9a8;
+}
+
+.s-completed{
+    background-color: #00bcd4;
+}

@@ -22,7 +22,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SinuUpServlet</servlet-name>
-        <url-pattern>/SinuUp</url-pattern>
+        <url-pattern>/Signup</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserHomeServlet</servlet-name>
@@ -37,6 +37,7 @@
             30
         </session-timeout>
     </session-config>
+    
     <filter>
         <filter-name>admin</filter-name>
         <filter-class>filter.AdminFilter</filter-class>
@@ -45,36 +46,42 @@
         <filter-name>admin</filter-name>
         <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
+    
     <filter-mapping>
         <filter-name>user</filter-name>
-        <url-pattern>/orders/*</url-pattern>
+        <url-pattern>/orders</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>user</filter-name>
+        <url-pattern>/ProductDetails</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>user</filter-name>
-        <url-pattern>/ProductDetails/*</url-pattern>
+        <url-pattern>/UserCart</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>user</filter-name>
-        <url-pattern>/UserCart/*</url-pattern>
+        <url-pattern>/shop</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>user</filter-name>
+        <url-pattern>/dokan/account/*</url-pattern>
+    </filter-mapping>
+    
     
     <filter>
         <filter-name>user</filter-name>
         <filter-class>filter.UserFilter</filter-class>
     </filter>
-    <filter-mapping>
-        <filter-name>user</filter-name>
-        <url-pattern>/shop</url-pattern>
-    </filter-mapping>
+    
+    
     <welcome-file-list>
         <welcome-file>home/home.jsp</welcome-file>
     </welcome-file-list>
+    
     <error-page>
         <location>/error/error.jsp</location>
     </error-page>
         
-    <welcome-file-list>
-        <welcome-file>/home/home.jsp</welcome-file>
-    </welcome-file-list>
-    
 </web-app>

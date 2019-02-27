@@ -8,13 +8,19 @@
 
         <!-- Custom styles for login page -->
         <link href="<%=request.getContextPath()%>/resources/css/forms.css" rel="stylesheet">
+        
+        <!-- Custom styles for login page -->
+        <link href="<%=request.getContextPath()%>/resources/css/login.css" rel="stylesheet">
 
         <title>${pageTitle}</title>
     </head
     <body>
         <div id="id01" class="modal">
-            <form action="<%=request.getContextPath()%>/SinuUp" method='post' class="modal-content">
+            <form action="<%=request.getContextPath()%>/Signup" method='post' class="modal-content">
                 <div class="container">
+                    <!--Close button-->
+                    <a href="<%=request.getContextPath()%>" class="closeBtn">X</a>
+                    
                     <img class="logoImage" src="<%=request.getContextPath()%>/resources/pictures/Dokan-Logo.png" />
                     <h1>${pageTitle}</h1>
 

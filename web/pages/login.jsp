@@ -14,28 +14,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <!-- Custom styles for login page -->
-
+        <link href="<%=request.getContextPath()%>/resources/css/forms.css" rel="stylesheet">
+        
+        <!-- Custom styles for login page -->
         <link href="<%=request.getContextPath()%>/resources/css/login.css" rel="stylesheet">
-
-
 
         <title>${pageTitle}</title>
     </head>
     <body>
-
-        
-        <form action='<%=request.getContextPath()%>/Login' method='post' class="modal-content">
-            <div class="container">
-                <h1>iTi | Login</h1>
-                <p>Please fill in this form to Login.</p>
-                <hr>
-                <label for="email"><b>E-Mail</b></label>
-                
-
-
         <div id="id01" class="modal">
             <form action='<%=request.getContextPath()%>/Login' method='post' class="modal-content">
                 <div class="container">
+                    <!--Close button-->
+                    <a href="<%=request.getContextPath()%>" class="closeBtn">X</a>
+                    
                     <img class="logoImage" src="<%=request.getContextPath()%>/resources/pictures/Dokan-Logo.png" />
                     <h1>${pageTitle}</h1>
 
@@ -52,7 +44,7 @@
 
                     <div class="clearfix">
                         <button type="submit" class="signupbtn" >Login</button>
-                        <p><a href="signup.jsp">Create new account</a></p>
+                        <p><a href="Signup">Create new account</a></p>
                     </div>
                     <div class="wrongText" id="wrongText">Wrong Username/ password</div>
                 </div>

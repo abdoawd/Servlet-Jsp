@@ -71,7 +71,7 @@
                     </c:url>
                     <div class=" col-lg-4 col-md-6 mb-4">
                         <div class="card h-100 myProductCardContainer">
-                            <a href="${product_details}"><img class="card-img-top" src="data:image/jpeg;base64,${product.stringImage}" alt=""></a>
+                            <a href="${product_details}" class="productImageContainer"><img class="card-img-top productImage" src="data:image/jpeg;base64,${product.stringImage}" alt=""></a>
                             <div class="card-body">
                                 <h4 class="card-title">
                                     <a href="${product_details}" class="productName">${product.getName()}</a>
