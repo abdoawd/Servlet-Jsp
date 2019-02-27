@@ -41,6 +41,10 @@
         <filter-name>admin</filter-name>
         <filter-class>filter.AdminFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>user</filter-name>
+        <filter-class>filter.UserFilter</filter-class>
+    </filter>
     <filter-mapping>
         <filter-name>admin</filter-name>
         <url-pattern>/admin/*</url-pattern>
@@ -49,14 +53,23 @@
         <filter-name>user</filter-name>
         <url-pattern>/orders/*</url-pattern>
     </filter-mapping>
-    
-    <filter>
-        <filter-name>user</filter-name>
-        <filter-class>filter.UserFilter</filter-class>
-    </filter>
     <filter-mapping>
         <filter-name>user</filter-name>
-        <url-pattern>/shop</url-pattern>
+        <url-pattern>/ProductDetails/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>user</filter-name>
+        <url-pattern>/UserCart/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>user</filter-name>
+        <url-pattern>/account/*</url-pattern>
+    </filter-mapping>    
+    
+    
+    <filter-mapping>
+        <filter-name>user</filter-name>
+        <url-pattern>/shop/*</url-pattern>
     </filter-mapping>
     <welcome-file-list>
         <welcome-file>home/home.jsp</welcome-file>

@@ -39,20 +39,23 @@
             <div class="container containerSpacing">
 
                 <h1 class="divHeader">User Name</h1>
+<jsp:include page="/user/nav_bar.jsp" />
 
                 <div class="row">
 
-                  <div class="row" style="flex-flow: inherit;">
+                    <div class="row" style="flex-flow: inherit;">
 
-                    <div class="col-lg-5">
-                        <div class="list-group">
-                            <a href="../account.jsp" class="list-group-item">Account Details</a>
-                            <a href="EditAccount.jsp" class="list-group-item">Edit Profile</a>
-                            <a  href="<%=request.getContextPath()%>/orders" class="list-group-item">Orders</a>
-                            <a href="<%=request.getContextPath()%>/logout" class="list-group-item">Logout</a>
-                        </div>
-                    </div>
+<!--                        <div class="col-lg-5">
+                            <div class="list-group">
+                                <a href="<%=request.getContextPath()%>/account" class="list-group-item">Account Details</a>
+                                <a href="<%=request.getContextPath()%>/account/EditAccount" class="list-group-item">Edit Profile</a>
+                                <a  href="<%=request.getContextPath()%>/orders" class="list-group-item">Orders</a>
+                                <a href="<%=request.getContextPath()%>/logout" class="list-group-item">Logout</a>
+                            </div>
+                        </div>-->
 
+
+                       
                     </div>
                     <!-- /.col-lg-3 -->
 
@@ -62,37 +65,37 @@
                         <fieldset>
 
                             <br>
-                       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Order number</th>
-                                                                <th>Total amount</th>
-                                                                <th>Time</th>
-                                                                <th>Status</th>
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Order number</th>
+                                        <th>Total amount</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
 
-                                                            </tr>
-                                                        </thead>
-                                                        <tfoot>
-                                                            <tr>
-                                                                <th>Order number</th>
-                                                                <th>Total amount</th>
-                                                                <th>Time</th>
-                                                                <th>Status</th>
-                                                            </tr>
-                                                        </tfoot>
-                                                        <tbody>
-                                                            <c:forEach var="order" items="${list}">                                                
-                                                                <tr>
-                                                                    <td>${order.orderNumber}</td>
-                                                                    <td>${order.totalAmount}</td>
-                                                                    <td>${order.orderTime}</td>
-                                                                    <td>${order.status}</td>
-                                                                </tr>
-                                                            </c:forEach>
-                                                        </tbody>
-                                                    </table>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Order number</th>
+                                        <th>Total amount</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <c:forEach var="order" items="${list}">                                                
+                                        <tr>
+                                            <td>${order.orderNumber}</td>
+                                            <td>${order.totalAmount}</td>
+                                            <td>${order.orderTime}</td>
+                                            <td>${order.status}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
                             <br>
-                          
+
                         </fieldset>
 
                     </div>

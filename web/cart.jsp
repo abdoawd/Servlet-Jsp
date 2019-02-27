@@ -95,7 +95,7 @@
                                     <td colspan="6" class="actions clear">
 
                                         <div class="continue-shopping pull-left text-left">
-                                            <a class="button-continue-shopping button primary is-outline noTextDecoration mainColor" href="<%=request.getContextPath()%>">
+                                            <a class="button-continue-shopping button primary is-outline noTextDecoration mainColor" href="<%=request.getContextPath()%>/shop">
                                                 Continue shopping    
                                             </a>
                                         </div>
@@ -128,6 +128,7 @@
                                     <h3 id ="total">Total  ${finalTotal}  EGP</h3>
                             </div>
                             <input type="hidden" id="checkout_sum" name="totalsum" value="${finalTotal}"/>
+                      
                             <button type="submit" class="submit-button list-group-item">Proceed to checkout</button>
                         </form>
                     </div>

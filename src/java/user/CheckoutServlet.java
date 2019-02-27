@@ -45,8 +45,13 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int totalPrices = -1;
+        if (request.getParameter("totalsum") != null) {
+            totalPrices = getTotalAmount(request.getParameter("totalsum"));
 
-        int totalPrices = getTotalAmount(request.getParameter("totalsum"));
+        } else {
+                                response.sendRedirect("shop");
+        }
 
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
@@ -54,7 +59,6 @@ public class CheckoutServlet extends HttpServlet {
         System.out.println("check out list " + checkoutCartList.size());
 //        System.out.println("check out list quntitiyu " + checkoutCartList.get(0).getQuantity());
 //        System.out.println("check out list name " + checkoutCartList.get(0).getProductName());
-        System.out.println("check out list price " + checkoutCartList.get(0).getProductPrice());
         request.setAttribute("totalPrices", totalPrices);
         request.setAttribute("checkoutCartList", checkoutCartList);
         request.getRequestDispatcher("checkout.jsp").forward(request, response);
@@ -72,7 +76,13 @@ public class CheckoutServlet extends HttpServlet {
         String country = request.getParameter("country");
         String street = request.getParameter("street");
 
-        int totalAmount = getTotalAmount(request.getParameter("total_price"));
+        int totalAmount = -1;
+        if (getTotalAmount(request.getParameter("total_price")) > 0) {
+            totalAmount = getTotalAmount(request.getParameter("total_price"));
+        } else {
+            request.getRequestDispatcher("shop").forward(request, response);
+
+        }
         System.out.println("total amount " + totalAmount);
         Order order = new Order();
         order.setStatus("completed");
@@ -110,7 +120,7 @@ public class CheckoutServlet extends HttpServlet {
                             if (isCartCleard) {
                                 System.out.println("in isCartCleard if");
 
-                                response.sendRedirect("UserHomeServlet");
+                                response.sendRedirect("shop");
                             } else {
 
                             }
@@ -130,8 +140,17 @@ public class CheckoutServlet extends HttpServlet {
     }
 
     private int getTotalAmount(String totalAmount) {
-        totalAmount = totalAmount.replace("Total ", "");
-        totalAmount = totalAmount.replace(" EGP", "");
-        return Integer.parseInt(totalAmount);
+        System.out.println("totalAmount = " + totalAmount);
+
+        totalAmount = totalAmount.replace("Total ", "").trim();
+        totalAmount = totalAmount.replace(" EGP", "").trim();
+        if (totalAmount != "") {
+            System.out.println("totalAmount = " + totalAmount);
+
+            return Integer.parseInt(totalAmount);
+        } else {
+            return -1;
+        }
+
     }
 }

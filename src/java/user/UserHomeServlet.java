@@ -2,8 +2,10 @@ package user;
 
 import beans.Product;
 import beans.ProductCategory;
+import beans.User;
 import db.CategoryDao;
 import db.ProductDao;
+import db.UserCartDAO;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -11,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import utility.Constants;
 
 public class UserHomeServlet extends HttpServlet {
@@ -28,6 +31,7 @@ public class UserHomeServlet extends HttpServlet {
 
         String startPrice = request.getParameter("start_salary");
         String endPrice = request.getParameter("end_salary");
+        String addProductId = request.getParameter("addProductId");
 
         int category_id;
 
@@ -50,7 +54,15 @@ public class UserHomeServlet extends HttpServlet {
             System.out.println("endPriceInt=" + endPriceInt);
 
             products = handler.getProductsByNmaeAndPrice(category_id, startPriceInt, endPriceInt);
-                        System.out.println("products size =" + products.size());
+            System.out.println("products size =" + products.size());
+
+        } else if (addProductId != null) {
+            UserCartDAO cartDAO = new UserCartDAO();
+            HttpSession session = request.getSession(false);
+            User user = (User) session.getAttribute("user");
+            int userId = user.getId();
+            cartDAO.addToCart(userId, Integer.parseInt(addProductId), 1);
+            products = handler.getAllProducts(Constants.SELECT_ACTIVE);
 
         } else {
             products = handler.getAllProducts(Constants.SELECT_ACTIVE);

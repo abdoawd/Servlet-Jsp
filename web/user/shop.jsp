@@ -19,8 +19,8 @@
 
         <!-- Custom styles for search results page -->
         <link href="<%=request.getContextPath()%>/resources/css/search-results-page.css" rel="stylesheet">
-        
-        
+
+
     </head>
 
     <body>
@@ -43,7 +43,7 @@
                 <h6><br>Advanced Search:</h6>
                 <div class="list-group">
                     <a class="list-group-item">
-                        
+
                         <select id="product" class="myInput" style="width:100%" onclick="select(this)">
                             <c:forEach var="category" items="${categories}">
                                 <option value="${category.id}" <c:if test="${category.id == 0}">selected</c:if>>${category.name}</option>
@@ -80,7 +80,21 @@
                                 <p class="productPriceDiscounted text-muted">${product.getPrice() + product.getDiscount()} ${currency}</p>
                             </div>
                             <div class="card-footer">
-                                <button>ADD TO CART</button>
+                                <!-------------------------------------------------------->
+                                <!-- Trigger/Open The Modal -->
+                                <button onclick="addProduct(${product.id})" >ADD TO CART</button>
+                                <!-- The Modal -->
+                                <div id="myModal" class="modal">
+                                    <!-- Modal content -->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2>Item added to cart!</h2>
+                                            <span class="close">&times;</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-------------------------------------------------------->
+
                             </div>
                         </div>
                     </div>
@@ -107,10 +121,11 @@
                             + document.getElementById("start_salary").value + "&end_salary="
                             + document.getElementById("end_salary").value + "&category=" + category;
 
-                } else {
-                    alert("object is null")
-
                 }
+            }
+            function addProduct(id) {
+                document.location.href = "/dokan/shop?addProductId=" + id;
+
             }
 
         </script>

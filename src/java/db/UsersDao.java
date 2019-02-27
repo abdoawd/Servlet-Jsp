@@ -1,17 +1,13 @@
 package db;
 
-import beans.Product;
-import beans.ProductCategory;
+import beans.Creditcard;
 import beans.User;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,17 +49,26 @@ public class UsersDao implements DbInterface {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return user;
     }
 
     public boolean addUser(String firstName, String lastName, String email, String passwrd, String jop) {
         PreparedStatement pst;
 
-        try {
+       
             // int id = (int) getSequence(Constants.USERSES_SEQUENCES);
             //   Date date=new SimpleDateFormat("yyyy-mm-dd").parse(birthday);  
             //int id= (int) getSequence(Constants.USERSES_SEQUENCES);
             //   Date date=new SimpleDateFormat("yyyy-mm-dd").parse(birthday);  
+
+        try { 
             pst = connection.prepareStatement("insert into " + Constants.USER_TABLE_NAME
                     + "( "
                     + Constants.COLUMN_USER_FIRST_NAME + ","
@@ -95,6 +100,13 @@ public class UsersDao implements DbInterface {
             System.out.println("SQLException " + ex.getMessage());
             ex.printStackTrace();
         }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return false;
     }
 
@@ -111,6 +123,13 @@ public class UsersDao implements DbInterface {
         } catch (SQLException ex) {
             Logger.getLogger(UsersDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return false;
     }
 
@@ -126,12 +145,16 @@ public class UsersDao implements DbInterface {
             }
         } catch (SQLException ex) {
         }
-        System.out.println("my id = " + myId);
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
         return myId;
     }
-    // Get caegories id/ name -> Return list of Categories
-
     public List<User> getUsersList() {
         PreparedStatement pst;
         List<User> usersList = new ArrayList<>();
@@ -154,6 +177,13 @@ public class UsersDao implements DbInterface {
             }
             pst.close();
         } catch (SQLException ex) {
+        }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return usersList;
     }
@@ -183,6 +213,13 @@ public class UsersDao implements DbInterface {
             pst.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return user;
 
@@ -220,6 +257,13 @@ public class UsersDao implements DbInterface {
         } catch (SQLException ex) {
             Logger.getLogger(UsersDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
         return null;
     }
@@ -241,6 +285,60 @@ public class UsersDao implements DbInterface {
             Logger.getLogger(UserCartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return columnEffected;
+    }
+
+    public int addCreditcard(long cardNumber, double cardValue) {
+        PreparedStatement pst;
+        try {
+            // Step 2: Add product
+            pst = connection.prepareStatement("INSERT INTO " + Constants.CREDIT_CARD_TABLE_NAME
+                    + " (" + Constants.COLUMN_CARD_NUMBER + "," + Constants.COLUMN_CARD_AMOUNT + ") VALUES (?,?)");
+            pst.setLong(1, cardNumber);
+            pst.setDouble(2, cardValue);
+
+            int i = pst.executeUpdate();
+            if (i != 0) {
+                return Constants.ERROR_SUCCESS;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return Constants.ERROR_FAILED;
+        }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return Constants.ERROR_FAILED;
+    }
+
+    public List<Creditcard> getCreditcardsList() {
+        PreparedStatement pst;
+        List<Creditcard> cardsList = new ArrayList<>();
+        try {
+            pst = connection.prepareStatement("SELECT * FROM " + Constants.CREDIT_CARD_TABLE_NAME
+                    + " ORDER BY " + Constants.COLUMN_CARD_NUMBER + " ASC");
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Creditcard card = new Creditcard();
+                card.setNumber(rs.getLong(Constants.COLUMN_CARD_NUMBER));
+                card.setAmount(rs.getDouble(Constants.COLUMN_CARD_AMOUNT));
+                cardsList.add(card);
+            }
+            pst.close();
+        } catch (SQLException ex) {
+        }
+           finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return cardsList;
     }
 
 }
