@@ -36,7 +36,7 @@ public class AddProductServlet extends HttpServlet {
         Part filePart = request.getPart("productImage");
         InputStream picInputStream = filePart.getInputStream();
 
-        boolean isProductAdded = handler.addProduct(productName, productQuantity, productQuantity, productQuantity, productCategory, picInputStream, productDescription);
+        boolean isProductAdded = handler.addProduct(productName, productQuantity, productPrice, productDiscount, productCategory, picInputStream, productDescription);
         List<ProductCategory> productCategotyList = handlerCategory.getProductCategories();
         request.setAttribute("productCategotyList", productCategotyList);
         request.setAttribute("isProductAdded", isProductAdded);

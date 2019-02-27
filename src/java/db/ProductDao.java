@@ -107,8 +107,8 @@ public class ProductDao implements DbInterface {
         return myId;
     }
 
-    public boolean addProduct(String productName, int productQuantity, long productPrice,
-            long productDiscount, String productCategory, InputStream picInputStream, String productDescription) {
+    public boolean addProduct(String productName, int productQuantity, double productPrice,
+            double productDiscount, String productCategory, InputStream picInputStream, String productDescription) {
         PreparedStatement pst;
         boolean isScuccess = false;
         try {
@@ -127,11 +127,11 @@ public class ProductDao implements DbInterface {
             pst.setInt(1, (int) getSequence(Constants.PRODUCT_SEQUENCES));
             pst.setString(2, productName);
             pst.setString(3, productDescription);
-            pst.setLong(4, productPrice);
+            pst.setDouble(4, productPrice);
             pst.setInt(5, productQuantity);
             pst.setBlob(6, picInputStream);
             pst.setString(7, productCategory);
-            pst.setLong(8, productDiscount);
+            pst.setDouble(8, productDiscount);
 
             int i = pst.executeUpdate();
             if (i != 0) {

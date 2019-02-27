@@ -28,7 +28,7 @@
         <jsp:include page="../blocks/header.jsp"/>  
 
         <!-- Page Content -->
-        <div class="justify-content-center container containerSpacing row" style="margin: 3em auto;">
+        <div class="justify-content-center container containerSpacing row" style="margin: 5em auto;">
             <!--Sidebar-->
             <div class="col-lg-3">
                 <div class="list-group">
@@ -71,7 +71,9 @@
                     </c:url>
                     <div class=" col-lg-4 col-md-6 mb-4">
                         <div class="card h-100 myProductCardContainer">
-                            <a href="${product_details}" class="productImageContainer"><img class="card-img-top productImage" src="data:image/jpeg;base64,${product.stringImage}" alt=""></a>
+                            <a href="${product_details}" class="productImageContainer">
+                                <img class="productImage card-img-top center" src="data:image/jpeg;base64,${product.stringImage}">
+                            </a>
                             <div class="card-body">
                                 <h4 class="card-title">
                                     <a href="${product_details}" class="productName">${product.getName()}</a>
@@ -82,10 +84,9 @@
                             <div class="card-footer">
                                 <!-------------------------------------------------------->
                                 <!-- Trigger/Open The Modal -->
-                                <button id="myBtn">ADD TO CART</button>
-                                <!-- The Modal -->
+                                <button onclick="addedTOCart()" id="myBtn">ADD TO CART</button>
                                 <div id="myModal" class="modal">
-                                    <!-- Modal content -->
+                                    Modal content 
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h2>Item added to cart!</h2>
@@ -126,9 +127,41 @@
 
                 }
             }
-
         </script>
 
+        <script>
+
+            // Get the modal
+            var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+            var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+            btn.onclick = function () {
+                modal.style.display = "block";
+            }
+
+// When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+// When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+            
+            function addedTOCart(){
+                modal.style.display = "block";
+            }
+
+        </script>
     </body>
 
 </html>

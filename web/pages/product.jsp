@@ -28,13 +28,14 @@
             <div class="row">
                     <main class="container-product">
                         <!-- Left Column / Headphones Image -->
-                        <div class="left-column col-8">
-                            <img data-image="red" class="active" src="data:image/jpeg;base64,${product.stringImage}" alt="">
+                        <div class="left-column col-7">
+                            <center>
+                                <img data-image="red" class="active" src="data:image/jpeg;base64,${product.stringImage}" alt="">
+                            </center>
                         </div>
 
-
                         <!-- Right Column -->
-                        <div class="right-column col-4">
+                        <div class="right-column col-5">
                             <!-- Product Description -->
                             <div class="product-description">
                                 <span>${product.getCategoryName()}</span>

@@ -43,8 +43,6 @@ public class LoginServlet extends HttpServlet {
                 if (cookie.getName().equals("remember")) {
                     rememberMe = cookie.getValue();
                 }
-
-
             }
         }
 

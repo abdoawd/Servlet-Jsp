@@ -136,17 +136,17 @@ button:hover, .submit-button:hover {
 }
 
 .input-group-field{
-    margin-right: 0;
+    margin-right: 0 !important;
     position: relative;
     z-index: 151;
-    height: 88%;
+    height: 88% !important;
     background-color: #eaeaea;
     border: none;
     width: 12em;
     border-radius: 99px;
-    padding: .4em;
-    padding-left: .85em;
-    margin-top: auto;
+    padding: .4em !important;
+    padding-left: .85em !important;
+    margin: auto !important;
     color: #343a40;
     font-style: italic;
 }
@@ -262,7 +262,6 @@ button:hover, .submit-button:hover {
     margin: 0 auto;
     padding: .5em;
     max-width: 240px;
-    display: block;
     margin-left: auto;
     margin-right: auto;
 }

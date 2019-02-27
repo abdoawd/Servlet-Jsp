@@ -55,115 +55,48 @@
                             <span class="sr-only">Next</span>
                         </a>
                     </div>
-
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100 myProductCardContainer">
-                                <a href="#"><img class="card-img-top" src="resources/pictures/p1.png" alt=""></a>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href="#" class="productName">Item One</a>
-                                    </h4>
-                                    <h5 class="productPriceFinal">24.99 ${currency}</h5>
-                                    <p class="productPriceDiscounted text-muted">30 ${currency}</p>
-                                </div>
-                                <div class="card-footer">
-
-                                    <!-------------------------------------------------------->
-                                    <!-- Trigger/Open The Modal -->
-                                    <button id="myBtn">ADD TO CART</button>
-                                    <!-- The Modal -->
-                                    <div id="myModal" class="modal">
-                                        <!-- Modal content -->
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h2>Item added to cart!</h2>
-                                                <span class="close">&times;</span>
+                    <!--
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-6 mb-4">
+                                                <div class="card h-100 myProductCardContainer">
+                                                    <a href="#"><img class="card-img-top" src="resources/pictures/p1.png" alt=""></a>
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">
+                                                            <a href="#" class="productName">Item One</a>
+                                                        </h4>
+                                                        <h5 class="productPriceFinal">24.99 ${currency}</h5>
+                                                        <p class="productPriceDiscounted text-muted">30 ${currency}</p>
+                                                    </div>
+                                                    <div class="card-footer">
+                    
+                                                        ----------------------------------------------------
+                                                         Trigger/Open The Modal 
+                                                        
+                                                        <button id="myBtn">ADD TO CART</button>
+                                                         The Modal 
+                                                        <div id="myModal" class="modal">
+                                                             Modal content 
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h2>Item added to cart!</h2>
+                                                                    <span class="close">&times;</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        ----------------------------------------------------
+                                                    </div>
+                                                </div>
                                             </div>
+                    
+                    
+                    
                                         </div>
-                                    </div>
-                                    <!-------------------------------------------------------->
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100">
-                                <a href="#"><img class="card-img-top" src="resources/pictures/p1.png" alt=""></a>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href="#">Item Two</a>
-                                    </h4>
-                                    <h5>$24.99</h5>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100">
-                                <a href="#"><img class="card-img-top" src="resources/pictures/p1.png" alt=""></a>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href="#">Item Three</a>
-                                    </h4>
-                                    <h5>$24.99</h5>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100">
-                                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href="#">Item Four</a>
-                                    </h4>
-                                    <h5>$24.99</h5>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100">
-                                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href="#">Item Five</a>
-                                    </h4>
-                                    <h5>$24.99</h5>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100">
-                                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href="#">Item Six</a>
-                                    </h4>
-                                    <h5>$24.99</h5>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- /.row -->
+                                         /.row 
+                    -->
+                    <center>
+                        <button onclick="location.href = 'http://localhost:9090/dokan/shop'" class='center' style="width: 50%">Shop Now!</button>
+                    </center>
+                    
 
                 </div>
                 <!-- /.col-lg-9 -->
