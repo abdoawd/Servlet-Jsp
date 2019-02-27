@@ -51,7 +51,6 @@ public class UserCart extends HttpServlet {
                 int productId = Integer.valueOf(req.getParameter("product_id"));
                 System.out.println("product id " + productId);
                 if (!userCartDAO.isProductInCart(userId, productId)) {
-                    System.out.println("in if ");
                     userCartDAO.addToCart(userId, productId, 1);
                 }
 

@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import utility.Constants;
 
-
 public class UserFilter implements Filter{
 
     @Override
@@ -35,7 +34,7 @@ public class UserFilter implements Filter{
             int loggedIn = (int) req.getSession().getAttribute("loggedIn");
             User user = (User) req.getSession().getAttribute("user");
             if (loggedIn == Constants.LOGGED_IN & user != null) {
-                if (user.getRole() != null) {
+                if (user.getRole().equals("user")||user.getRole().equals("admin")) {
                     System.out.println("user");
 //                    response.sendRedirect("admin");
                     // pass the request along the filter chain 

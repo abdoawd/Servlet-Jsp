@@ -56,6 +56,7 @@ public class UserCartDAO {
         } catch (SQLException ex) {
             Logger.getLogger(UserCartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+          
     }
 
     public void deleteItemFromCart(int userId, int productId) {
@@ -69,6 +70,7 @@ public class UserCartDAO {
         } catch (SQLException ex) {
             Logger.getLogger(UserCartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+           
     }
 
     public boolean ClearUserCart(int userId) {
@@ -86,6 +88,7 @@ public class UserCartDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+          
         return isCleared;
     }
 
@@ -106,6 +109,7 @@ public class UserCartDAO {
         } catch (SQLException ex) {
             Logger.getLogger(UserCartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+           
 
     }
 
@@ -147,6 +151,7 @@ public class UserCartDAO {
             ex.printStackTrace();
         } catch (IOException ex) {
         }
+          
         return list;
     }
 
@@ -170,6 +175,7 @@ public class UserCartDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+           
         return list;
     }
 
@@ -191,8 +197,7 @@ public class UserCartDAO {
 
         } catch (Exception e) {
         }
-        System.out.println("result set  is  Product not in cart ");
-
+           
         return false;
     }
 }

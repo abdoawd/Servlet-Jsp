@@ -84,7 +84,8 @@
                             <div class="card-footer">
                                 <!-------------------------------------------------------->
                                 <!-- Trigger/Open The Modal -->
-                                <button onclick="addedTOCart()" id="myBtn">ADD TO CART</button>
+                                <button onclick="addProduct(${product.id})" >ADD TO CART</button>
+                                <!-- The Modal -->
                                 <div id="myModal" class="modal">
                                     Modal content 
                                     <div class="modal-content">
@@ -122,10 +123,11 @@
                             + document.getElementById("start_salary").value + "&end_salary="
                             + document.getElementById("end_salary").value + "&category=" + category;
 
-                } else {
-                    alert("object is null")
-
                 }
+            }
+            function addProduct(id) {
+                document.location.href = "/dokan/shop?addProductId=" + id;
+
             }
         </script>
 

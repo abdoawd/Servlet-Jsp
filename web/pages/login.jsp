@@ -38,15 +38,19 @@
                     <input type="text" placeholder="Enter your email" name="email" value="${userEmail}"  id ="userEmail" required>
 
                     <label for="password"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" value="${userPassword}" name="password"  id="userPassword" required>
+                    <input type="password" placeholder="Enter Password" value="${userPassword}" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"  id="userPassword" required>
 
                     <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
 
                     <div class="clearfix">
                         <button type="submit" class="signupbtn" >Login</button>
-                        <p><a href="Signup">Create new account</a></p>
+                        <p><a href="<%=request.getContextPath()%>/Signup">Create new account</a></p>
                     </div>
-                    <div class="wrongText" id="wrongText">Wrong Username/ password</div>
+                    <div class="wrongText" id="wrongText">
+                     <c:if test="${not empty emailNotValid}">
+                         <span style="color: red">${emailNotValid}</span> 
+                    </c:if>
+                    </div>
                 </div>
             </form>
         </div>

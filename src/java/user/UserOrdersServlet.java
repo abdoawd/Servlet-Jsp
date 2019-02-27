@@ -45,6 +45,7 @@ public class UserOrdersServlet extends HttpServlet {
         int userId = user.getId();
         List<Order> list = new ArrayList<>();
         list = dao.getAllOrder(userId);
+        System.out.println("list size ="+list.size());
 
         request.setAttribute("userCartProducts", list);
         request.getRequestDispatcher("orders.jsp").forward(request, response);

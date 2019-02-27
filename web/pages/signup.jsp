@@ -38,21 +38,24 @@
                     </div>
 
                     <label for="email"><b>E-Mail</b></label>
-                    <input type="text" placeholder="Enter your email" name="email" id="userEmail" required>
+                    <input type="text" placeholder="Enter your email" name="email" id="userEmail"  required>
 
                     <label for="jop"><b> JOb </b></label>
                     <input type="text" placeholder="Enter your job " name="jop" required>
 
                     <label for="password"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Your Password" name="password"pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="userPassword" required>
+                    <input type="password" placeholder="Enter Your Password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}" id="userPassword" required>
 
                     <label for="password2"><b>Confirm Password</b></label>
-                    <input type="password" placeholder="Re-Enter Your Password" name="confirmPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="conPassword"required>
+                    <input type="password" placeholder="Re-Enter Your Password" name="confirmPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}" id="conPassword"required>
                     <div class="clearfix">
                         <button type="submit" onclick="validate()"  class="signupbtn">Sign up</button>
                     </div>
-                    <div class="wrongText" id="wrongText">Wrong Data</div>
-
+                    <div class="wrongText"   id="wrongText">Wrong Data</div>
+                     <c:if test="${not empty emailNotValid}">
+                         <span style="color: red">${emailNotValid}</span> 
+                    </c:if>
+                    
                 </div>
             </form>
         </div>

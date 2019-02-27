@@ -110,7 +110,7 @@ public class CheckoutServlet extends HttpServlet {
                             if (isCartCleard) {
                                 System.out.println("in isCartCleard if");
 
-                                response.sendRedirect("UserHomeServlet");
+                                response.sendRedirect("shop");
                             } else {
 
                             }
