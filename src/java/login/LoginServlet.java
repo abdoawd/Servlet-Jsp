@@ -114,7 +114,7 @@ public class LoginServlet extends HttpServlet {
             }
 
         } else {
-            out.println("log in faild ");
+                response.sendRedirect("Login");
         }
     }
 

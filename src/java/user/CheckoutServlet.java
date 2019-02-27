@@ -45,8 +45,15 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int totalPrices =-1;
+        if(request.getParameter("totalsum")!=null){
+                     totalPrices = getTotalAmount(request.getParameter("totalsum"));
 
-        int totalPrices = getTotalAmount(request.getParameter("totalsum"));
+        }
+        else{
+                    request.getRequestDispatcher("checkout.jsp").forward(request, response);
+
+        }
 
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
@@ -72,7 +79,13 @@ public class CheckoutServlet extends HttpServlet {
         String country = request.getParameter("country");
         String street = request.getParameter("street");
 
-        int totalAmount = getTotalAmount(request.getParameter("total_price"));
+        int totalAmount = -1;
+        if (getTotalAmount(request.getParameter("total_price")) < 0) {
+            totalAmount = getTotalAmount(request.getParameter("total_price"));
+        } else {
+            request.getRequestDispatcher("checkout.jsp").forward(request, response);
+
+        }
         System.out.println("total amount " + totalAmount);
         Order order = new Order();
         order.setStatus("completed");
@@ -130,8 +143,14 @@ public class CheckoutServlet extends HttpServlet {
     }
 
     private int getTotalAmount(String totalAmount) {
+        if(totalAmount!=null){
         totalAmount = totalAmount.replace("Total ", "");
         totalAmount = totalAmount.replace(" EGP", "");
         return Integer.parseInt(totalAmount);
+        }
+        else{
+            return -1;
+        }
+       
     }
 }

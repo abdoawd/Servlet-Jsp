@@ -63,7 +63,7 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>user</filter-name>
-        <url-pattern>/UserCart/*</url-pattern>
+        <url-pattern>/account/*</url-pattern>
     </filter-mapping>    
     
     
